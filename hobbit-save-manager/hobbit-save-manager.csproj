@@ -6,10 +6,13 @@
     <RootNamespace>hobbit_save_manager</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="hobbit_logo.png" />
+    <None Remove="icon.png" />
+    <None Remove="img\hobbit_logo.png" />
+    <None Remove="img\icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="hobbit_logo.png" />
+    <Resource Include="img\hobbit_logo.png" />
+    <Resource Include="img\icon.png" />
   </ItemGroup>
 
   <ItemGroup>

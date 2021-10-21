@@ -29,6 +29,7 @@ namespace hobbit_save_manager
         // Detects all folders within the save collections folder and lists them in its respective ComboBox
         private void InitSaveCollections()
         {
+            // Check if the required directories exist
             if (!Directory.Exists(hobbitSaveDir))
             {
                 MessageBox.Show($"The Hobbit saves folder not found at: {hobbitSaveDir}");
@@ -89,6 +90,7 @@ namespace hobbit_save_manager
         // Moves all existing saves into a new folder within the saves folder for safekeeping
         private void BackupOldSaves()
         {
+            // Get old files and cancel if there are none
             string[] oldFiles = Directory.GetFiles(hobbitSaveDir);
 
             if (oldFiles.Length == 0)
@@ -96,8 +98,10 @@ namespace hobbit_save_manager
                 return;
             }
 
+            // Generate a name for the backup folder
             string dateTimeStamp = DateTime.Now.ToString("dd/MM/yyyy_h-mm-ss");
             string backupName = $"saves_backup_{dateTimeStamp}";
+
             backupDir = Path.Join(hobbitSaveDir, backupName);
 
             if (!Directory.Exists(backupDir))
@@ -105,6 +109,7 @@ namespace hobbit_save_manager
                 Directory.CreateDirectory(backupDir);
             }
 
+            // Moves all old files into backup folder
             foreach (string save in oldFiles)
             {
                 FileInfo info = new FileInfo(save);
@@ -117,11 +122,13 @@ namespace hobbit_save_manager
         // Moves all backed up saves back into the saves folder
         private void RestoreOldSaves()
         {
+            // Check if the backup still exists
             if (!Directory.Exists(backupDir))
             {
                 return;
             }
 
+            // Attempt to move the files back
             try
             {
                 foreach (string save in Directory.GetFiles(backupDir))
@@ -136,6 +143,7 @@ namespace hobbit_save_manager
                 return;
             }
 
+            // Remove the backup directory
             Directory.Delete(backupDir, true);
         }
 
@@ -177,6 +185,7 @@ namespace hobbit_save_manager
             }
         }
 
+        // Sorts an array of strings based on leading numbers (Example: "7. My String")
         private string[] SortStringArrayByLeadingNumber(string[] array)
         {
             return array.OrderBy(x => int.Parse(x.Split(".")[0])).ToArray();
@@ -187,6 +196,7 @@ namespace hobbit_save_manager
         {
             ClearSaves();
 
+            // Restore the backed up files if a backup was performed
             if (didBackup)
             {
                 RestoreOldSaves();
