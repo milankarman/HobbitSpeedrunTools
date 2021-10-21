@@ -5,9 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hobbit_save_manager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="260" Width="340" ResizeMode="NoResize" WindowStyle="SingleBorderWindow">
     <Grid>
-        <ComboBox x:Name="cbxSaveCollections" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="190" SelectionChanged="cbxSaveCollections_SelectionChanged"/>
-        <ComboBox x:Name="cbxSaves" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="190" SelectionChanged="cbxSaves_SelectionChanged"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="cbxSaveCollections" HorizontalAlignment="Center" Margin="0,114,0,0" VerticalAlignment="Top" Width="290" SelectionChanged="cbxSaveCollections_SelectionChanged"/>
+        <ComboBox x:Name="cbxSaves" HorizontalAlignment="Center" Margin="0,178,0,0" VerticalAlignment="Top" Width="290" SelectionChanged="cbxSaves_SelectionChanged"/>
+        <Label x:Name="label" Content="Save Collection" HorizontalAlignment="Center" Margin="0,83,0,0" VerticalAlignment="Top" Width="292"/>
+        <Label x:Name="label1" Content="Save" HorizontalAlignment="Center" Margin="0,147,0,0" VerticalAlignment="Top" Width="292"/>
+        <Image x:Name="image" HorizontalAlignment="Center" Height="73" VerticalAlignment="Top" Width="162" Source="/hobbit_logo.png"/>
+        <Label x:Name="label2" Content="Save Manager v1.0" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top" Width="290" HorizontalContentAlignment="Center"/>
+        <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="137,284,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.IO;
+using System.Linq;
 
 namespace hobbit_save_manager
 {
@@ -11,12 +12,18 @@ namespace hobbit_save_manager
         private string backupDir = "";
 
         private bool didBackup;
-   
+
         public MainWindow()
         {
             InitializeComponent();
             InitSaveCollections();
             BackupOldSaves();
+
+            // Selects first save collection by default
+            if (cbxSaveCollections.Items.Count > 0)
+            {
+                cbxSaveCollections.SelectedIndex = 0;
+            }
         }
 
         // Detects all folders within the save collections folder and lists them in its respective ComboBox
@@ -34,10 +41,23 @@ namespace hobbit_save_manager
                 Application.Current.Shutdown();
             }
 
-            foreach (string saveCollection in Directory.GetDirectories(applicationSaveDir, "*", SearchOption.TopDirectoryOnly))
+            // Sorts the save collections based on the number before the period
+            string[] unsortedSaveCollections = Directory.GetDirectories(applicationSaveDir, "*", SearchOption.TopDirectoryOnly);
+            string[] sortedSaveCollections = new string[unsortedSaveCollections.Length];
+
+            for (int i = 0; i < unsortedSaveCollections.Length; i++)
             {
-                DirectoryInfo info = new DirectoryInfo(saveCollection);
-                cbxSaveCollections.Items.Add(info.Name);
+                string saveCollection = unsortedSaveCollections[i];
+                FileInfo info = new FileInfo(saveCollection);
+                sortedSaveCollections[i] = info.Name;
+            }
+
+            sortedSaveCollections = SortStringArrayByLeadingNumber(sortedSaveCollections);
+
+            // Adds save collections to their ComboBox
+            foreach (string saveCollection in sortedSaveCollections)
+            {
+                cbxSaveCollections.Items.Add(saveCollection);
             }
         }
 
@@ -46,10 +66,23 @@ namespace hobbit_save_manager
         {
             cbxSaves.Items.Clear();
 
-            foreach (string save in Directory.GetFiles(Path.Join(applicationSaveDir, saveCollection)))
+            // Sorts the saves collections based on the number before the period
+            string[] unsortedSaves = Directory.GetFiles(Path.Join(applicationSaveDir, saveCollection));
+            string[] sortedSaves = new string[unsortedSaves.Length];
+
+            for (int i = 0; i < unsortedSaves.Length; i++)
             {
+                string save = unsortedSaves[i];
                 FileInfo info = new FileInfo(save);
-                cbxSaves.Items.Add(info.Name);
+                sortedSaves[i] = info.Name;
+            }
+
+            sortedSaves = SortStringArrayByLeadingNumber(sortedSaves);
+
+            // Adds saves to their ComboBox
+            foreach (string save in sortedSaves)
+            {
+                cbxSaves.Items.Add(save);
             }
         }
 
@@ -66,7 +99,7 @@ namespace hobbit_save_manager
             string dateTimeStamp = DateTime.Now.ToString("dd/MM/yyyy_h-mm-ss");
             string backupName = $"saves_backup_{dateTimeStamp}";
             backupDir = Path.Join(hobbitSaveDir, backupName);
-            
+
             if (!Directory.Exists(backupDir))
             {
                 Directory.CreateDirectory(backupDir);
@@ -125,7 +158,7 @@ namespace hobbit_save_manager
         // Updates the saves ComboBox when the save collection ComboBox is updated
         private void cbxSaveCollections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            string? selected = cbxSaveCollections.SelectedItem.ToString();
+            string? selected = cbxSaveCollections.SelectedItem?.ToString();
 
             if (selected != null && selected != string.Empty)
             {
@@ -136,12 +169,17 @@ namespace hobbit_save_manager
         // Safely gets the value of the saves ComboBox the selected save to the saves folder
         private void cbxSaves_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            string? selected = cbxSaves.SelectedItem.ToString();
+            string? selected = cbxSaves.SelectedItem?.ToString();
 
             if (selected != null && selected != string.Empty)
             {
                 SelectSave(selected);
             }
+        }
+
+        private string[] SortStringArrayByLeadingNumber(string[] array)
+        {
+            return array.OrderBy(x => int.Parse(x.Split(".")[0])).ToArray();
         }
 
         // Ensures that proper cleanup will be done before closing the program
