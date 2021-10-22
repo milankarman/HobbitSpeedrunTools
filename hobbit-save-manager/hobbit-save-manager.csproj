@@ -158,6 +158,39 @@
     <None Update="save-collections\2. MKarma NMG Tricks\9. Riddles Step Boosts.hobbit">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="save-collections\3. Tasz 100 Levels\1. An Unexpected Party.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\10. Gathering of the Clouds.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\11. The Clouds Burst.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\2. Roast Mutton.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\3. Troll Hole.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\4. Over Hill and Under Hill.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\5. Riddles in the Dark.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\6. Flies and Spiders.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\7. Barrels Out of Bond.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\8. A Warm Welcome.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\3. Tasz 100 Levels\9. Inside Information.hobbit">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
