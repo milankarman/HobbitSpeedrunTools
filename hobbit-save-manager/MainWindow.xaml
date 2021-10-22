@@ -15,7 +15,7 @@
         <Label x:Name="label" Content="Save Collection" HorizontalAlignment="Center" Margin="0,83,0,0" VerticalAlignment="Top" Width="292"/>
         <Label x:Name="label1" Content="Save" HorizontalAlignment="Center" Margin="0,147,0,0" VerticalAlignment="Top" Width="292"/>
         <Image x:Name="image" HorizontalAlignment="Center" Height="73" VerticalAlignment="Top" Width="162" Source="/img/hobbit_logo.png"/>
-        <Label x:Name="label2" Content="Save Manager v1.0" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top" Width="290" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label2" Content="Save Manager v1.1" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top" Width="290" HorizontalContentAlignment="Center"/>
         <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="137,284,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

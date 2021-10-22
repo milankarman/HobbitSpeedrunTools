@@ -44,21 +44,32 @@ namespace hobbit_save_manager
 
             // Sorts the save collections based on the number before the period
             string[] unsortedSaveCollections = Directory.GetDirectories(applicationSaveDir, "*", SearchOption.TopDirectoryOnly);
-            string[] sortedSaveCollections = new string[unsortedSaveCollections.Length];
 
             for (int i = 0; i < unsortedSaveCollections.Length; i++)
             {
-                string saveCollection = unsortedSaveCollections[i];
-                FileInfo info = new FileInfo(saveCollection);
-                sortedSaveCollections[i] = info.Name;
+                FileInfo info = new FileInfo(unsortedSaveCollections[i]);
+                unsortedSaveCollections[i] = info.Name;
             }
 
-            sortedSaveCollections = SortStringArrayByLeadingNumber(sortedSaveCollections);
+            string[] sortedSaveCollections = new string[unsortedSaveCollections.Length];
 
-            // Adds save collections to their ComboBox
-            foreach (string saveCollection in sortedSaveCollections)
+            // Handle sorting errors
+            try
             {
-                cbxSaveCollections.Items.Add(saveCollection);
+                sortedSaveCollections = SortStringArrayByLeadingNumber(unsortedSaveCollections);
+            }
+            catch
+            {
+                MessageBox.Show("Failed to sort save collections. Ensure the folder names are written in the right format.");
+                sortedSaveCollections = unsortedSaveCollections;
+            }
+            finally
+            {
+                // Adds save collections to their ComboBox
+                foreach (string saveCollection in sortedSaveCollections)
+                {
+                    cbxSaveCollections.Items.Add(saveCollection);
+                }
             }
         }
 
@@ -69,21 +80,32 @@ namespace hobbit_save_manager
 
             // Sorts the saves collections based on the number before the period
             string[] unsortedSaves = Directory.GetFiles(Path.Join(applicationSaveDir, saveCollection));
-            string[] sortedSaves = new string[unsortedSaves.Length];
 
             for (int i = 0; i < unsortedSaves.Length; i++)
             {
-                string save = unsortedSaves[i];
-                FileInfo info = new FileInfo(save);
-                sortedSaves[i] = info.Name;
+                FileInfo info = new FileInfo(unsortedSaves[i]);
+                unsortedSaves[i] = Path.GetFileNameWithoutExtension(info.Name);
             }
 
-            sortedSaves = SortStringArrayByLeadingNumber(sortedSaves);
+            string[] sortedSaves = new string[unsortedSaves.Length];
 
-            // Adds saves to their ComboBox
-            foreach (string save in sortedSaves)
+            // Handle sorting errors
+            try
             {
-                cbxSaves.Items.Add(save);
+                sortedSaves = SortStringArrayByLeadingNumber(unsortedSaves);
+            }
+            catch
+            {
+                MessageBox.Show("Failed to sort saves. Ensure the save file names are written in the right format.");
+                sortedSaves = unsortedSaves;
+            }
+            finally
+            {
+                // Adds saves to their ComboBox
+                foreach (string save in sortedSaves)
+                {
+                    cbxSaves.Items.Add(save);
+                }
             }
         }
 
@@ -160,7 +182,15 @@ namespace hobbit_save_manager
         private void SelectSave(string save)
         {
             ClearSaves();
-            File.Copy(Path.Join(applicationSaveDir, cbxSaveCollections.Text, save), Path.Join(hobbitSaveDir, save));
+
+            try
+            {
+                File.Copy(Path.Join(applicationSaveDir, cbxSaveCollections.Text, $"{save}.hobbit"), Path.Join(hobbitSaveDir, $"{save}.hobbit"));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to copy save into {hobbitSaveDir}. \n Error: {ex}");
+            }
         }
 
         // Updates the saves ComboBox when the save collection ComboBox is updated
