@@ -18,4 +18,12 @@
         <Label x:Name="label2" Content="Save Manager v1.1" HorizontalAlignment="Center" Margin="0,54,0,0" VerticalAlignment="Top" Width="290" HorizontalContentAlignment="Center"/>
         <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="137,284,0,0" VerticalAlignment="Top"/>
     </Grid>
+    <Window.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#151515 "/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="white" />
+        </Style>
+    </Window.Resources>
 </Window>
