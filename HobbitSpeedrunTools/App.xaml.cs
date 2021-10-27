@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace hobbit_save_manager
+namespace HobbitSpeedrunTools
 {
     /// <summary>
     /// Interaction logic for App.xaml

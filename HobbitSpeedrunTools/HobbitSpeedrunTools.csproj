@@ -2,12 +2,15 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <RootNamespace>hobbit_save_manager</RootNamespace>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace>HobbitSpeedrunTools</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <PackageIcon>icon.png</PackageIcon>
     <ApplicationIcon>img\icon.ico</ApplicationIcon>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Platforms>x86</Platforms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="src\" />
     <Folder Include="save-collections\2. MKarma NMG Tricks\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Memory.dll.x86" Version="1.2.22" />
+    <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
