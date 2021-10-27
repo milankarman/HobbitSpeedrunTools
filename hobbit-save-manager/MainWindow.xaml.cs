@@ -3,7 +3,7 @@ using System.Windows;
 using System.IO;
 using System.Linq;
 
-namespace HobbitSpeedrunTools
+namespace hobbit_save_manager
 {
     public partial class MainWindow : Window
     {
