@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HobbitSpeedrunTools
 {
-    public static class SaveManager
+    public static class CheatManager
     {
     }
 }
