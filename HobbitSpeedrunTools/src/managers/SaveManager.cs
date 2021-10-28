@@ -144,6 +144,7 @@ namespace HobbitSpeedrunTools
 
             // Remove the backup directory
             Directory.Delete(backupDir, true);
+            DidBackup = false;
         }
 
 

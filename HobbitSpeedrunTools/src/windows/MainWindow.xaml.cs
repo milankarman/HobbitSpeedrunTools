@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace HobbitSpeedrunTools
 {
     public partial class MainWindow : Window
     {
+        public static MainWindow? Instance { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            InitSaveCollections();
-            SaveManager.BackupOldSaves();
+            Instance = this;
+            Title += $" {About.version}";
             
             try
             {
@@ -46,6 +49,20 @@ namespace HobbitSpeedrunTools
             }
         }
 
+
+        public void ResetCheatCheckboxes()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                cbxDevMode.IsChecked = false;
+                cbxInfiniteJumpAttack.IsChecked = false;
+                cbxRenderLoadTriggers.IsChecked = false;
+                cbxRenderOtherTriggers.IsChecked = false;
+                cbxRenderPolycache.IsChecked = false;
+                cbxAutoResetSigns.IsChecked = false;
+            });
+        }
+
         // Loads the saves for the selected save collection into their ComboBox
         private void InitSaves(string saveCollection)
         {
@@ -64,6 +81,29 @@ namespace HobbitSpeedrunTools
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void cbxManageSaves_Checked(object sender, RoutedEventArgs e)
+        {
+            cbxSaveCollections.IsEnabled = true;
+            cbxSaves.IsEnabled = true;
+            SaveManager.BackupOldSaves();
+            InitSaveCollections();
+        }
+
+        private void cbxManageSaves_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cbxSaveCollections.IsEnabled = false;
+            cbxSaveCollections.Items.Clear();
+            cbxSaves.IsEnabled = false;
+            cbxSaves.Items.Clear();
+
+            SaveManager.ClearSaves();
+
+            if (SaveManager.DidBackup)
+            {
+                SaveManager.RestoreOldSaves();
             }
         }
 
@@ -92,42 +132,62 @@ namespace HobbitSpeedrunTools
 
         private void cbxDevMode_Checked(object sender, RoutedEventArgs e)
         {
-            CheatManager.EnableDevMode();
+            CheatManager.devMode = CheatManager.CheatStatus.ENABLE;
         }
 
         private void cbxDevMode_Unchecked(object sender, RoutedEventArgs e)
         {
-            CheatManager.DisableDevMode();
+            CheatManager.devMode = CheatManager.CheatStatus.DISABLE;
         }
 
         private void cbxInfiniteJumpAttack_Checked(object sender, RoutedEventArgs e)
         {
-            CheatManager.EnableInfiniteJumpAttack();
+            CheatManager.infiniteJumpAttack = true;
         }
 
         private void cbxInfiniteJumpAttack_Unchecked(object sender, RoutedEventArgs e)
         {
-            CheatManager.DisableInfiniteJumpAttack();
+            CheatManager.infiniteJumpAttack = false;
         }
 
         private void cbxRenderLoadTriggers_Checked(object sender, RoutedEventArgs e)
         {
-            CheatManager.EnableLoadTriggers();
+            CheatManager.loadTriggers = CheatManager.CheatStatus.ENABLE;
         }
 
         private void cbxRenderLoadTriggers_Unchecked(object sender, RoutedEventArgs e)
         {
-            CheatManager.DisableLoadTriggers();
+            CheatManager.loadTriggers = CheatManager.CheatStatus.DISABLE;
         }
 
         private void cbxRenderOtherTriggers_Checked(object sender, RoutedEventArgs e)
         {
-            CheatManager.EnableOtherTriggers();
+            CheatManager.otherTriggers = CheatManager.CheatStatus.ENABLE;
         }
 
         private void cbxRenderOtherTriggers_Unchecked(object sender, RoutedEventArgs e)
         {
-            CheatManager.DisableOtherTriggers();
+            CheatManager.otherTriggers = CheatManager.CheatStatus.DISABLE;
+        }
+
+        private void cbxRenderPolycache_Checked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.polyCache = CheatManager.CheatStatus.ENABLE;
+        }
+
+        private void cbxRenderPolycache_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.polyCache = CheatManager.CheatStatus.DISABLE;
+        }
+
+        private void cbxAutoResetSigns_Checked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.autoResetSigns = true;
+        }
+
+        private void cbxAutoResetSigns_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.autoResetSigns = false;
         }
 
         // Ensures that proper cleanup will be done before closing the program
