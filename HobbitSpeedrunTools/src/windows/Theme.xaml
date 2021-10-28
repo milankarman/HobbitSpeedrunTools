@@ -3,8 +3,8 @@
     <SolidColorBrush Color="#2C2C2C" x:Key="dark2" />
     <SolidColorBrush Color="#E5E5E5" x:Key="light1" />
     <SolidColorBrush Color="#979797" x:Key="light2" />
-    <SolidColorBrush Color="#FFFE9044" x:Key="accent1" />
-    <SolidColorBrush Color="#FFA44C2B" x:Key="accent2" />
+    <SolidColorBrush Color="#FF5900" x:Key="accent1" />
+    <SolidColorBrush Color="#CC4700" x:Key="accent2" />
     <FontFamily x:Key="text">Titillium Web</FontFamily>
     <FontFamily x:Key="header">Titillium Web Bold</FontFamily>
 
