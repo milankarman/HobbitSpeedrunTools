@@ -10,6 +10,15 @@ namespace HobbitSpeedrunTools
             InitializeComponent();
             InitSaveCollections();
             SaveManager.BackupOldSaves();
+            
+            try
+            {
+                CheatManager.InitCheatManager();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             // Selects first save collection by default
             if (cbxSaveCollections.Items.Count > 0)
@@ -93,6 +102,46 @@ namespace HobbitSpeedrunTools
             }
 
             base.OnClosing(e);
+        }
+
+        private void cbxDevMode_Checked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.EnableDevMode();
+        }
+
+        private void cbxDevMode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.DisableDevMode();
+        }
+
+        private void cbxInfiniteJumpAttack_Checked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.EnableInfiniteJumpAttack();
+        }
+
+        private void cbxInfiniteJumpAttack_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.DisableInfiniteJumpAttack();
+        }
+
+        private void cbxRenderLoadTriggers_Checked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.EnableLoadTriggers();
+        }
+
+        private void cbxRenderLoadTriggers_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.DisableLoadTriggers();
+        }
+
+        private void cbxRenderOtherTriggers_Checked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.EnableOtherTriggers();
+        }
+
+        private void cbxRenderOtherTriggers_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheatManager.DisableOtherTriggers();
         }
     }
 }

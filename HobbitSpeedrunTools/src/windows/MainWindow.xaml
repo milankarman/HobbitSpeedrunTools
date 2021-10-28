@@ -13,18 +13,18 @@
         </Grid.ColumnDefinitions>
         <Grid Margin="0,0,5,0">
             <Label x:Name="lblCheats" Content="Cheats" Width="auto" VerticalAlignment="Top" FontSize="22" FontFamily="Titillium Web Semibold" HorizontalContentAlignment="Left"/>
-            <CheckBox x:Name="cbxDevMode" Content="Developer Mode" HorizontalAlignment="Stretch" Margin="0,50,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="cbxInfiniteJumpAttack" Content="Infinite Jumpattacks" HorizontalAlignment="Stretch" Margin="0,70,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="cbxRenderLoadTriggers" Content="Render Load Triggers" HorizontalAlignment="Stretch" Margin="0,90,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="cbxRenderOtherTriggers" Content="Render Other Triggers" HorizontalAlignment="Stretch" Margin="0, 110,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="cbxRenderPolycache" Content="Render Polycache" HorizontalAlignment="Stretch" Margin="0, 130,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="cbxDevMode" Content="Developer Mode" HorizontalAlignment="Stretch" Margin="0,50,0,0" VerticalAlignment="Top" Checked="cbxDevMode_Checked" Unchecked="cbxDevMode_Unchecked"/>
+            <CheckBox x:Name="cbxInfiniteJumpAttack" Content="Infinite Jumpattacks" HorizontalAlignment="Stretch" Margin="0,75,0,0" VerticalAlignment="Top" Checked="cbxInfiniteJumpAttack_Checked" Unchecked="cbxInfiniteJumpAttack_Unchecked"/>
+            <CheckBox x:Name="cbxRenderLoadTriggers" Content="Render Load Triggers" HorizontalAlignment="Stretch" Margin="0,100,0,0" VerticalAlignment="Top" Checked="cbxRenderLoadTriggers_Checked" Unchecked="cbxRenderLoadTriggers_Unchecked"/>
+            <CheckBox x:Name="cbxRenderOtherTriggers" Content="Render Other Triggers" HorizontalAlignment="Stretch" Margin="0, 125,0,0" VerticalAlignment="Top" Unchecked="cbxRenderOtherTriggers_Unchecked" Checked="cbxRenderOtherTriggers_Checked"/>
+            <CheckBox x:Name="cbxRenderPolycache" Content="Render Polycache" HorizontalAlignment="Stretch" Margin="0, 150,0,0" VerticalAlignment="Top"/>
         </Grid>
         <Grid Margin="5,0,0,0" Grid.Column="1">
             <Label x:Name="lblManageSaves" Content="Manage Saves" Width="auto" VerticalAlignment="Top" FontSize="22" FontFamily="Titillium Web Semibold" HorizontalContentAlignment="Left"/>
             <Label x:Name="lblSaveCollection" Content="Save Collection" HorizontalAlignment="Stretch" Margin="0,40,0,0" VerticalAlignment="Top" Width="auto"/>
-            <ComboBox x:Name="cbxSaveCollections" HorizontalAlignment="Stretch" Margin="0,70,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaveCollections_SelectionChanged"/>
+            <ComboBox x:Name="cbxSaveCollections" HorizontalAlignment="Stretch" Margin="0,80,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaveCollections_SelectionChanged"/>
             <Label x:Name="lblSaves" Content="Save" HorizontalAlignment="Stretch" Margin="0,100,0,0" VerticalAlignment="Top" Width="auto"/>
-            <ComboBox x:Name="cbxSaves" HorizontalAlignment="Stretch" Margin="0,130,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaves_SelectionChanged"/>
+            <ComboBox x:Name="cbxSaves" HorizontalAlignment="Stretch" Margin="0,140,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaves_SelectionChanged"/>
         </Grid>
     </Grid>
     <Window.Resources>
