@@ -8,12 +8,17 @@ namespace HobbitSpeedrunTools
     {
         public static MainWindow? Instance { get; private set; }
 
+        private bool closing = false;
+
         public MainWindow()
         {
             InitializeComponent();
             Instance = this;
+
+            // Add the version number to the titlebar
             Title += $" {About.version}";
-            
+
+            // Attempt to intialize the cheat manager
             try
             {
                 CheatManager.InitCheatManager();
@@ -21,12 +26,6 @@ namespace HobbitSpeedrunTools
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-
-            // Selects first save collection by default
-            if (cbxSaveCollections.Items.Count > 0)
-            {
-                cbxSaveCollections.SelectedIndex = 0;
             }
         }
 
@@ -42,6 +41,12 @@ namespace HobbitSpeedrunTools
                 {
                     cbxSaveCollections.Items.Add(collection);
                 }
+
+                // Selects first save collection by default
+                if (cbxSaveCollections.Items.Count > 0)
+                {
+                    cbxSaveCollections.SelectedIndex = 0;
+                }
             }
             catch (Exception ex)
             {
@@ -49,18 +54,22 @@ namespace HobbitSpeedrunTools
             }
         }
 
-
+        // Resets all cheat checkboxes to be unticked
         public void ResetCheatCheckboxes()
         {
-            Dispatcher.Invoke(() =>
+            // Ensure the window isn't closing and updating at the same time
+            if (!closing)
             {
-                cbxDevMode.IsChecked = false;
-                cbxInfiniteJumpAttack.IsChecked = false;
-                cbxRenderLoadTriggers.IsChecked = false;
-                cbxRenderOtherTriggers.IsChecked = false;
-                cbxRenderPolycache.IsChecked = false;
-                cbxAutoResetSigns.IsChecked = false;
-            });
+                Dispatcher.Invoke(() =>
+                {
+                    cbxDevMode.IsChecked = false;
+                    cbxInfiniteJumpAttack.IsChecked = false;
+                    cbxRenderLoadTriggers.IsChecked = false;
+                    cbxRenderOtherTriggers.IsChecked = false;
+                    cbxRenderPolycache.IsChecked = false;
+                    cbxAutoResetSigns.IsChecked = false;
+                });
+            }
         }
 
         // Loads the saves for the selected save collection into their ComboBox
@@ -84,6 +93,7 @@ namespace HobbitSpeedrunTools
             }
         }
 
+        // Back up old saves and initialize saves when the save manager is enabled
         private void cbxManageSaves_Checked(object sender, RoutedEventArgs e)
         {
             cbxSaveCollections.IsEnabled = true;
@@ -92,6 +102,7 @@ namespace HobbitSpeedrunTools
             InitSaveCollections();
         }
 
+        // Clear saves and restore old saves when the save manager is disabled
         private void cbxManageSaves_Unchecked(object sender, RoutedEventArgs e)
         {
             cbxSaveCollections.IsEnabled = false;
@@ -130,6 +141,7 @@ namespace HobbitSpeedrunTools
             }
         }
 
+        // Toggles cheats when changing checkbox state
         private void cbxDevMode_Checked(object sender, RoutedEventArgs e)
         {
             CheatManager.devMode = CheatManager.CheatStatus.ENABLE;
@@ -193,6 +205,8 @@ namespace HobbitSpeedrunTools
         // Ensures that proper cleanup will be done before closing the program
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
+            closing = true;
+
             SaveManager.ClearSaves();
 
             // Restore the backed up files if a backup was performed

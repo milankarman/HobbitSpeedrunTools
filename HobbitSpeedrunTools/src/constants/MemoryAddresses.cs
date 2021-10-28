@@ -1,5 +1,6 @@
 ﻿namespace HobbitSpeedrunTools
 {
+    // Keeps track of all memory addresses to be used by cheats
     public static class MemoryAddresses
     {
         public const string local = "base+0035BA3C";

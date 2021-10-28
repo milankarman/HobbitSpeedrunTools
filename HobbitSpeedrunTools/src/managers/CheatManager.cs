@@ -1,11 +1,11 @@
 ﻿using System.Threading;
-using System.Windows.Threading;
 using Memory;
 
 namespace HobbitSpeedrunTools
 {
     public static class CheatManager
     {
+        // Enumator to track whether a cheat should be enabled/disabled
         public enum CheatStatus
         {
             ENABLE,
@@ -16,6 +16,7 @@ namespace HobbitSpeedrunTools
 
         private static Mem mem = new Mem();
 
+        // Tracking the status of all cheats
         public static bool infiniteJumpAttack = false;
         public static bool autoResetSigns = false;
 
@@ -24,6 +25,7 @@ namespace HobbitSpeedrunTools
         public static CheatStatus otherTriggers = CheatStatus.IS_DISABLED;
         public static CheatStatus polyCache = CheatStatus.IS_DISABLED;
 
+        // Starts a new thread handling the cheat loop
         public static void InitCheatManager()
         {
             Thread cheatLoopThread = new Thread(CheatLoop);
@@ -31,19 +33,23 @@ namespace HobbitSpeedrunTools
             cheatLoopThread.Start();
         }
 
+        // Repeadetly checks which cheats should be enabled and handles automatic cheats
         private static void CheatLoop()
         {
             while (true)
             {
+                // Attempt to hook to the game's process
                 if (mem.OpenProcess("meridian"))
                 {
                     if (infiniteJumpAttack)
                     {
+                        // Keep stamina at max for infinite jump attacks
                         mem.WriteMemory(MemoryAddresses.stamina, "float", "10");
                     }
 
                     if (autoResetSigns)
                     {
+                        // Reset the signs if the player loads or dies
                         if (mem.ReadInt(MemoryAddresses.loading) == 1 || mem.ReadFloat(MemoryAddresses.health) <= 0)
                         {
                             mem.WriteMemory(MemoryAddresses.sign1, "int", "1");
@@ -54,6 +60,7 @@ namespace HobbitSpeedrunTools
                         }
                     }
 
+                    // Swap the states of cheats and enable them accordingly
                     if (devMode == CheatStatus.ENABLE)
                     {
                         mem.WriteMemory(MemoryAddresses.devMode, "int", "1");
@@ -100,6 +107,7 @@ namespace HobbitSpeedrunTools
                 }
                 else
                 {
+                    // Reset the cheats and checkboxes when the process isn't attached
                     infiniteJumpAttack = false;
                     autoResetSigns = false;
                     devMode = CheatStatus.IS_DISABLED;
@@ -107,10 +115,10 @@ namespace HobbitSpeedrunTools
                     otherTriggers = CheatStatus.IS_DISABLED;
                     polyCache = CheatStatus.IS_DISABLED;
 
-
                     MainWindow.Instance?.ResetCheatCheckboxes();
                 }
 
+                // Wait for 100ms before repeating
                 Thread.Sleep(100);
             }
         }
