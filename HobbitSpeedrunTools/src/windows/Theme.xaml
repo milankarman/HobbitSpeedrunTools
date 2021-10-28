@@ -5,8 +5,8 @@
     <SolidColorBrush Color="#979797" x:Key="light2" />
     <SolidColorBrush Color="#FF5900" x:Key="accent1" />
     <SolidColorBrush Color="#CC4700" x:Key="accent2" />
-    <FontFamily x:Key="text">Titillium Web</FontFamily>
-    <FontFamily x:Key="header">Titillium Web Bold</FontFamily>
+    <FontFamily x:Key="text">../../fonts/#Titillium Web</FontFamily>
+    <FontFamily x:Key="header">../../fonts/#Titillium Web Semibold</FontFamily>
 
     <Style x:Key="CustomWindowStyle" TargetType="Window">
         <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>

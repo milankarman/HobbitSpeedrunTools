@@ -14,12 +14,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="fonts\TitilliumWeb-SemiBold.ttf" />
     <None Remove="icon_16.png" />
     <None Remove="img\hobbit_logo.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="fonts\TitilliumWeb-SemiBold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="img\icon.ico" />
+    <Content Include="fonts\TitilliumWeb-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
