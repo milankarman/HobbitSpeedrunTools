@@ -12,7 +12,7 @@
             <ColumnDefinition Width="47*"/>
         </Grid.ColumnDefinitions>
         <Grid Margin="0,0,5,0">
-            <Label x:Name="lblCheats" Content="Cheats" Width="auto" VerticalAlignment="Top" FontSize="22" HorizontalContentAlignment="Left"/>
+            <Label x:Name="lblCheats" Content="Cheats" Width="auto" VerticalAlignment="Top" FontSize="22" HorizontalContentAlignment="Left" FontFamily="{StaticResource header}"/>
             <CheckBox x:Name="cbxDevMode" Content="Developer Mode" HorizontalAlignment="Stretch" Margin="0,50,0,0" VerticalAlignment="Top" Checked="cbxDevMode_Checked" Unchecked="cbxDevMode_Unchecked"/>
             <CheckBox x:Name="cbxInfiniteJumpAttack" Content="Infinite Jumpattacks" HorizontalAlignment="Stretch" Margin="0,75,0,0" VerticalAlignment="Top" Checked="cbxInfiniteJumpAttack_Checked" Unchecked="cbxInfiniteJumpAttack_Unchecked"/>
             <CheckBox x:Name="cbxRenderLoadTriggers" Content="Render Load Triggers" HorizontalAlignment="Stretch" Margin="0,100,0,0" VerticalAlignment="Top" Checked="cbxRenderLoadTriggers_Checked" Unchecked="cbxRenderLoadTriggers_Unchecked"/>
@@ -21,7 +21,7 @@
             <CheckBox x:Name="cbxAutoResetSigns" Content="Automatically Reset Signs" HorizontalAlignment="Stretch" Margin="0, 175,0,0" VerticalAlignment="Top" Checked="cbxAutoResetSigns_Checked" Unchecked="cbxAutoResetSigns_Unchecked"/>
         </Grid>
         <Grid Margin="5,0,0,0" Grid.Column="1" Grid.ColumnSpan="2">
-            <Label x:Name="lblManageSaves" Content="Manage Saves" Width="auto" VerticalAlignment="Top" FontSize="22" HorizontalContentAlignment="Left"/>
+            <Label x:Name="lblManageSaves" Content="Manage Saves" Width="auto" VerticalAlignment="Top" FontSize="22" FontFamily="{StaticResource header}" HorizontalContentAlignment="Left"/>
             <Label x:Name="lblSaveCollection" Content="Save Collection" HorizontalAlignment="Stretch" Margin="0,50,0,0" VerticalAlignment="Top" Width="auto" Padding="0,0,0,0"/>
             <ComboBox x:Name="cbxSaveCollections" HorizontalAlignment="Stretch" Margin="0,80,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaveCollections_SelectionChanged" Padding="0,0,0,0" IsEnabled="False"/>
             <Label x:Name="lblSaves" Content="Save" HorizontalAlignment="Stretch" Margin="0,125,0,0" VerticalAlignment="Top" Width="auto" Padding="0,0,0,0"/>
