@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HobbitSpeedrunTools"
         mc:Ignorable="d"
-        Title="HobbitSpeedrunTools" Height="220" Width="600" ResizeMode="NoResize" Style="{DynamicResource CustomWindowStyle}" Background="Black" Icon="../../img/icon.png">
+        Title="HobbitSpeedrunTools" Height="220" Width="600" ResizeMode="CanResizeWithGrip" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SizeToContent="Manual">
     <Grid Height="auto" Margin="10,0,10,10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="201*"/>
+            <ColumnDefinition Width="323*"/>
+            <ColumnDefinition Width="46*"/>
         </Grid.ColumnDefinitions>
         <Grid Margin="0,0,5,0">
             <Label x:Name="lblCheats" Content="Cheats" Width="auto" VerticalAlignment="Top" FontSize="22" FontFamily="Titillium Web Semibold" HorizontalContentAlignment="Left"/>
@@ -19,15 +19,12 @@
             <CheckBox x:Name="cbxRenderOtherTriggers" Content="Render Other Triggers" HorizontalAlignment="Stretch" Margin="0, 125,0,0" VerticalAlignment="Top" Unchecked="cbxRenderOtherTriggers_Unchecked" Checked="cbxRenderOtherTriggers_Checked"/>
             <CheckBox x:Name="cbxRenderPolycache" Content="Render Polycache" HorizontalAlignment="Stretch" Margin="0, 150,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <Grid Margin="5,0,0,0" Grid.Column="1">
+        <Grid Margin="5,0,0,0" Grid.Column="1" Grid.ColumnSpan="2">
             <Label x:Name="lblManageSaves" Content="Manage Saves" Width="auto" VerticalAlignment="Top" FontSize="22" FontFamily="Titillium Web Semibold" HorizontalContentAlignment="Left"/>
             <Label x:Name="lblSaveCollection" Content="Save Collection" HorizontalAlignment="Stretch" Margin="0,40,0,0" VerticalAlignment="Top" Width="auto"/>
             <ComboBox x:Name="cbxSaveCollections" HorizontalAlignment="Stretch" Margin="0,80,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaveCollections_SelectionChanged"/>
-            <Label x:Name="lblSaves" Content="Save" HorizontalAlignment="Stretch" Margin="0,100,0,0" VerticalAlignment="Top" Width="auto"/>
-            <ComboBox x:Name="cbxSaves" HorizontalAlignment="Stretch" Margin="0,140,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaves_SelectionChanged"/>
+            <Label x:Name="lblSaves" Content="Save" HorizontalAlignment="Stretch" Margin="0,105,0,0" VerticalAlignment="Top" Width="auto"/>
+            <ComboBox x:Name="cbxSaves" HorizontalAlignment="Stretch" Margin="0,145,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaves_SelectionChanged"/>
         </Grid>
     </Grid>
-    <Window.Resources>
-  
-    </Window.Resources>
 </Window>

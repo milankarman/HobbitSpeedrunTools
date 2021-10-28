@@ -17,6 +17,7 @@ namespace HobbitSpeedrunTools
         public static void InitCheatManager()
         {
             Thread keepHookedThread = new Thread(KeepHooked);
+            keepHookedThread.IsBackground = true;
             keepHookedThread.Start();
         }
 
@@ -53,6 +54,7 @@ namespace HobbitSpeedrunTools
             cts = new CancellationTokenSource();
             ct = cts.Token;
             Thread infiniteJumpAttackThread = new Thread(InfiniteJumpAttack);
+            infiniteJumpAttackThread.IsBackground = true;
             infiniteJumpAttackThread.Start();
         }
 

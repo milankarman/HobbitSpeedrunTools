@@ -18,7 +18,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Window">
                     <Grid>
-                        <Border Background="{StaticResource dark1}" BorderBrush="{StaticResource accent1}" BorderThickness="1">
+                        <Border Background="{StaticResource dark1}" BorderBrush="{StaticResource accent1}" BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid>
                                 <AdornerDecorator Margin="0,30,0,0">
                                     <ContentPresenter />
@@ -64,11 +64,9 @@
         <Style.Triggers>
             <Trigger Property="WindowState" Value="Maximized">
                 <Setter Property="BorderThickness" Value="8"/>
-                <Setter Property="BorderBrush" Value="{StaticResource light1}"/>
             </Trigger>
             <Trigger Property="WindowState" Value="Normal">
-                <Setter Property="BorderThickness" Value="5"/>
-                <Setter Property="BorderBrush" Value="{StaticResource light1}"/>
+                <Setter Property="BorderThickness" Value="1"/>
             </Trigger>
         </Style.Triggers>
     </Style>

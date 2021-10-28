@@ -90,20 +90,6 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        // Ensures that proper cleanup will be done before closing the program
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            SaveManager.ClearSaves();
-
-            // Restore the backed up files if a backup was performed
-            if (SaveManager.DidBackup)
-            {
-                SaveManager.RestoreOldSaves();
-            }
-
-            base.OnClosing(e);
-        }
-
         private void cbxDevMode_Checked(object sender, RoutedEventArgs e)
         {
             CheatManager.EnableDevMode();
@@ -142,6 +128,20 @@ namespace HobbitSpeedrunTools
         private void cbxRenderOtherTriggers_Unchecked(object sender, RoutedEventArgs e)
         {
             CheatManager.DisableOtherTriggers();
+        }
+
+        // Ensures that proper cleanup will be done before closing the program
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            SaveManager.ClearSaves();
+
+            // Restore the backed up files if a backup was performed
+            if (SaveManager.DidBackup)
+            {
+                SaveManager.RestoreOldSaves();
+            }
+
+            base.OnClosing(e);
         }
     }
 }
