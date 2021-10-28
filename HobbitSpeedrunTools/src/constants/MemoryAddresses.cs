@@ -13,5 +13,5 @@ namespace HobbitSpeedrunTools
         public const string loadingTriggers = "00777B18";
         public const string otherTriggers = "00777B04";
         public const string stamina = local + ",A04";
-    }   
+    }
 }
