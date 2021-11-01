@@ -53,160 +53,295 @@
       <Pack>True</Pack>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\1. An Unexpected Party.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\10. The Gathering of the Clouds.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\11. The Clouds Burst.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\2. Roast Mutton.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\3. Troll Hole.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\4. Over Hill and Under Hill.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\5. Riddles in the Dark.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\6. Flies and Spiders.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\7. Barrels out of Bond.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\8. A Warm Welcome.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\1. MKarma NMG Levels\9. Inside Info.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\1. Dream World Skip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\10. Riddles Web Skip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\11. Riddles Clip or Invis Minecart.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\12. Riddles Ending.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\13. Flies Start Boost.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\14. Flies Second Boost.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\15. Flies Log Boost.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\16. Flies Ending.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\17. Barrels Boost.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\18. Barrels Tree Clip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\19. Barrels Tree Clip (Set Up).hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\2. Unexpected Party Bridge Jump.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\20. Barrels In Tree.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\21. A Warm Welcome Skip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\22. Inside Info Clip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\23. Inside Info Jump.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\24. Gathering Start Clip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\25. Gathering End Clip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\26. Clouds Burst First Boost.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\27. Clouds Burst Corwin Skip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\28. Clouds Burst Wall Walk.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\29. Clouds Burst Barricade OOB.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\3. Over Hill Side Jump.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\30. Clouds Burst Ending.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\4. Over Hill Pillar Skip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\5. Over Hill Door Clip.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\6. Over Hill Island Jumps.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\7. Over Hill Bean Island Jump.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\8. Over Hill Ending.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\2. MKarma NMG Tricks\9. Riddles Step Boosts.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\1. An Unexpected Party.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\10. Gathering of the Clouds.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\11. The Clouds Burst.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\2. Roast Mutton.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\3. Troll Hole.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\4. Over Hill and Under Hill.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\5. Riddles in the Dark.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\6. Flies and Spiders.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\7. Barrels Out of Bond.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\8. A Warm Welcome.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="save-collections\3. Tasz 100 Levels\9. Inside Information.hobbit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\1. An Unexpected Party - Bell Clip.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\10. Over Hill and Under Hill - Silver Gears.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\11. Riddles in the Dark - Spiders.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\12. Riddles in the Dark - Elevators From Hell.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\13. Riddles in the Dark - Bridge Skip.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\14. Riddles in the Dark - Stupid Jump.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\15. Riddles in the Dark - Parkour.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\16. Riddles in the Dark - Free the Dwarf.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\17. Riddles in the Dark - Minecarts.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\18. Flies and Spiders - Pillars.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\19. Flies and Spiders - First Minions.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\2. Roast Mutton - Whirlpool.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\20. Flies and Spiders - Second Minions.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\21. Flies and Spiders - Tree Climb.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\22. Flies and Spiders - Pre-Boss Spiders.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\23. Flies and Spiders - Boss.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\24. Barrels Out of Bond - Outside Chest.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\25. Barrels Out of Bond - Dungeon.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\26. Barrels Out of Bond - Dungeon Jump.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\27. Barrels Out of Bond - Clip Warp.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\28. A Warm Welcome - Thief.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\29. A Warm Welcome - First Warehouse.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\3. Roast Mutton - Trolls Start.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\30. A Warm Welcome - Rennar%27s Warehouse.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\31. A Warm Welcome - Floating Islands.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\32. A Warm Welcome - Islands Jump.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\33. A Warm Welcome - Door Clip.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\34. A Warm Welcome - Black Arrow.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\35. Inside Information - Smaug Ring.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\36. Inside Information - Smaug Fire.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\37. Inside Information - Chests.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\38. Inside Information - Chandelier Clip.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\39. Inside Information - Cavern Dropdown.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\4. Roast Mutton - Trolls End.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\40. Inside Information - Cavern Vines.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\41. The Gathering of the Clouds - White Wall Clip.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\42. The Gathering of the Clouds - Mold Clip.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\43. The Gathering of the Clouds - Treasury Chain.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\44. The Clouds Burst - Fast Corwin.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\45. The Clouds Burst - Game Over.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\5. Troll Hole - Dropdown.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\6. Troll Hole - Slime Jump.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\7. Over Hill and Under Hill - Waterfall.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\8. Over Hill and Under Hill - Cursed Pink Gem.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="save-collections\4. Tasz 100 Tricks\9. Over Hill and Under Hill - Bronze Gears.hobbit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
