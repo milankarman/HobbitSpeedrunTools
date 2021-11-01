@@ -99,7 +99,7 @@ namespace HobbitSpeedrunTools
                         mem.WriteMemory(MemoryAddresses.polyCache, "int", "1");
                         devMode = CheatStatus.IS_ENABLED;
                     }
-                    else if (otherTriggers == CheatStatus.DISABLE)
+                    else if (polyCache == CheatStatus.DISABLE)
                     {
                         mem.WriteMemory(MemoryAddresses.polyCache, "int", "0");
                         devMode = CheatStatus.IS_DISABLED;
