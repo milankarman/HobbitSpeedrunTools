@@ -66,7 +66,7 @@ To add your own saves to the save manager follow the following steps:
 
 Download the most recent release [here](../../releases). Simply open the zip file and extract the full "HobbitSpeedrunTools" folder the location where you want to keep it. Then you can run the hobbit-save-manager.exe file inside the folder, and you're up and running.
 
-Note that you will be prompted to install the .NET 5.0 runtime if you don't already have it.
+You will need to have the [**32-bit .NET 5.0 runtime**](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-desktop-5.0.11-windows-x86-installer) if you don't already have it.
 
 # Warning
 
