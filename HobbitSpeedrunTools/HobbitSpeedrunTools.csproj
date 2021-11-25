@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <PackageReference Include="Memory.dll.x86" Version="1.2.22" />
+    <PackageReference Include="NonInvasiveKeyboardHookLibrary.Core" Version="2.1.0" />
     <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
   </ItemGroup>
 

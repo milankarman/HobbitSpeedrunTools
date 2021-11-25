@@ -27,6 +27,8 @@ namespace HobbitSpeedrunTools
             {
                 MessageBox.Show(ex.Message);
             }
+
+            HotkeyManager.InitHotkeyManager();
         }
 
         // Loads the save collections into their ComboBox
@@ -216,6 +218,11 @@ namespace HobbitSpeedrunTools
             }
 
             base.OnClosing(e);
+        }
+
+        public void Test()
+        {
+            MessageBox.Show("Test");
         }
     }
 }

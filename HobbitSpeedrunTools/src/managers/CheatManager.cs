@@ -108,14 +108,12 @@ namespace HobbitSpeedrunTools
                 else
                 {
                     // Reset the cheats and checkboxes when the process isn't attached
-                    infiniteJumpAttack = false;
-                    autoResetSigns = false;
-                    devMode = CheatStatus.IS_DISABLED;
-                    loadTriggers = CheatStatus.IS_DISABLED;
-                    otherTriggers = CheatStatus.IS_DISABLED;
-                    polyCache = CheatStatus.IS_DISABLED;
+                    devMode = devMode == CheatStatus.IS_ENABLED ? CheatStatus.ENABLE : CheatStatus.IS_DISABLED;
+                    loadTriggers = loadTriggers == CheatStatus.IS_ENABLED ? CheatStatus.ENABLE : CheatStatus.IS_DISABLED;
+                    otherTriggers = otherTriggers == CheatStatus.IS_ENABLED ? CheatStatus.ENABLE : CheatStatus.IS_DISABLED;
+                    polyCache = polyCache == CheatStatus.IS_ENABLED ? CheatStatus.ENABLE : CheatStatus.IS_DISABLED;
 
-                    MainWindow.Instance?.ResetCheatCheckboxes();
+                    // MainWindow.Instance?.ResetCheatCheckboxes();
                 }
 
                 // Wait for 100ms before repeating
