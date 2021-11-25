@@ -13,12 +13,12 @@
         </Grid.ColumnDefinitions>
         <Grid Margin="0,0,5,0">
             <Label x:Name="lblCheats" Content="Cheats" Width="auto" VerticalAlignment="Top" FontSize="22" HorizontalContentAlignment="Left" FontFamily="{StaticResource header}"/>
-            <CheckBox x:Name="cbxDevMode" Content="Developer Mode" HorizontalAlignment="Stretch" Margin="0,50,0,0" VerticalAlignment="Top" Checked="cbxDevMode_Checked" Unchecked="cbxDevMode_Unchecked"/>
-            <CheckBox x:Name="cbxInfiniteJumpAttack" Content="Infinite Jumpattacks" HorizontalAlignment="Stretch" Margin="0,75,0,0" VerticalAlignment="Top" Checked="cbxInfiniteJumpAttack_Checked" Unchecked="cbxInfiniteJumpAttack_Unchecked"/>
-            <CheckBox x:Name="cbxRenderLoadTriggers" Content="Render Load Triggers" HorizontalAlignment="Stretch" Margin="0,100,0,0" VerticalAlignment="Top" Checked="cbxRenderLoadTriggers_Checked" Unchecked="cbxRenderLoadTriggers_Unchecked"/>
-            <CheckBox x:Name="cbxRenderOtherTriggers" Content="Render Other Triggers" HorizontalAlignment="Stretch" Margin="0, 125,0,0" VerticalAlignment="Top" Unchecked="cbxRenderOtherTriggers_Unchecked" Checked="cbxRenderOtherTriggers_Checked"/>
-            <CheckBox x:Name="cbxRenderPolycache" Content="Render Polycache" HorizontalAlignment="Stretch" Margin="0, 150,0,0" VerticalAlignment="Top" Checked="cbxRenderPolycache_Checked" Unchecked="cbxRenderPolycache_Unchecked"/>
-            <CheckBox x:Name="cbxAutoResetSigns" Content="Automatically Reset Signs" HorizontalAlignment="Stretch" Margin="0, 175,0,0" VerticalAlignment="Top" Checked="cbxAutoResetSigns_Checked" Unchecked="cbxAutoResetSigns_Unchecked"/>
+            <CheckBox x:Name="cbxDevMode" Content="Developer Mode" HorizontalAlignment="Stretch" Margin="0,50,0,0" VerticalAlignment="Top" Click="cbxDevMode_Click"/>
+            <CheckBox x:Name="cbxInfiniteJumpAttack" Content="Infinite Jumpattacks" HorizontalAlignment="Stretch" Margin="0,75,0,0" VerticalAlignment="Top" Click="cbxInfiniteJumpAttack_Click"/>
+            <CheckBox x:Name="cbxRenderLoadTriggers" Content="Render Load Triggers" HorizontalAlignment="Stretch" Margin="0,100,0,0" VerticalAlignment="Top" Click="cbxRenderLoadTriggers_Click"/>
+            <CheckBox x:Name="cbxRenderOtherTriggers" Content="Render Other Triggers" HorizontalAlignment="Stretch" Margin="0, 125,0,0" VerticalAlignment="Top" Click="cbxRenderOtherTriggers_Click"/>
+            <CheckBox x:Name="cbxRenderPolycache" Content="Render Polycache" HorizontalAlignment="Stretch" Margin="0, 150,0,0" VerticalAlignment="Top" Click="cbxRenderPolycache_Click"/>
+            <CheckBox x:Name="cbxAutoResetSigns" Content="Automatically Reset Signs" HorizontalAlignment="Stretch" Margin="0, 175,0,0" VerticalAlignment="Top" Click="cbxAutoResetSigns_Click"/>
         </Grid>
         <Grid Margin="5,0,0,0" Grid.Column="1" Grid.ColumnSpan="2">
             <Label x:Name="lblManageSaves" Content="Manage Saves" Width="auto" VerticalAlignment="Top" FontSize="22" FontFamily="{StaticResource header}" HorizontalContentAlignment="Left"/>

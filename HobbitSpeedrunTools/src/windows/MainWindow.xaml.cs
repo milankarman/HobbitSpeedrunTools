@@ -143,65 +143,40 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        // Toggles cheats when changing checkbox state
-        private void cbxDevMode_Checked(object sender, RoutedEventArgs e)
+        public void ToggleDevMode(bool changeCheckbox = false)
         {
-            CheatManager.devMode = CheatManager.CheatStatus.ENABLE;
+            if (changeCheckbox) cbxDevMode.IsChecked = !cbxDevMode.IsChecked;
+            CheatManager.devMode = cbxDevMode.IsChecked == true ? CheatManager.CheatStatus.ENABLE : CheatManager.CheatStatus.DISABLE;
         }
 
-        private void cbxDevMode_Unchecked(object sender, RoutedEventArgs e)
+        public void ToggleInfiniteJumpAttacks(bool changeCheckbox = false)
         {
-            CheatManager.devMode = CheatManager.CheatStatus.DISABLE;
+            if (changeCheckbox) cbxInfiniteJumpAttack.IsChecked = !cbxInfiniteJumpAttack.IsChecked;
+            CheatManager.infiniteJumpAttack = !CheatManager.infiniteJumpAttack;
         }
 
-        private void cbxInfiniteJumpAttack_Checked(object sender, RoutedEventArgs e)
+        public void ToggleRenderLoadTriggers(bool changeCheckbox = false)
         {
-            CheatManager.infiniteJumpAttack = true;
+            if (changeCheckbox) cbxRenderLoadTriggers.IsChecked = !cbxRenderLoadTriggers.IsChecked;
+            CheatManager.loadTriggers = cbxRenderLoadTriggers.IsChecked == true ? CheatManager.CheatStatus.ENABLE : CheatManager.CheatStatus.DISABLE;
         }
 
-        private void cbxInfiniteJumpAttack_Unchecked(object sender, RoutedEventArgs e)
+        public void ToggleRenderOtherTriggers(bool changeCheckbox = false)
         {
-            CheatManager.infiniteJumpAttack = false;
+            if (changeCheckbox) cbxRenderOtherTriggers.IsChecked = !cbxRenderOtherTriggers.IsChecked;
+            CheatManager.otherTriggers = cbxRenderOtherTriggers.IsChecked == true ? CheatManager.CheatStatus.ENABLE : CheatManager.CheatStatus.DISABLE;
         }
 
-        private void cbxRenderLoadTriggers_Checked(object sender, RoutedEventArgs e)
+        public void TogglePolycache(bool changeCheckbox = false)
         {
-            CheatManager.loadTriggers = CheatManager.CheatStatus.ENABLE;
+            if (changeCheckbox) cbxRenderPolycache.IsChecked = !cbxRenderPolycache.IsChecked;
+            CheatManager.polyCache = cbxRenderPolycache.IsChecked == true ? CheatManager.CheatStatus.ENABLE : CheatManager.CheatStatus.DISABLE;
         }
 
-        private void cbxRenderLoadTriggers_Unchecked(object sender, RoutedEventArgs e)
+        public void ToggleAutoResetSigns(bool changeCheckbox = false)
         {
-            CheatManager.loadTriggers = CheatManager.CheatStatus.DISABLE;
-        }
-
-        private void cbxRenderOtherTriggers_Checked(object sender, RoutedEventArgs e)
-        {
-            CheatManager.otherTriggers = CheatManager.CheatStatus.ENABLE;
-        }
-
-        private void cbxRenderOtherTriggers_Unchecked(object sender, RoutedEventArgs e)
-        {
-            CheatManager.otherTriggers = CheatManager.CheatStatus.DISABLE;
-        }
-
-        private void cbxRenderPolycache_Checked(object sender, RoutedEventArgs e)
-        {
-            CheatManager.polyCache = CheatManager.CheatStatus.ENABLE;
-        }
-
-        private void cbxRenderPolycache_Unchecked(object sender, RoutedEventArgs e)
-        {
-            CheatManager.polyCache = CheatManager.CheatStatus.DISABLE;
-        }
-
-        private void cbxAutoResetSigns_Checked(object sender, RoutedEventArgs e)
-        {
-            CheatManager.autoResetSigns = true;
-        }
-
-        private void cbxAutoResetSigns_Unchecked(object sender, RoutedEventArgs e)
-        {
-            CheatManager.autoResetSigns = false;
+            if (changeCheckbox) cbxAutoResetSigns.IsChecked = !cbxAutoResetSigns.IsChecked;
+            CheatManager.autoResetSigns = !CheatManager.autoResetSigns;
         }
 
         // Ensures that proper cleanup will be done before closing the program
@@ -220,9 +195,34 @@ namespace HobbitSpeedrunTools
             base.OnClosing(e);
         }
 
-        public void Test()
+        private void cbxDevMode_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Test");
+            ToggleDevMode();
+        }
+
+        private void cbxInfiniteJumpAttack_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleInfiniteJumpAttacks();
+        }
+
+        private void cbxRenderLoadTriggers_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleRenderLoadTriggers();
+        }
+
+        private void cbxRenderOtherTriggers_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleRenderOtherTriggers();
+        }
+
+        private void cbxRenderPolycache_Click(object sender, RoutedEventArgs e)
+        {
+            TogglePolycache();
+        }
+
+        private void cbxAutoResetSigns_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleAutoResetSigns();
         }
     }
 }
