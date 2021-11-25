@@ -8,8 +8,6 @@ namespace HobbitSpeedrunTools
     {
         public static MainWindow? Instance { get; private set; }
 
-        private bool closing = false;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -21,7 +19,7 @@ namespace HobbitSpeedrunTools
             // Attempt to intialize the cheat manager
             try
             {
-                CheatManager.InitCheatManager();
+                MemoryManager.InitMemoryManager();
             }
             catch (Exception ex)
             {
@@ -56,24 +54,6 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        // Resets all cheat checkboxes to be unticked
-        public void ResetCheatCheckboxes()
-        {
-            // Ensure the window isn't closing and updating at the same time
-            if (!closing)
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    cbxDevMode.IsChecked = false;
-                    cbxInfiniteJumpAttack.IsChecked = false;
-                    cbxRenderLoadTriggers.IsChecked = false;
-                    cbxRenderOtherTriggers.IsChecked = false;
-                    cbxRenderPolycache.IsChecked = false;
-                    cbxAutoResetSigns.IsChecked = false;
-                });
-            }
-        }
-
         // Loads the saves for the selected save collection into their ComboBox
         private void InitSaves(string saveCollection)
         {
@@ -102,6 +82,7 @@ namespace HobbitSpeedrunTools
             cbxSaves.IsEnabled = true;
             SaveManager.BackupOldSaves();
             InitSaveCollections();
+            SaveManager.isEnabled = true;
         }
 
         // Clear saves and restore old saves when the save manager is disabled
@@ -118,6 +99,8 @@ namespace HobbitSpeedrunTools
             {
                 SaveManager.RestoreOldSaves();
             }
+
+            SaveManager.isEnabled = false;
         }
 
         // Updates the saves ComboBox when the save collection ComboBox is updated
@@ -128,6 +111,7 @@ namespace HobbitSpeedrunTools
             if (selected != null && selected != string.Empty)
             {
                 InitSaves(selected);
+                SaveManager.selectedSaveCollectionIndex = cbxSaveCollections.SelectedIndex;
             }
         }
 
@@ -140,50 +124,49 @@ namespace HobbitSpeedrunTools
             if (!string.IsNullOrEmpty(selectedSaveCollection) && !string.IsNullOrEmpty(selectedSave))
             {
                 SaveManager.SelectSave(selectedSaveCollection, selectedSave);
+                SaveManager.selectedSaveIndex = cbxSaves.SelectedIndex;
             }
         }
 
         public void ToggleDevMode(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxDevMode.IsChecked = !cbxDevMode.IsChecked;
-            CheatManager.devMode = cbxDevMode.IsChecked == true ? CheatManager.CheatStatus.ENABLE : CheatManager.CheatStatus.DISABLE;
+            MemoryManager.devMode = cbxDevMode.IsChecked == true ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.DISABLE;
         }
 
         public void ToggleInfiniteJumpAttacks(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxInfiniteJumpAttack.IsChecked = !cbxInfiniteJumpAttack.IsChecked;
-            CheatManager.infiniteJumpAttack = !CheatManager.infiniteJumpAttack;
+            MemoryManager.infiniteJumpAttack = !MemoryManager.infiniteJumpAttack;
         }
 
         public void ToggleRenderLoadTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderLoadTriggers.IsChecked = !cbxRenderLoadTriggers.IsChecked;
-            CheatManager.loadTriggers = cbxRenderLoadTriggers.IsChecked == true ? CheatManager.CheatStatus.ENABLE : CheatManager.CheatStatus.DISABLE;
+            MemoryManager.loadTriggers = cbxRenderLoadTriggers.IsChecked == true ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.DISABLE;
         }
 
         public void ToggleRenderOtherTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderOtherTriggers.IsChecked = !cbxRenderOtherTriggers.IsChecked;
-            CheatManager.otherTriggers = cbxRenderOtherTriggers.IsChecked == true ? CheatManager.CheatStatus.ENABLE : CheatManager.CheatStatus.DISABLE;
+            MemoryManager.otherTriggers = cbxRenderOtherTriggers.IsChecked == true ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.DISABLE;
         }
 
         public void TogglePolycache(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderPolycache.IsChecked = !cbxRenderPolycache.IsChecked;
-            CheatManager.polyCache = cbxRenderPolycache.IsChecked == true ? CheatManager.CheatStatus.ENABLE : CheatManager.CheatStatus.DISABLE;
+            MemoryManager.polyCache = cbxRenderPolycache.IsChecked == true ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.DISABLE;
         }
 
         public void ToggleAutoResetSigns(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxAutoResetSigns.IsChecked = !cbxAutoResetSigns.IsChecked;
-            CheatManager.autoResetSigns = !CheatManager.autoResetSigns;
+            MemoryManager.autoResetSigns = !MemoryManager.autoResetSigns;
         }
 
         // Ensures that proper cleanup will be done before closing the program
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            closing = true;
-
             SaveManager.ClearSaves();
 
             // Restore the backed up files if a backup was performed

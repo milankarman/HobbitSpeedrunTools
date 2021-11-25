@@ -18,5 +18,7 @@
         public const string sign3 = "0075B550";
         public const string sign4 = "0075B554";
         public const string sign5 = "0075B558";
+        public const string memUsage = "0075FBBC";
+        public const string memUsageText = "00730FFC";
     }
 }

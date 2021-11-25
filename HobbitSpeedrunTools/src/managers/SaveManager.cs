@@ -8,6 +8,11 @@ namespace HobbitSpeedrunTools
     {
         public static bool DidBackup { get; private set; }
 
+        public static int selectedSaveCollectionIndex;
+        public static int selectedSaveIndex;
+
+        public static bool isEnabled = false;
+
         private static string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
         private static string applicationSaveDir = Path.Join(".", "save-collections");
         private static string backupDir = "";

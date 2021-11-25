@@ -2,6 +2,6 @@
 {
     public static class About
     {
-        public const string version = "1.0.1";
+        public const string version = "1.1.0";
     }
 }

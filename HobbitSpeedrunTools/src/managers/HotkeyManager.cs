@@ -11,32 +11,34 @@ namespace HobbitSpeedrunTools
         {
             keyboardHookManager.Start();
 
-            keyboardHookManager.RegisterHotkey(ModifierKeys.Control, 0x70, () =>
+            ModifierKeys[] modifierKeys = new ModifierKeys[] { ModifierKeys.Control, ModifierKeys.Alt };
+
+            keyboardHookManager.RegisterHotkey(modifierKeys, 68, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleDevMode(true));
             });
 
-            keyboardHookManager.RegisterHotkey(ModifierKeys.Control, 0x71, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, 73, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleInfiniteJumpAttacks(true));
             });
 
-            keyboardHookManager.RegisterHotkey(ModifierKeys.Control, 0x72, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, 76, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleRenderLoadTriggers(true));
             });
 
-            keyboardHookManager.RegisterHotkey(ModifierKeys.Control, 0x73, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, 79, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleRenderOtherTriggers(true));
             });
 
-            keyboardHookManager.RegisterHotkey(ModifierKeys.Control, 0x74, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, 80, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.TogglePolycache(true));
             });
 
-            keyboardHookManager.RegisterHotkey(ModifierKeys.Control, 0x75, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, 65, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleAutoResetSigns(true));
             });
