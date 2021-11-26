@@ -11,7 +11,7 @@ namespace HobbitSpeedrunTools
         {
             keyboardHookManager.Start();
 
-            ModifierKeys[] modifierKeys = new ModifierKeys[] { ModifierKeys.Control, ModifierKeys.Alt };
+            ModifierKeys[] modifierKeys = new ModifierKeys[] { ModifierKeys.Control };
 
             keyboardHookManager.RegisterHotkey(modifierKeys, 68, () =>
             {

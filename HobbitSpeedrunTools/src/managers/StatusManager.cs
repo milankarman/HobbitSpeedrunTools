@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace HobbitSpeedrunTools
 {
@@ -7,16 +6,16 @@ namespace HobbitSpeedrunTools
     {
         public static string GetStatusText()
         {
-            string status = $"HobbitSpeedrunTools {About.version}";
+            string status = $"HST {About.version}";
 
             List<string> cheats = new List<string>();
 
-            if (MemoryManager.devMode == Enums.CheatStatus.IS_ENABLED) cheats.Add("D");
-            if (MemoryManager.infiniteJumpAttack) cheats.Add("J");
-            if (MemoryManager.loadTriggers == Enums.CheatStatus.IS_ENABLED) cheats.Add("L");
-            if (MemoryManager.otherTriggers == Enums.CheatStatus.IS_ENABLED) cheats.Add("O");
-            if (MemoryManager.polyCache == Enums.CheatStatus.IS_ENABLED) cheats.Add("P");
-            if (MemoryManager.autoResetSigns) cheats.Add("S");
+            if (MemoryManager.devMode == Enums.CheatStatus.IS_ENABLED) cheats.Add("DEV");
+            if (MemoryManager.infiniteJumpAttack) cheats.Add("INF");
+            if (MemoryManager.loadTriggers == Enums.CheatStatus.IS_ENABLED) cheats.Add("LTRIG");
+            if (MemoryManager.otherTriggers == Enums.CheatStatus.IS_ENABLED) cheats.Add("OTRIG");
+            if (MemoryManager.polyCache == Enums.CheatStatus.IS_ENABLED) cheats.Add("POLY");
+            if (MemoryManager.autoResetSigns) cheats.Add("SIGN");
 
             if (cheats.Count > 0)
             {
