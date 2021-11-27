@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
     <PackageReference Include="Memory.dll.x86" Version="1.2.22" />
     <PackageReference Include="NonInvasiveKeyboardHookLibrary.Core" Version="2.1.0" />
     <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
@@ -47,6 +48,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="config.ini">
+      <Generator></Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="img\icon.ico">
       <Pack>True</Pack>
     </None>

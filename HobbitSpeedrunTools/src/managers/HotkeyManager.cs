@@ -4,7 +4,7 @@ namespace HobbitSpeedrunTools
 {
     public static class HotkeyManager
     {
-        public static KeyboardHookManager keyboardHookManager = new KeyboardHookManager();
+        private static readonly KeyboardHookManager keyboardHookManager = new();
 
         public static void InitHotkeyManager()
         {
@@ -12,64 +12,64 @@ namespace HobbitSpeedrunTools
 
             ModifierKeys[] modifierKeys = new ModifierKeys[] { ModifierKeys.Alt };
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 49, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShDevMode, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleDevMode(true));
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 50, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShInfiniteJumpAttack, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleInfiniteJumpAttacks(true));
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 51, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShRenderLoadTriggers, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleRenderLoadTriggers(true));
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 52, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShRenderOtherTriggers, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleRenderOtherTriggers(true));
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 53, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShRenderPolyCache, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.TogglePolycache(true));
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 54, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShAutoResetSigns, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleAutoResetSigns(true));
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 82, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShResetLevel, () =>
             {
                 MemoryManager.ResetLevel();
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 187, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShToggleSaveManager, () =>
             {
-                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.NextSave());
+                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleSaveManager());
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 189, () =>
-            {
-                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.PreviousSave());
-            });
-
-            keyboardHookManager.RegisterHotkey(modifierKeys, 48, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShNextSaveCollection, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.NextSaveCollection());
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 57, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShPreviousSaveCollection, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.PreviousSaveCollection());
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKeys, 56, () =>
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShNextSave, () =>
             {
-                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleSaveManager());
+                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.NextSave());
+            });
+
+            keyboardHookManager.RegisterHotkey(modifierKeys, ConfigManager.ShPreviousSave, () =>
+            {
+                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.PreviousSave());
             });
         }
     }

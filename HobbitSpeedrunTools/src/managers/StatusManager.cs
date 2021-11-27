@@ -8,15 +8,8 @@ namespace HobbitSpeedrunTools
         {
             string status = $"HST {About.version}";
 
-            List<string> cheats = new List<string>();
+            List<string> cheats = MemoryManager.GetCheatList();
 
-            if (MemoryManager.devMode == Enums.CheatStatus.IS_ENABLED) cheats.Add("DEV");
-            if (MemoryManager.infiniteJumpAttack) cheats.Add("IJA");
-            if (MemoryManager.loadTriggers == Enums.CheatStatus.IS_ENABLED) cheats.Add("LTRIG");
-            if (MemoryManager.otherTriggers == Enums.CheatStatus.IS_ENABLED) cheats.Add("OTRIG");
-            if (MemoryManager.polyCache == Enums.CheatStatus.IS_ENABLED) cheats.Add("POLY");
-            if (MemoryManager.autoResetSigns) cheats.Add("SIGN");
-            if (MemoryManager.invincibility == Enums.CheatStatus.IS_ENABLED) cheats.Add("INV");
 
             if (cheats.Count > 0)
             {
@@ -33,12 +26,12 @@ namespace HobbitSpeedrunTools
                 }
             }
 
-            if (SaveManager.isEnabled)
+            if (SaveManager.IsEnabled)
             {
-                status += $"\nSave: {SaveManager.selectedSaveCollectionIndex + 1}-{SaveManager.selectedSaveIndex + 1}";
+                status += $"\nSave: {SaveManager.SelectedSaveCollectionIndex + 1}-{SaveManager.SelectedSaveIndex + 1}";
             }
 
-            status = status.PadRight(65, ' ').Substring(0, 65);
+            status = status.PadRight(65, ' ')[..65];
 
             return status;
         }

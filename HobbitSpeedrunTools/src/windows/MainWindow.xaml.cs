@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace HobbitSpeedrunTools
 {
@@ -24,6 +23,18 @@ namespace HobbitSpeedrunTools
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                throw;
+            }
+
+            // Attempt to intialize the config manager
+            try
+            {
+                ConfigManager.InitConfigManager();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
             }
 
             HotkeyManager.InitHotkeyManager();
@@ -82,7 +93,7 @@ namespace HobbitSpeedrunTools
             cbxSaves.IsEnabled = true;
             SaveManager.BackupOldSaves();
             InitSaveCollections();
-            SaveManager.isEnabled = true;
+            SaveManager.IsEnabled = true;
             cbxSaveCollections.SelectedIndex = 0;
         }
 
@@ -101,7 +112,7 @@ namespace HobbitSpeedrunTools
                 SaveManager.RestoreOldSaves();
             }
 
-            SaveManager.isEnabled = false;
+            SaveManager.IsEnabled = false;
         }
 
         // Updates the saves ComboBox when the save collection ComboBox is updated
@@ -112,7 +123,7 @@ namespace HobbitSpeedrunTools
             if (selected != null && selected != string.Empty)
             {
                 InitSaves(selected);
-                SaveManager.selectedSaveCollectionIndex = cbxSaveCollections.SelectedIndex;
+                SaveManager.SelectedSaveCollectionIndex = cbxSaveCollections.SelectedIndex;
                 cbxSaves.SelectedIndex = 0;
             }
         }
@@ -126,44 +137,44 @@ namespace HobbitSpeedrunTools
             if (!string.IsNullOrEmpty(selectedSaveCollection) && !string.IsNullOrEmpty(selectedSave))
             {
                 SaveManager.SelectSave(selectedSaveCollection, selectedSave);
-                SaveManager.selectedSaveIndex = cbxSaves.SelectedIndex;
+                SaveManager.SelectedSaveIndex = cbxSaves.SelectedIndex;
             }
         }
 
         public void ToggleDevMode(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxDevMode.IsChecked = !cbxDevMode.IsChecked;
-            MemoryManager.devMode = cbxDevMode.IsChecked == true ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.DISABLE;
+            MemoryManager.ToggleDevMode(cbxDevMode.IsChecked ?? false);
         }
 
         public void ToggleInfiniteJumpAttacks(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxInfiniteJumpAttack.IsChecked = !cbxInfiniteJumpAttack.IsChecked;
-            MemoryManager.infiniteJumpAttack = !MemoryManager.infiniteJumpAttack;
+            MemoryManager.ToggleInfiniteJumpAttacks(cbxInfiniteJumpAttack.IsChecked ?? false);
         }
 
         public void ToggleRenderLoadTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderLoadTriggers.IsChecked = !cbxRenderLoadTriggers.IsChecked;
-            MemoryManager.loadTriggers = cbxRenderLoadTriggers.IsChecked == true ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.DISABLE;
+            MemoryManager.ToggleRenderLoadTriggers(cbxRenderLoadTriggers.IsChecked ?? false);
         }
 
         public void ToggleRenderOtherTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderOtherTriggers.IsChecked = !cbxRenderOtherTriggers.IsChecked;
-            MemoryManager.otherTriggers = cbxRenderOtherTriggers.IsChecked == true ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.DISABLE;
+            MemoryManager.ToggleRenderOtherTriggers(cbxRenderOtherTriggers.IsChecked ?? false);
         }
 
         public void TogglePolycache(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderPolycache.IsChecked = !cbxRenderPolycache.IsChecked;
-            MemoryManager.polyCache = cbxRenderPolycache.IsChecked == true ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.DISABLE;
+            MemoryManager.TogglePolycache(cbxRenderPolycache.IsChecked ?? false);
         }
 
         public void ToggleAutoResetSigns(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxAutoResetSigns.IsChecked = !cbxAutoResetSigns.IsChecked;
-            MemoryManager.autoResetSigns = !MemoryManager.autoResetSigns;
+            MemoryManager.ToggleAutoResetSigns(cbxAutoResetSigns.IsChecked ?? false);
         }
 
         public void NextSaveCollection()

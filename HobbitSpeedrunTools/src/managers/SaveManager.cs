@@ -8,13 +8,13 @@ namespace HobbitSpeedrunTools
     {
         public static bool DidBackup { get; private set; }
 
-        public static int selectedSaveCollectionIndex;
-        public static int selectedSaveIndex;
+        public static int SelectedSaveCollectionIndex { get; set; }
+        public static int SelectedSaveIndex { get; set; }
 
-        public static bool isEnabled = false;
+        public static bool IsEnabled { get; set; }
 
-        private static string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
-        private static string applicationSaveDir = Path.Join(".", "save-collections");
+        private static readonly string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
+        private static readonly string applicationSaveDir = Path.Join(".", "save-collections");
         private static string backupDir = "";
 
         // Detects all folders within the save collections folder and lists them in its respective ComboBox
@@ -36,7 +36,7 @@ namespace HobbitSpeedrunTools
 
             for (int i = 0; i < unsortedSaveCollections.Length; i++)
             {
-                FileInfo info = new FileInfo(unsortedSaveCollections[i]);
+                FileInfo info = new(unsortedSaveCollections[i]);
                 unsortedSaveCollections[i] = info.Name;
             }
 
@@ -49,7 +49,7 @@ namespace HobbitSpeedrunTools
             }
             catch
             {
-                sortedSaveCollections = unsortedSaveCollections;
+                return unsortedSaveCollections;
                 throw new Exception("The Hobbit saves folder not found at: {applicationSaveDir}");
             }
 
@@ -64,7 +64,7 @@ namespace HobbitSpeedrunTools
 
             for (int i = 0; i < unsortedSaves.Length; i++)
             {
-                FileInfo info = new FileInfo(unsortedSaves[i]);
+                FileInfo info = new(unsortedSaves[i]);
                 unsortedSaves[i] = Path.GetFileNameWithoutExtension(info.Name);
             }
 
@@ -77,7 +77,7 @@ namespace HobbitSpeedrunTools
             }
             catch
             {
-                sortedSaves = unsortedSaves;
+                return unsortedSaves;
                 throw new Exception("Failed to sort saves. Ensure the save file names are written in the right format.");
             }
 
@@ -117,7 +117,7 @@ namespace HobbitSpeedrunTools
             // Moves all old files into backup folder
             foreach (string save in oldFiles)
             {
-                FileInfo info = new FileInfo(save);
+                FileInfo info = new(save);
                 File.Move(save, Path.Join(backupDir, info.Name));
             }
 
@@ -138,7 +138,7 @@ namespace HobbitSpeedrunTools
             {
                 foreach (string save in Directory.GetFiles(backupDir))
                 {
-                    FileInfo info = new FileInfo(save);
+                    FileInfo info = new(save);
                     File.Move(save, Path.Join(hobbitSaveDir, info.Name));
                 }
             }
