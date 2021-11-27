@@ -13,23 +13,14 @@ namespace HobbitSpeedrunTools
 
             ModifierKeys modifierKey = ModifierKeys.Alt;
 
-            switch (ConfigManager.ModifierKey)
+            modifierKey = ConfigManager.ModifierKey switch
             {
-                case "ctrl":
-                    modifierKey = ModifierKeys.Control;
-                    break;
-                case "shift":
-                    modifierKey = ModifierKeys.Shift;
-                    break;
-                case "alt":
-                    modifierKey = ModifierKeys.Alt;
-                    break;
-                case "win":
-                    modifierKey = ModifierKeys.WindowsKey;
-                    break;
-                default:
-                    throw new Exception("Invalid modifier key");
-            }
+                "ctrl" => ModifierKeys.Control,
+                "shift" => ModifierKeys.Shift,
+                "alt" => ModifierKeys.Alt,
+                "win" => ModifierKeys.WindowsKey,
+                _ => throw new Exception("Invalid modifier key"),
+            };
 
             keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShDevMode, () =>
             {

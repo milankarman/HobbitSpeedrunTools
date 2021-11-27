@@ -6,7 +6,7 @@ namespace HobbitSpeedrunTools
     public static class ConfigManager
     {
 
-        public static string ModifierKey { private set; get; }
+        public static string? ModifierKey { private set; get; }
 
         // Cheats
         public static int ShDevMode { private set; get; }
