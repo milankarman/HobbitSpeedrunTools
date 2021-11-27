@@ -83,6 +83,7 @@ namespace HobbitSpeedrunTools
             SaveManager.BackupOldSaves();
             InitSaveCollections();
             SaveManager.isEnabled = true;
+            cbxSaveCollections.SelectedIndex = 0;
         }
 
         // Clear saves and restore old saves when the save manager is disabled
@@ -112,6 +113,7 @@ namespace HobbitSpeedrunTools
             {
                 InitSaves(selected);
                 SaveManager.selectedSaveCollectionIndex = cbxSaveCollections.SelectedIndex;
+                cbxSaves.SelectedIndex = 0;
             }
         }
 
@@ -162,6 +164,31 @@ namespace HobbitSpeedrunTools
         {
             if (changeCheckbox) cbxAutoResetSigns.IsChecked = !cbxAutoResetSigns.IsChecked;
             MemoryManager.autoResetSigns = !MemoryManager.autoResetSigns;
+        }
+
+        public void NextSaveCollection()
+        {
+            if (cbxSaveCollections.SelectedIndex < cbxSaves.Items.Count) cbxSaveCollections.SelectedIndex += 1;
+        }
+
+        public void PreviousSaveCollection()
+        {
+            if (cbxSaveCollections.SelectedIndex > 0) cbxSaveCollections.SelectedIndex -= 1;
+        }
+
+        public void NextSave()
+        {
+            if (cbxSaves.SelectedIndex < cbxSaves.Items.Count) cbxSaves.SelectedIndex += 1;
+        }
+
+        public void PreviousSave()
+        {
+            if (cbxSaves.SelectedIndex > 0) cbxSaves.SelectedIndex -= 1;
+        }
+
+        public void ToggleSaveManager()
+        {
+            cbxManageSaves.IsChecked = !cbxManageSaves.IsChecked;
         }
 
         // Ensures that proper cleanup will be done before closing the program

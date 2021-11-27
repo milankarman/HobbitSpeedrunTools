@@ -16,6 +16,7 @@ namespace HobbitSpeedrunTools
         public static Enums.CheatStatus loadTriggers = Enums.CheatStatus.IS_DISABLED;
         public static Enums.CheatStatus otherTriggers = Enums.CheatStatus.IS_DISABLED;
         public static Enums.CheatStatus polyCache = Enums.CheatStatus.IS_DISABLED;
+        public static Enums.CheatStatus invincibility = Enums.CheatStatus.IS_DISABLED;
 
         // Starts a new thread handling the cheat loop
         public static void InitMemoryManager()
@@ -37,80 +38,56 @@ namespace HobbitSpeedrunTools
                     mem.WriteMemory(MemoryAddresses.memUsage, "int", "1");
                     mem.WriteMemory(MemoryAddresses.memUsageText, "string", StatusManager.GetStatusText());
 
-                    if (infiniteJumpAttack)
-                    {
-                        // Keep stamina at max for infinite jump attacks
-                        mem.WriteMemory(MemoryAddresses.stamina, "float", "10");
-                    }
+                    if (infiniteJumpAttack) mem.WriteMemory(MemoryAddresses.stamina, "float", "10");
+                    if (autoResetSigns) ResetSigns();
 
-                    if (autoResetSigns)
-                    {
-                        // Reset the signs if the player loads or dies
-                        if (mem.ReadInt(MemoryAddresses.loading) == 1 || mem.ReadFloat(MemoryAddresses.health) <= 0)
-                        {
-                            mem.WriteMemory(MemoryAddresses.sign1, "int", "1");
-                            mem.WriteMemory(MemoryAddresses.sign2, "int", "0");
-                            mem.WriteMemory(MemoryAddresses.sign3, "int", "0");
-                            mem.WriteMemory(MemoryAddresses.sign4, "int", "1");
-                            mem.WriteMemory(MemoryAddresses.sign5, "int", "0");
-                        }
-                    }
-
-                    // Swap the states of cheats and enable them accordingly
-                    if (devMode == Enums.CheatStatus.ENABLE)
-                    {
-                        mem.WriteMemory(MemoryAddresses.devMode, "int", "1");
-                        devMode = Enums.CheatStatus.IS_ENABLED;
-                    }
-                    else if (devMode == Enums.CheatStatus.DISABLE)
-                    {
-                        mem.WriteMemory(MemoryAddresses.devMode, "int", "0");
-                        devMode = Enums.CheatStatus.IS_DISABLED;
-                    }
-
-                    if (loadTriggers == Enums.CheatStatus.ENABLE)
-                    {
-                        mem.WriteMemory(MemoryAddresses.loadTriggers, "int", "1");
-                        loadTriggers = Enums.CheatStatus.IS_ENABLED;
-                    }
-                    else if (loadTriggers == Enums.CheatStatus.DISABLE)
-                    {
-                        mem.WriteMemory(MemoryAddresses.loadTriggers, "int", "0");
-                        loadTriggers = Enums.CheatStatus.IS_DISABLED;
-                    }
-
-                    if (otherTriggers == Enums.CheatStatus.ENABLE)
-                    {
-                        mem.WriteMemory(MemoryAddresses.otherTriggers, "int", "1");
-                        otherTriggers = Enums.CheatStatus.IS_ENABLED;
-                    }
-                    else if (otherTriggers == Enums.CheatStatus.DISABLE)
-                    {
-                        mem.WriteMemory(MemoryAddresses.otherTriggers, "int", "0");
-                        otherTriggers = Enums.CheatStatus.IS_DISABLED;
-                    }
-
-                    if (polyCache == Enums.CheatStatus.ENABLE)
-                    {
-                        mem.WriteMemory(MemoryAddresses.polyCache, "int", "1");
-                        polyCache = Enums.CheatStatus.IS_ENABLED;
-                    }
-                    else if (polyCache == Enums.CheatStatus.DISABLE)
-                    {
-                        mem.WriteMemory(MemoryAddresses.polyCache, "int", "0");
-                        polyCache = Enums.CheatStatus.IS_DISABLED;
-                    }
-                }
-                else
-                {
-                    //devMode = devMode == Enums.CheatStatus.IS_ENABLED ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.IS_DISABLED;
-                    //loadTriggers = loadTriggers == Enums.CheatStatus.IS_ENABLED ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.IS_DISABLED;
-                    //otherTriggers = otherTriggers == Enums.CheatStatus.IS_ENABLED ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.IS_DISABLED;
-                    //polyCache = polyCache == Enums.CheatStatus.IS_ENABLED ? Enums.CheatStatus.ENABLE : Enums.CheatStatus.IS_DISABLED;
+                    ToggleAddress(ref devMode, MemoryAddresses.devMode);
+                    ToggleAddress(ref loadTriggers, MemoryAddresses.loadTriggers);
+                    ToggleAddress(ref otherTriggers, MemoryAddresses.otherTriggers);
+                    ToggleAddress(ref polyCache, MemoryAddresses.polyCache);
+                    ToggleAddress(ref invincibility, MemoryAddresses.invincibility);
                 }
 
                 // Wait for 100ms before repeating
                 Thread.Sleep(100);
+            }
+        }
+
+        private static void ToggleAddress(ref Enums.CheatStatus status, string address)
+        {
+            if (status == Enums.CheatStatus.ENABLE)
+            {
+                mem.WriteMemory(address, "int", "1");
+                status = Enums.CheatStatus.IS_ENABLED;
+            }
+            else if (status == Enums.CheatStatus.DISABLE)
+            {
+                mem.WriteMemory(address, "int", "0");
+                status = Enums.CheatStatus.IS_DISABLED;
+            }
+        }
+
+        private static void ResetSigns()
+        {
+            // Reset the signs if the player loads or dies
+            if (mem.ReadInt(MemoryAddresses.loading) == 1 || mem.ReadFloat(MemoryAddresses.health) <= 0)
+            {
+                mem.WriteMemory(MemoryAddresses.sign1, "int", "1");
+                mem.WriteMemory(MemoryAddresses.sign2, "int", "0");
+                mem.WriteMemory(MemoryAddresses.sign3, "int", "0");
+                mem.WriteMemory(MemoryAddresses.sign4, "int", "1");
+                mem.WriteMemory(MemoryAddresses.sign5, "int", "0");
+            }
+        }
+
+        public static void ResetLevel()
+        {
+            int currentLevelID = mem.ReadInt(MemoryAddresses.currentLevelID);
+
+            if (currentLevelID >= 0)
+            {
+                mem.WriteMemory(MemoryAddresses.currentLevelID, "int", (currentLevelID - 1).ToString());
+                mem.WriteMemory(MemoryAddresses.load, "int", "1");
             }
         }
     }

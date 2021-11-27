@@ -11,11 +11,12 @@ namespace HobbitSpeedrunTools
             List<string> cheats = new List<string>();
 
             if (MemoryManager.devMode == Enums.CheatStatus.IS_ENABLED) cheats.Add("DEV");
-            if (MemoryManager.infiniteJumpAttack) cheats.Add("INF");
+            if (MemoryManager.infiniteJumpAttack) cheats.Add("IJA");
             if (MemoryManager.loadTriggers == Enums.CheatStatus.IS_ENABLED) cheats.Add("LTRIG");
             if (MemoryManager.otherTriggers == Enums.CheatStatus.IS_ENABLED) cheats.Add("OTRIG");
             if (MemoryManager.polyCache == Enums.CheatStatus.IS_ENABLED) cheats.Add("POLY");
             if (MemoryManager.autoResetSigns) cheats.Add("SIGN");
+            if (MemoryManager.invincibility == Enums.CheatStatus.IS_ENABLED) cheats.Add("INV");
 
             if (cheats.Count > 0)
             {
