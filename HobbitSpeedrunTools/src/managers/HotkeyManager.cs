@@ -11,9 +11,8 @@ namespace HobbitSpeedrunTools
         {
             keyboardHookManager.Start();
 
-            ModifierKeys modifierKey = ModifierKeys.Alt;
-
-            modifierKey = ConfigManager.ModifierKey switch
+            // Parses and sets the modifier key set in the config
+            ModifierKeys modifierKey = ConfigManager.ModifierKey switch
             {
                 "ctrl" => ModifierKeys.Control,
                 "shift" => ModifierKeys.Shift,
@@ -22,6 +21,7 @@ namespace HobbitSpeedrunTools
                 _ => throw new Exception("Invalid modifier key"),
             };
 
+            // Binds all methods to their hotkeys
             keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShDevMode, () =>
             {
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleDevMode(true));

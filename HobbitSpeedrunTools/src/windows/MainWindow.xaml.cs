@@ -141,6 +141,7 @@ namespace HobbitSpeedrunTools
             }
         }
 
+        // Toggles for every cheat checkbox
         public void ToggleDevMode(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxDevMode.IsChecked = !cbxDevMode.IsChecked;
@@ -177,6 +178,7 @@ namespace HobbitSpeedrunTools
             MemoryManager.AutoResetSigns = cbxAutoResetSigns.IsChecked ?? false;
         }
 
+        // Save manager keyboard navigation
         public void NextSaveCollection()
         {
             if (cbxSaveCollections.SelectedIndex < cbxSaves.Items.Count) cbxSaveCollections.SelectedIndex += 1;
@@ -216,6 +218,7 @@ namespace HobbitSpeedrunTools
             base.OnClosing(e);
         }
 
+        // Binds the checkbox click events to the right toggles
         private void cbxDevMode_Click(object sender, RoutedEventArgs e)
         {
             ToggleDevMode();

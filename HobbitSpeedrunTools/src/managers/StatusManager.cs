@@ -4,12 +4,13 @@ namespace HobbitSpeedrunTools
 {
     public static class StatusManager
     {
+        // Prints the current status of cheats and save manager in 64 characters
+        // to fit into the in game display
         public static string GetStatusText()
         {
             string status = $"HST {About.version}";
 
             List<string> cheats = MemoryManager.GetCheatList();
-
 
             if (cheats.Count > 0)
             {

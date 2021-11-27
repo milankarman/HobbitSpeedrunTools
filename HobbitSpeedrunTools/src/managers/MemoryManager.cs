@@ -51,6 +51,7 @@ namespace HobbitSpeedrunTools
             }
         }
 
+        // Resets the signs in Riddles in the Dark to their default values
         private static void ResetSigns()
         {
             // Reset the signs if the player loads or dies
@@ -64,6 +65,7 @@ namespace HobbitSpeedrunTools
             }
         }
 
+        // Resets the current level
         public static void ResetLevel()
         {
             int currentLevelID = mem.ReadInt(MemoryAddresses.currentLevelID);
@@ -75,6 +77,7 @@ namespace HobbitSpeedrunTools
             }
         }
 
+        // Gets a list of active cheats with short names
         public static List<string> GetCheatList()
         {
             List<string> cheats = new();

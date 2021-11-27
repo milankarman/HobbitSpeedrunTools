@@ -5,7 +5,6 @@ namespace HobbitSpeedrunTools
 {
     public static class ConfigManager
     {
-
         public static string? ModifierKey { private set; get; }
 
         // Cheats
@@ -25,7 +24,7 @@ namespace HobbitSpeedrunTools
         public static int ShNextSave { private set; get; }
         public static int ShPreviousSave { private set; get; }
 
-
+        // Opens and reads values from the ini file.
         public static void InitConfigManager()
         {
             FileIniDataParser parser = new();
