@@ -144,37 +144,37 @@ namespace HobbitSpeedrunTools
         public void ToggleDevMode(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxDevMode.IsChecked = !cbxDevMode.IsChecked;
-            MemoryManager.ToggleDevMode(cbxDevMode.IsChecked ?? false);
+            MemoryManager.DevMode = cbxDevMode.IsChecked ?? false;
         }
 
         public void ToggleInfiniteJumpAttacks(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxInfiniteJumpAttack.IsChecked = !cbxInfiniteJumpAttack.IsChecked;
-            MemoryManager.ToggleInfiniteJumpAttacks(cbxInfiniteJumpAttack.IsChecked ?? false);
+            MemoryManager.InfiniteJumpAttack = cbxInfiniteJumpAttack.IsChecked ?? false;
         }
 
         public void ToggleRenderLoadTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderLoadTriggers.IsChecked = !cbxRenderLoadTriggers.IsChecked;
-            MemoryManager.ToggleRenderLoadTriggers(cbxRenderLoadTriggers.IsChecked ?? false);
+            MemoryManager.OtherTriggers = cbxRenderLoadTriggers.IsChecked ?? false;
         }
 
         public void ToggleRenderOtherTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderOtherTriggers.IsChecked = !cbxRenderOtherTriggers.IsChecked;
-            MemoryManager.ToggleRenderOtherTriggers(cbxRenderOtherTriggers.IsChecked ?? false);
+            MemoryManager.OtherTriggers = cbxRenderOtherTriggers.IsChecked ?? false;
         }
 
         public void TogglePolycache(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderPolycache.IsChecked = !cbxRenderPolycache.IsChecked;
-            MemoryManager.TogglePolycache(cbxRenderPolycache.IsChecked ?? false);
+            MemoryManager.PolyCache = cbxRenderPolycache.IsChecked ?? false;
         }
 
         public void ToggleAutoResetSigns(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxAutoResetSigns.IsChecked = !cbxAutoResetSigns.IsChecked;
-            MemoryManager.ToggleAutoResetSigns(cbxAutoResetSigns.IsChecked ?? false);
+            MemoryManager.AutoResetSigns = cbxAutoResetSigns.IsChecked ?? false;
         }
 
         public void NextSaveCollection()
