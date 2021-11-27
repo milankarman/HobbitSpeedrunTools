@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 
 namespace HobbitSpeedrunTools
@@ -157,7 +159,7 @@ namespace HobbitSpeedrunTools
         public void ToggleRenderLoadTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderLoadTriggers.IsChecked = !cbxRenderLoadTriggers.IsChecked;
-            MemoryManager.OtherTriggers = cbxRenderLoadTriggers.IsChecked ?? false;
+            MemoryManager.LoadTriggers = cbxRenderLoadTriggers.IsChecked ?? false;
         }
 
         public void ToggleRenderOtherTriggers(bool changeCheckbox = false)
@@ -176,6 +178,12 @@ namespace HobbitSpeedrunTools
         {
             if (changeCheckbox) cbxAutoResetSigns.IsChecked = !cbxAutoResetSigns.IsChecked;
             MemoryManager.AutoResetSigns = cbxAutoResetSigns.IsChecked ?? false;
+        }
+
+        public void ToggleInvincibility(bool changeCheckbox = false)
+        {
+            if (changeCheckbox) cbxInvincibility.IsChecked = !cbxInvincibility.IsChecked;
+            MemoryManager.Invincibility = cbxInvincibility.IsChecked ?? false;
         }
 
         // Save manager keyboard navigation
@@ -247,6 +255,17 @@ namespace HobbitSpeedrunTools
         private void cbxAutoResetSigns_Click(object sender, RoutedEventArgs e)
         {
             ToggleAutoResetSigns();
+        }
+
+        private void cbxInvincibility_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleInvincibility();
+        }
+
+        // Opens the config file in notepad
+        private void btnOpenConfig_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("notepad.exe", Path.Join(".", "config.ini"));
         }
     }
 }
