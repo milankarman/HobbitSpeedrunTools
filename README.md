@@ -108,6 +108,7 @@ Although the HobbitSpeedrunTools save manager is written to back up your old sav
 # Acknowledgements
 
 - [Erfg12's Memory.dll](https://github.com/erfg12/memory.dll/) used for reading and writing to the game memory
+- [NonInvasiveKeyboardHook by Kfirprods](https://github.com/kfirprods/NonInvasiveKeyboardHook) used for assigning global hotkeys
 - [ini-parser by Rickyah](https://github.com/rickyah/ini-parser) used to read and write to the config file
 - [MD_Pi](https://www.youtube.com/user/MD0111000001101001) for sharing his cheat table filled with just about every memory address in the game
 - [Tasz](https://www.twitch.tv/tasz) for providing save files for the 100% category
