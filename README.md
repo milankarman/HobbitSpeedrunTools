@@ -29,7 +29,8 @@ This tool is made to effeciently practice for The Hobbit speedruns by providing 
 <div align="center">
   <img src="assets/preview.png" alt="Application screenshot" width="auto" height="auto">
   <br />
-  <img src="assets/preview_2.png" alt="Application screenshot" width="auto" height="auto" border="1px solid orange">
+  <br />
+  <img src="assets/preview_2.png" alt="Application screenshot" width="auto" height="auto">
 </div>
 <br />
 
@@ -58,6 +59,7 @@ This tool is made to effeciently practice for The Hobbit speedruns by providing 
 Start the program, tick the checkbox next to "Manage Saves" to enable the save manager and tick any of the cheat checkboxes to enable them. Note that The Hobbit must be running for the cheats to be activated.
 
 **Only use HobbitSpeedrunTools for practice, make sure to close it and restart your game for real runs**
+
 
 ## Shortcuts
 
