@@ -17,7 +17,7 @@
             <CheckBox x:Name="cbxRenderLoadTriggers" Content="Render Load Triggers" HorizontalAlignment="Stretch" Margin="0,100,0,0" VerticalAlignment="Top" Click="cbxRenderLoadTriggers_Click"/>
             <CheckBox x:Name="cbxRenderOtherTriggers" Content="Render Other Triggers" HorizontalAlignment="Stretch" Margin="0, 125,0,0" VerticalAlignment="Top" Click="cbxRenderOtherTriggers_Click"/>
             <CheckBox x:Name="cbxRenderPolycache" Content="Render Polycache" HorizontalAlignment="Stretch" Margin="0, 150,0,0" VerticalAlignment="Top" Click="cbxRenderPolycache_Click"/>
-            <CheckBox x:Name="cbxAutoResetSigns" Content="Automatically Reset Signs" HorizontalAlignment="Stretch" Margin="0, 175,0,0" VerticalAlignment="Top" Click="cbxAutoResetSigns_Click"/>
+            <CheckBox x:Name="cbxAutoResetSigns" Content="Auto Reset Signs" HorizontalAlignment="Stretch" Margin="0, 175,0,0" VerticalAlignment="Top" Click="cbxAutoResetSigns_Click"/>
             <CheckBox x:Name="cbxInvincibility" Content="Invincibility" Margin="0,199,0,0" VerticalAlignment="Top" Click="cbxAutoResetSigns_Click"/>
         </Grid>
         <StackPanel Grid.Column="1" Margin="10,0,0,0">
