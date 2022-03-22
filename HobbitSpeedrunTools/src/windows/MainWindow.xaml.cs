@@ -186,6 +186,13 @@ namespace HobbitSpeedrunTools
             MemoryManager.Invincibility = cbxInvincibility.IsChecked ?? false;
         }
 
+        public void ToggleLockClipwarp(bool changeCheckbox = false)
+        {
+            if (changeCheckbox) cbxLockWarp.IsChecked = !cbxLockWarp.IsChecked;
+            MemoryManager.LockClipwarp = cbxLockWarp.IsChecked ?? false;
+            MemoryManager.SaveClipwarpCoords();
+        }
+
         // Save manager keyboard navigation
         public void NextSaveCollection()
         {
@@ -227,40 +234,21 @@ namespace HobbitSpeedrunTools
         }
 
         // Binds the checkbox click events to the right toggles
-        private void cbxDevMode_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleDevMode();
-        }
+        private void cbxDevMode_Click(object sender, RoutedEventArgs e) => ToggleDevMode();
 
-        private void cbxInfiniteJumpAttack_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleInfiniteJumpAttacks();
-        }
+        private void cbxInfiniteJumpAttack_Click(object sender, RoutedEventArgs e) => ToggleInfiniteJumpAttacks();
 
-        private void cbxRenderLoadTriggers_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleRenderLoadTriggers();
-        }
+        private void cbxRenderLoadTriggers_Click(object sender, RoutedEventArgs e) => ToggleRenderLoadTriggers();
 
-        private void cbxRenderOtherTriggers_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleRenderOtherTriggers();
-        }
+        private void cbxRenderOtherTriggers_Click(object sender, RoutedEventArgs e) => ToggleRenderOtherTriggers();
 
-        private void cbxRenderPolycache_Click(object sender, RoutedEventArgs e)
-        {
-            TogglePolycache();
-        }
+        private void cbxRenderPolycache_Click(object sender, RoutedEventArgs e) => TogglePolycache();
 
-        private void cbxAutoResetSigns_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleAutoResetSigns();
-        }
+        private void cbxAutoResetSigns_Click(object sender, RoutedEventArgs e) => ToggleAutoResetSigns();
 
-        private void cbxInvincibility_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleInvincibility();
-        }
+        private void cbxInvincibility_Click(object sender, RoutedEventArgs e) => ToggleInvincibility();
+
+        private void cbxLockWarp_Click(object sender, RoutedEventArgs e) => ToggleLockClipwarp();
 
         // Opens the config file in notepad
         private void btnOpenConfig_Click(object sender, RoutedEventArgs e)

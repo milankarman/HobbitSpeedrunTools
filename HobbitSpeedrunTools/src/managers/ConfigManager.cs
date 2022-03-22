@@ -15,9 +15,10 @@ namespace HobbitSpeedrunTools
         public static int ShRenderPolyCache { private set; get; }
         public static int ShAutoResetSigns { private set; get; }
         public static int ShInvincibility { private set; get; }
+        public static int ShLockClipwarp { private set; get; }
 
         // Other
-        public static int ShResetLevel { private set; get; }
+        public static int ShQuickReload { private set; get; }
         public static int ShToggleSaveManager { private set; get; }
         public static int ShNextSaveCollection { private set; get; }
         public static int ShPreviousSaveCollection { private set; get; }
@@ -40,8 +41,9 @@ namespace HobbitSpeedrunTools
             ShAutoResetSigns = int.Parse(data["Shortcuts"]["automatically_reset_signs"]);
             ShRenderOtherTriggers = int.Parse(data["Shortcuts"]["render_other_triggers"]);
             ShInvincibility = int.Parse(data["Shortcuts"]["invincibility"]);
+            ShLockClipwarp = int.Parse(data["Shortcuts"]["lock_clipwarp"]);
 
-            ShResetLevel = int.Parse(data["Shortcuts"]["reset_level"]);
+            ShQuickReload = int.Parse(data["Shortcuts"]["quick_reload"]);
             ShToggleSaveManager = int.Parse(data["Shortcuts"]["toggle_save_manager"]);
             ShNextSaveCollection = int.Parse(data["Shortcuts"]["next_save_collection"]);
             ShPreviousSaveCollection = int.Parse(data["Shortcuts"]["previous_save_collection"]);

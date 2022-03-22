@@ -57,9 +57,14 @@ namespace HobbitSpeedrunTools
                 MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleInvincibility(true));
             });
 
-            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShResetLevel, () =>
+            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShLockClipwarp, () =>
             {
-                MemoryManager.ResetLevel();
+                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleLockClipwarp(true));
+            });
+
+            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShQuickReload, () =>
+            {
+                MemoryManager.QuickReload();
             });
 
             keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShToggleSaveManager, () =>

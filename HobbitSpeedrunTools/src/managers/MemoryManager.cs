@@ -13,8 +13,13 @@ namespace HobbitSpeedrunTools
         public static bool PolyCache { get; set; }
         public static bool AutoResetSigns { get; set; }
         public static bool Invincibility { get; set; }
+        public static bool LockClipwarp { get; set; }
 
         private static readonly Mem mem = new();
+
+        private static float savedWarpPosX;
+        private static float savedWarpPosY;
+        private static float savedWarpPosZ;
 
         // Starts a new thread handling the cheat loop
         public static void InitMemoryManager()
@@ -38,12 +43,20 @@ namespace HobbitSpeedrunTools
 
                     // Write cheats to memory
                     mem.WriteMemory(MemoryAddresses.devMode, "int", DevMode ? "1" : "0");
-                    if (InfiniteJumpAttack) mem.WriteMemory(MemoryAddresses.stamina, "float", "10");
                     mem.WriteMemory(MemoryAddresses.loadTriggers, "int", LoadTriggers ? "1" : "0");
                     mem.WriteMemory(MemoryAddresses.otherTriggers, "int", OtherTriggers ? "1" : "0");
                     mem.WriteMemory(MemoryAddresses.polyCache, "int", PolyCache ? "1" : "0");
                     mem.WriteMemory(MemoryAddresses.invincibility, "int", Invincibility ? "1" : "0");
+
+                    if (InfiniteJumpAttack) mem.WriteMemory(MemoryAddresses.stamina, "float", "10");
                     if (AutoResetSigns) ResetSigns();
+
+                    if (LockClipwarp)
+                    {
+                        mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", savedWarpPosX.ToString());
+                        mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", savedWarpPosY.ToString());
+                        mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", savedWarpPosZ.ToString());
+                    }
                 }
 
                 // Wait for 100ms before repeating
@@ -66,14 +79,23 @@ namespace HobbitSpeedrunTools
         }
 
         // Resets the current level
-        public static void ResetLevel()
+        public static void QuickReload()
         {
-            int currentLevelID = mem.ReadInt(MemoryAddresses.currentLevelID);
-
-            if (currentLevelID >= 0)
+            if (mem.OpenProcess("meridian"))
             {
-                mem.WriteMemory(MemoryAddresses.currentLevelID, "int", (currentLevelID - 1).ToString());
-                mem.WriteMemory(MemoryAddresses.load, "int", "1");
+                mem.WriteMemory(MemoryAddresses.stamina, "float", "10");
+                mem.WriteMemory(MemoryAddresses.bilboState, "int", "27");
+            }
+        }
+
+        // Saves the current clipwarp coordinates to memory to lock them
+        public static void SaveClipwarpCoords()
+        {
+            if (mem.OpenProcess("meridian"))
+            {
+                savedWarpPosX = mem.ReadFloat(MemoryAddresses.warpCoordsX);
+                savedWarpPosY = mem.ReadFloat(MemoryAddresses.warpCoordsY);
+                savedWarpPosZ = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
             }
         }
 
@@ -89,6 +111,7 @@ namespace HobbitSpeedrunTools
             if (PolyCache) cheats.Add("POLY");
             if (AutoResetSigns) cheats.Add("SIGN");
             if (Invincibility) cheats.Add("INV");
+            if (LockClipwarp) cheats.Add("CLIP");
 
             return cheats;
         }

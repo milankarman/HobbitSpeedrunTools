@@ -21,6 +21,13 @@
         public const string memUsage = "0075FBBC";
         public const string memUsageText = "00730FFC";
 
+        public const string warpCoordsX = local + ",5f50";
+        public const string warpCoordsY = local + ",5F54";
+        public const string warpCoordsZ = local + ",5F58";
+
+        public const string bilboState = local + ",8D8";
+        public const string stateTimer = local + ",91C";
+
         public const string load = "00760358";
         public const string currentLevelID = "00762B5C";
         public const string outOfLevelState = "00762B58";
