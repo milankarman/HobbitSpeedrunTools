@@ -4,8 +4,18 @@ namespace HobbitSpeedrunTools.cheats
 {
     public class AutoResetSigns : ToggleCheat
     {
-        public override void OnTick(Mem mem)
+        public new readonly string shortName = "AUTO";
+        public new readonly string shortcutName = "automatically_reset_signs";
+
+        public AutoResetSigns(Mem _mem)
         {
+            mem = _mem;
+        }
+
+        public override void OnTick()
+        {
+            if (mem == null) return;
+
             // Reset the signs if the player loads or dies
             if (mem.ReadInt(MemoryAddresses.loading) == 1 || mem.ReadFloat(MemoryAddresses.health) <= 0)
             {

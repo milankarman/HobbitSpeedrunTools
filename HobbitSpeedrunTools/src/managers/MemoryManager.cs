@@ -7,19 +7,21 @@ namespace HobbitSpeedrunTools
 {
     public static class MemoryManager
     {
-        static List<ToggleCheat> toggleCheats = new()
+        public static readonly Mem mem = new();
+
+        public static ToggleCheat[] toggleCheats =
         {
-            new AutoResetSigns(),
-            new DevMode(),
-            new InfiniteJumpAttack(),
-            new Invincibility(),
-            new LockClipwarp(),
-            new RenderLoadTriggers(),
-            new RenderOtherTriggers(),
-            new RenderPolyCache(),
+            new AutoResetSigns(mem),
+            new DevMode(mem),
+            new InfiniteJumpAttack(mem),
+            new Invincibility(mem),
+            new LockClipwarp(mem),
+            new RenderLoadTriggers(mem),
+            new RenderOtherTriggers(mem),
+            new RenderPolyCache(mem),
         };
 
-        private static readonly Mem mem = new();
+
 
         // Starts a new thread handling the cheat loop
         public static void InitMemoryManager()
@@ -59,20 +61,15 @@ namespace HobbitSpeedrunTools
             }
         }
 
-
         // Gets a list of active cheats with short names
         public static List<string> GetCheatList()
         {
             List<string> cheats = new();
 
-            //if (DevMode) cheats.Add("DEV");
-            //if (InfiniteJumpAttack) cheats.Add("IJA");
-            //if (LoadTriggers) cheats.Add("LTRIG");
-            //if (OtherTriggers) cheats.Add("OTRIG");
-            //if (PolyCache) cheats.Add("POLY");
-            //if (AutoResetSigns) cheats.Add("SIGN");
-            //if (Invincibility) cheats.Add("INV");
-            //if (LockClipwarp) cheats.Add("CLIP");
+            foreach(ToggleCheat cheat in toggleCheats)
+            {
+                if (cheat.enabled) cheats.Add(cheat.shortName ?? "NONAME");
+            }
 
             return cheats;
         }

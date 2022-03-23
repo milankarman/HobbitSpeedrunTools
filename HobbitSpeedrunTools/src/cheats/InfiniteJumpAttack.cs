@@ -4,11 +4,19 @@ namespace HobbitSpeedrunTools.cheats
 {
     public class InfiniteJumpAttack : ToggleCheat
     {
-        public override void OnTick(Mem mem)
+        public new readonly string shortName = "IJA";
+        public new readonly string shortcutName = "infinite_jump_attack";
+
+        public InfiniteJumpAttack(Mem _mem)
+        {
+            mem = _mem;
+        }
+
+        public override void OnTick()
         {
             if (enabled)
             {
-                mem.WriteMemory(MemoryAddresses.stamina, "int", "10");
+                mem?.WriteMemory(MemoryAddresses.stamina, "int", "10");
             }
         }
     }

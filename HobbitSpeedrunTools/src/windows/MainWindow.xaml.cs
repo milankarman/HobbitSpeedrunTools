@@ -147,50 +147,49 @@ namespace HobbitSpeedrunTools
         public void ToggleDevMode(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxDevMode.IsChecked = !cbxDevMode.IsChecked;
-            MemoryManager.DevMode = cbxDevMode.IsChecked ?? false;
+            //MemoryManager.DevMode = cbxDevMode.IsChecked ?? false;
         }
 
         public void ToggleInfiniteJumpAttacks(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxInfiniteJumpAttack.IsChecked = !cbxInfiniteJumpAttack.IsChecked;
-            MemoryManager.InfiniteJumpAttack = cbxInfiniteJumpAttack.IsChecked ?? false;
+            //MemoryManager.InfiniteJumpAttack = cbxInfiniteJumpAttack.IsChecked ?? false;
         }
 
         public void ToggleRenderLoadTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderLoadTriggers.IsChecked = !cbxRenderLoadTriggers.IsChecked;
-            MemoryManager.LoadTriggers = cbxRenderLoadTriggers.IsChecked ?? false;
+            //MemoryManager.LoadTriggers = cbxRenderLoadTriggers.IsChecked ?? false;
         }
 
         public void ToggleRenderOtherTriggers(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderOtherTriggers.IsChecked = !cbxRenderOtherTriggers.IsChecked;
-            MemoryManager.OtherTriggers = cbxRenderOtherTriggers.IsChecked ?? false;
+            //MemoryManager.OtherTriggers = cbxRenderOtherTriggers.IsChecked ?? false;
         }
 
         public void TogglePolycache(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxRenderPolycache.IsChecked = !cbxRenderPolycache.IsChecked;
-            MemoryManager.PolyCache = cbxRenderPolycache.IsChecked ?? false;
+            //MemoryManager.PolyCache = cbxRenderPolycache.IsChecked ?? false;
         }
 
         public void ToggleAutoResetSigns(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxAutoResetSigns.IsChecked = !cbxAutoResetSigns.IsChecked;
-            MemoryManager.AutoResetSigns = cbxAutoResetSigns.IsChecked ?? false;
+            //MemoryManager.AutoResetSigns = cbxAutoResetSigns.IsChecked ?? false;
         }
 
         public void ToggleInvincibility(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxInvincibility.IsChecked = !cbxInvincibility.IsChecked;
-            MemoryManager.Invincibility = cbxInvincibility.IsChecked ?? false;
+            //MemoryManager.Invincibility = cbxInvincibility.IsChecked ?? false;
         }
 
         public void ToggleLockClipwarp(bool changeCheckbox = false)
         {
             if (changeCheckbox) cbxLockWarp.IsChecked = !cbxLockWarp.IsChecked;
-            MemoryManager.LockClipwarp = cbxLockWarp.IsChecked ?? false;
-            MemoryManager.SaveClipwarpCoords();
+            //MemoryManager.LockClipwarp = cbxLockWarp.IsChecked ?? false;
         }
 
         // Save manager keyboard navigation

@@ -4,9 +4,17 @@ namespace HobbitSpeedrunTools.cheats
 {
     public class Invincibility : ToggleCheat
     {
-        public override void OnTick(Mem mem)
+        public new readonly string shortName = "INV";
+        public new readonly string shortcutName = "invincibility";
+
+        public Invincibility(Mem _mem)
         {
-            mem.WriteMemory(MemoryAddresses.invincibility, "int", enabled ? "1" : "0");
+            mem = _mem;
+        }
+
+        public override void OnTick()
+        {
+            mem?.WriteMemory(MemoryAddresses.invincibility, "int", enabled ? "1" : "0");
         }
     }
 }
