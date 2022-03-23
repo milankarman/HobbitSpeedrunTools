@@ -1,6 +1,6 @@
 ﻿using Memory;
 
-namespace HobbitSpeedrunTools.Cheats
+namespace HobbitSpeedrunTools
 {
     public class DevMode : ToggleCheat
     {
