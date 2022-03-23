@@ -20,7 +20,7 @@ namespace HobbitSpeedrunTools
             // Attempt to intialize the cheat manager
             try
             {
-                MemoryManager.InitMemoryManager();
+                CheatManager.InitCheatManager();
             }
             catch (Exception ex)
             {
@@ -146,8 +146,8 @@ namespace HobbitSpeedrunTools
         // Toggles for every cheat checkbox
         public void ToggleDevMode(bool changeCheckbox = false)
         {
-            if (changeCheckbox) cbxDevMode.IsChecked = !cbxDevMode.IsChecked;
-            //MemoryManager.DevMode = cbxDevMode.IsChecked ?? false;
+            CheatManager.ToggleCheat(CHEAT_ID.DEV_MODE);
+            cbxDevMode.IsChecked = CheatManager.cheatList[1].Enabled;
         }
 
         public void ToggleInfiniteJumpAttacks(bool changeCheckbox = false)
@@ -233,7 +233,11 @@ namespace HobbitSpeedrunTools
         }
 
         // Binds the checkbox click events to the right toggles
-        private void cbxDevMode_Click(object sender, RoutedEventArgs e) => ToggleDevMode();
+        private void cbxDevMode_Click(object sender, RoutedEventArgs e)
+        {
+            CheatManager.ToggleCheat(CHEAT_ID.DEV_MODE);
+            cbxDevMode.IsChecked = CheatManager.cheatList[1].Enabled;
+        }
 
         private void cbxInfiniteJumpAttack_Click(object sender, RoutedEventArgs e) => ToggleInfiniteJumpAttacks();
 

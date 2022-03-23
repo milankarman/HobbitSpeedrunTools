@@ -10,7 +10,7 @@ namespace HobbitSpeedrunTools
         {
             string status = $"HST {About.version}";
 
-            List<string> cheats = MemoryManager.GetCheatList();
+            List<string> cheats = CheatManager.GetCheatList();
 
             if (cheats.Count > 0)
             {

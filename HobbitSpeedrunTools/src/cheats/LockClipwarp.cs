@@ -1,11 +1,12 @@
 ﻿using Memory;
 
-namespace HobbitSpeedrunTools.cheats
+namespace HobbitSpeedrunTools.Cheats
 {
     public class LockClipwarp : ToggleCheat
     {
-        public new readonly string shortName = "LOCK";
-        public new readonly string shortcutName = "lock_clipwarp";
+        public override CHEAT_ID ID { get; set; } = CHEAT_ID.LOCK_CLIPWARP;
+        public override string ShortName { get; set; } = "CLIP";
+        public override string ShortcutName { get; set; } = "lock_clipwarp";
 
         private float savedWarpPosX;
         private float savedWarpPosY;
@@ -29,9 +30,8 @@ namespace HobbitSpeedrunTools.cheats
 
         public override void OnTick()
         {
-            if (enabled && mem != null)
+            if (Enabled && mem != null)
             {
-                mem.WriteMemory(MemoryAddresses.loadTriggers, "int", enabled ? "1" : "0");
                 mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", savedWarpPosX.ToString());
                 mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", savedWarpPosY.ToString());
                 mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", savedWarpPosZ.ToString());

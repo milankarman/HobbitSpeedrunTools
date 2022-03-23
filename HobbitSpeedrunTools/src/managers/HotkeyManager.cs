@@ -1,6 +1,6 @@
 ﻿using System;
 using NonInvasiveKeyboardHookLibrary;
-using HobbitSpeedrunTools.cheats;
+using HobbitSpeedrunTools.Cheats;
 
 namespace HobbitSpeedrunTools
 {
@@ -13,12 +13,11 @@ namespace HobbitSpeedrunTools
         {
             foreach (ToggleCheat cheat in cheats)
             {
-                if (cheat.shortcutName != null)
+                if (cheat.ShortcutName != null)
                 {
-                    keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.GetShortcut(cheat.shortcutName), () =>
+                    keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.GetShortcut(cheat.ShortcutName), () =>
                     {
-                        if (cheat.enabled) cheat.OnEnable();
-                        else cheat.OnDisable();
+                        CheatManager.ToggleCheat(cheat.ID);
                     });
                 }
             }
@@ -40,7 +39,7 @@ namespace HobbitSpeedrunTools
 
             keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShQuickReload, () =>
             {
-                MemoryManager.QuickReload();
+                CheatManager.QuickReload();
             });
 
             keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShToggleSaveManager, () =>

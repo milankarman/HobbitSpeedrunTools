@@ -1,11 +1,12 @@
 ﻿using Memory;
 
-namespace HobbitSpeedrunTools.cheats
+namespace HobbitSpeedrunTools.Cheats
 {
     public class AutoResetSigns : ToggleCheat
     {
-        public new readonly string shortName = "AUTO";
-        public new readonly string shortcutName = "automatically_reset_signs";
+        public override CHEAT_ID ID { get; set; } = CHEAT_ID.AUTO_RESET_SIGNS;
+        public override string ShortName { get; set; } = "AUTO";
+        public override string ShortcutName { get; set; } = "automatically_reset_signs";
 
         public AutoResetSigns(Mem _mem)
         {

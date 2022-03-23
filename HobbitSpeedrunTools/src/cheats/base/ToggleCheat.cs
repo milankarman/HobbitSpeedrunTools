@@ -1,24 +1,25 @@
 ﻿using Memory;
 
-namespace HobbitSpeedrunTools.cheats
+namespace HobbitSpeedrunTools.Cheats
 {
     public abstract class ToggleCheat
     {
         public Mem? mem;
 
-        public string? shortName;
-        public string? shortcutName;
-        public int hotkey;
-        public bool enabled;
+        public abstract CHEAT_ID ID { get; set; }
+        public abstract string ShortName { get; set; }
+        public abstract string ShortcutName { get; set; }
+
+        public bool Enabled { get; set; }
 
         public virtual void OnEnable()
         {
-            enabled = true;
+            Enabled = true;
         }
 
         public virtual void OnDisable()
         {
-            enabled = false;
+            Enabled = false;
         }
 
         public virtual void OnTick() { }

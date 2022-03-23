@@ -1,11 +1,12 @@
 ﻿using Memory;
 
-namespace HobbitSpeedrunTools.cheats
+namespace HobbitSpeedrunTools.Cheats
 {
     public class DevMode : ToggleCheat
     {
-        public new readonly string shortName = "DEV";
-        public new readonly string shortcutName = "dev_mode";
+        public override CHEAT_ID ID { get; set; } = CHEAT_ID.DEV_MODE;
+        public override string ShortName { get; set; } = "DEV";
+        public override string ShortcutName { get; set; } = "dev_mode";
 
         public DevMode(Mem _mem)
         {
@@ -14,7 +15,7 @@ namespace HobbitSpeedrunTools.cheats
 
         public override void OnTick()
         {
-            mem?.WriteMemory(MemoryAddresses.devMode, "int", enabled ? "1" : "0");
+            mem?.WriteMemory(MemoryAddresses.devMode, "int", Enabled ? "1" : "0");
         }
     }
 }

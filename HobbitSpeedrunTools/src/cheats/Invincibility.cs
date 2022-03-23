@@ -1,11 +1,12 @@
 ﻿using Memory;
 
-namespace HobbitSpeedrunTools.cheats
+namespace HobbitSpeedrunTools.Cheats
 {
     public class Invincibility : ToggleCheat
     {
-        public new readonly string shortName = "INV";
-        public new readonly string shortcutName = "invincibility";
+        public override CHEAT_ID ID { get; set; } = CHEAT_ID.INVINCIBILITY;
+        public override string ShortName { get; set; } = "INV";
+        public override string ShortcutName { get; set; } = "invincibility";
 
         public Invincibility(Mem _mem)
         {
@@ -14,7 +15,7 @@ namespace HobbitSpeedrunTools.cheats
 
         public override void OnTick()
         {
-            mem?.WriteMemory(MemoryAddresses.invincibility, "int", enabled ? "1" : "0");
+            mem?.WriteMemory(MemoryAddresses.invincibility, "int", Enabled ? "1" : "0");
         }
     }
 }

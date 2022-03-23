@@ -1,11 +1,12 @@
 ﻿using Memory;
 
-namespace HobbitSpeedrunTools.cheats
+namespace HobbitSpeedrunTools.Cheats
 {
     public class RenderLoadTriggers : ToggleCheat
     {
-        public new readonly string shortName = "LTRIG";
-        public new readonly string shortcutName = "render_load_triggers";
+        public override CHEAT_ID ID { get; set; } = CHEAT_ID.RENDER_LOAD_TRIGGERS;
+        public override string ShortName { get; set; } = "LTRIG";
+        public override string ShortcutName { get; set; } = "render_load_triggers";
 
         public RenderLoadTriggers(Mem _mem)
         {
@@ -14,7 +15,7 @@ namespace HobbitSpeedrunTools.cheats
 
         public override void OnTick()
         {
-            mem?.WriteMemory(MemoryAddresses.loadTriggers, "int", enabled ? "1" : "0");
+            mem?.WriteMemory(MemoryAddresses.loadTriggers, "int", Enabled ? "1" : "0");
         }
     }
 }
