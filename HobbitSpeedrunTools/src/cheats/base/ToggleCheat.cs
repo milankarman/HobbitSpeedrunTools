@@ -1,4 +1,5 @@
-﻿using Memory;
+﻿using System;
+using Memory;
 
 namespace HobbitSpeedrunTools
 {
@@ -10,17 +11,26 @@ namespace HobbitSpeedrunTools
         public abstract string ShortName { get; set; }
         public abstract string ShortcutName { get; set; }
 
+        public Action? onEnable;
+        public Action? onDisable;
+
         public bool Enabled { get; set; }
 
-        public virtual void OnEnable()
+        public virtual void Enable()
         {
             Enabled = true;
+            onEnable?.Invoke();
         }
 
-        public virtual void OnDisable()
+        public virtual void Disable()
         {
-            Enabled = false;
+            Enabled = true;
+            onEnable?.Invoke();
         }
+
+        public virtual void OnEnable() { }
+
+        public virtual void OnDisable() { }
 
         public virtual void OnTick() { }
     }

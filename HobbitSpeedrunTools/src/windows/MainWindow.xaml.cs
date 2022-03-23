@@ -39,6 +39,8 @@ namespace HobbitSpeedrunTools
                 throw;
             }
 
+            CheatManager.GetCheat(CHEAT_ID.DEV_MODE).onEnable += () => cbxDevMode.IsChecked = true;
+
             HotkeyManager.InitHotkeyManager();
         }
 
