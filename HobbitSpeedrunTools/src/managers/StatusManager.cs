@@ -27,9 +27,9 @@ namespace HobbitSpeedrunTools
                 }
             }
 
-            if (SaveManager.IsEnabled)
+            if (SaveManager.SelectedSaveCollectionIndex > 0)
             {
-                status += $"\nSave: {SaveManager.SelectedSaveCollectionIndex + 1}-{SaveManager.SelectedSaveIndex + 1}";
+                status += $"\nSave: {SaveManager.SelectedSaveCollectionIndex}-{SaveManager.SelectedSaveIndex + 1}";
             }
 
             status = status.PadRight(65, ' ')[..65];

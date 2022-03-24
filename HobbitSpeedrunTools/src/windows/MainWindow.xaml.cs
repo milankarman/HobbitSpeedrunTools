@@ -176,7 +176,7 @@ namespace HobbitSpeedrunTools
         // Save manager keyboard navigation
         public void NextSaveCollection()
         {
-            if (cbxSaveCollections.SelectedIndex < cbxSaves.Items.Count) cbxSaveCollections.SelectedIndex += 1;
+            if (cbxSaveCollections.SelectedIndex < cbxSaveCollections.Items.Count) cbxSaveCollections.SelectedIndex += 1;
         }
 
         public void PreviousSaveCollection()
@@ -192,11 +192,6 @@ namespace HobbitSpeedrunTools
         public void PreviousSave()
         {
             if (cbxSaves.SelectedIndex > 0) cbxSaves.SelectedIndex -= 1;
-        }
-
-        public void ToggleSaveManager()
-        {
-            // cbxManageSaves.IsChecked = !cbxManageSaves.IsChecked;
         }
 
         // Ensures that proper cleanup will be done before closing the program

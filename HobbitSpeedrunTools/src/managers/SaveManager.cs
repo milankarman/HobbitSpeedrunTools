@@ -11,8 +11,6 @@ namespace HobbitSpeedrunTools
         public static int SelectedSaveCollectionIndex { get; set; }
         public static int SelectedSaveIndex { get; set; }
 
-        public static bool IsEnabled { get; set; }
-
         private static readonly string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
         private static readonly string applicationSaveDir = Path.Join(".", "save-collections");
         private static string backupDir = "";
@@ -137,8 +135,7 @@ namespace HobbitSpeedrunTools
             try
             {
                 // Delete copied save manager saves
-                string[] directoryFiles = Directory.GetFiles(hobbitSaveDir, "*.hobbit");
-                foreach (string directoryFile in directoryFiles)
+                foreach (string directoryFile in Directory.GetFiles(hobbitSaveDir))
                 {
                    File.Delete(directoryFile);
                 }

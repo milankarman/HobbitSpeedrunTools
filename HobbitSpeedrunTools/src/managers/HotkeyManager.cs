@@ -43,9 +43,24 @@ namespace HobbitSpeedrunTools
 
             BindCheatShortcuts();
 
-            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShToggleSaveManager, () =>
+            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShNextSaveCollection, () =>
             {
-                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.ToggleSaveManager());
+                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.NextSaveCollection());
+            });
+
+            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShPreviousSaveCollection, () =>
+            {
+                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.PreviousSaveCollection());
+            });
+
+            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShNextSave, () =>
+            {
+                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.NextSave());
+            });
+
+            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShPreviousSave, () =>
+            {
+                MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.PreviousSave());
             });
         }
     }
