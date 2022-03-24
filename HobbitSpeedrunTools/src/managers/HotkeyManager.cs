@@ -12,11 +12,11 @@ namespace HobbitSpeedrunTools
         {
             foreach (ToggleCheat cheat in cheats)
             {
-                if (cheat.ShortcutName != null)
+                if (!string.IsNullOrEmpty(cheat.ShortcutName))
                 {
                     keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.GetShortcut(cheat.ShortcutName), () =>
                     {
-                        cheat.Enabled = !cheat.Enabled;
+                        cheat.Toggle();
                     });
                 }
             }
@@ -35,6 +35,8 @@ namespace HobbitSpeedrunTools
                 "win" => ModifierKeys.WindowsKey,
                 _ => throw new Exception("Invalid modifier key"),
             };
+
+            BindCheatShortcuts(CheatManager.GetCheats());
 
             keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShQuickReload, () =>
             {

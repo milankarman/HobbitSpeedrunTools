@@ -24,8 +24,26 @@ namespace HobbitSpeedrunTools
 
         public virtual void Disable()
         {
-            Enabled = true;
-            onEnable?.Invoke();
+            Enabled = false;
+            onDisable?.Invoke();
+        }
+
+        public virtual void SetActive(bool active)
+        {
+            if (active)
+            {
+                Enable();
+            }
+            if (!active)
+            {
+                Disable();
+            }
+        }
+
+        public virtual void Toggle()
+        {
+            if (!Enabled) Enable();
+            else Disable();
         }
 
         public virtual void OnEnable() { }

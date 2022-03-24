@@ -42,6 +42,8 @@ namespace HobbitSpeedrunTools
             return null;
         }
 
+        public static ToggleCheat[] GetCheats() => cheatList;
+
         // Starts a new thread handling the cheat loop
         public static void InitCheatManager()
         {
@@ -50,7 +52,7 @@ namespace HobbitSpeedrunTools
             cheatLoopThread.Start();
         }
 
-        // Repeadetly checks which cheats should be enabled and handles automatic cheats
+        // Continuously checks which cheats should be enabled and handles automatic cheats
         private static void CheatLoop()
         {
             while (true)
@@ -58,6 +60,9 @@ namespace HobbitSpeedrunTools
                 // Attempt to hook to the game's process
                 if (mem.OpenProcess("meridian"))
                 {
+                    mem.WriteMemory(MemoryAddresses.memUsage, "int", "1");
+                    mem.WriteMemory(MemoryAddresses.memUsageText, "string", StatusManager.GetStatusText());
+
                     // Execute every toggled cheat
                     foreach (ToggleCheat cheat in cheatList)
                     {
