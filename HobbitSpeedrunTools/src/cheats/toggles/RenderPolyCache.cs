@@ -4,7 +4,7 @@ namespace HobbitSpeedrunTools
 {
     public class RenderPolyCache : ToggleCheat
     {
-        public override CHEAT_ID ID { get; set; } = CHEAT_ID.RENDER_POLY_CACHE;
+        public override TOGGLE_CHEAT_ID ID { get; set; } = TOGGLE_CHEAT_ID.RENDER_POLY_CACHE;
         public override string Name { get; set; } = "Render Polycache";
         public override string ShortName { get; set; } = "POLY";
         public override string ShortcutName { get; set; } = "render_poly_cache";

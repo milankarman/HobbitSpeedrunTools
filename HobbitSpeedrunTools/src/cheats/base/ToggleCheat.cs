@@ -7,7 +7,7 @@ namespace HobbitSpeedrunTools
     {
         public Mem? mem;
 
-        public abstract CHEAT_ID ID { get; set; }
+        public abstract TOGGLE_CHEAT_ID ID { get; set; }
         public abstract string Name { get; set; }
         public abstract string ShortName { get; set; }
         public abstract string ShortcutName { get; set; }

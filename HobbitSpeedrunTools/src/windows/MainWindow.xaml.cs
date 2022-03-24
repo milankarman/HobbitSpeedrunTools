@@ -40,7 +40,7 @@ namespace HobbitSpeedrunTools
                 throw;
             }
 
-            itcCheats.ItemsSource = CheatManager.GetCheats();
+            itcCheats.ItemsSource = CheatManager.GetToggleCheats();
             HotkeyManager.InitHotkeyManager();
         }
 
@@ -205,47 +205,6 @@ namespace HobbitSpeedrunTools
             }
 
             base.OnClosing(e);
-        }
-
-        // Binds the checkbox click events to the right toggles
-        private void cbxDevMode_Click(object sender, RoutedEventArgs e)
-        {
-            //CheatManager.GetCheat(CHEAT_ID.DEV_MODE)?.SetActive(cbxDevMode.IsChecked ?? false);
-        }
-
-        private void cbxInfiniteJumpAttack_Click(object sender, RoutedEventArgs e)
-        {
-            //CheatManager.GetCheat(CHEAT_ID.INFINITE_JUMP_ATTACKS)?.SetActive(cbxInfiniteJumpAttack.IsChecked ?? false);
-        }
-
-        private void cbxRenderLoadTriggers_Click(object sender, RoutedEventArgs e)
-        {
-            //CheatManager.GetCheat(CHEAT_ID.RENDER_LOAD_TRIGGERS)?.SetActive(cbxRenderLoadTriggers.IsChecked ?? false);
-        }
-
-        private void cbxRenderOtherTriggers_Click(object sender, RoutedEventArgs e)
-        {
-            //CheatManager.GetCheat(CHEAT_ID.RENDER_OTHER_TRIGGERS)?.SetActive(cbxRenderOtherTriggers.IsChecked ?? false);
-        }
-
-        private void cbxRenderPolycache_Click(object sender, RoutedEventArgs e)
-        {
-            //CheatManager.GetCheat(CHEAT_ID.RENDER_POLY_CACHE)?.SetActive(cbxRenderPolycache.IsChecked ?? false);
-        }
-
-        private void cbxAutoResetSigns_Click(object sender, RoutedEventArgs e)
-        {
-            //CheatManager.GetCheat(CHEAT_ID.AUTO_RESET_SIGNS)?.SetActive(cbxAutoResetSigns.IsChecked ?? false);
-        }
-
-        private void cbxInvincibility_Click(object sender, RoutedEventArgs e)
-        {
-            //CheatManager.GetCheat(CHEAT_ID.INVINCIBILITY)?.SetActive(cbxInvincibility.IsChecked ?? false);
-        }
-
-        private void cbxLockWarp_Click(object sender, RoutedEventArgs e)
-        {
-            //CheatManager.GetCheat(CHEAT_ID.LOCK_CLIPWARP)?.SetActive(cbxLockWarp.IsChecked ?? false);
         }
 
         // Opens the config file in notepad

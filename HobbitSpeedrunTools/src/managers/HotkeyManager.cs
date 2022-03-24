@@ -8,16 +8,21 @@ namespace HobbitSpeedrunTools
         private static readonly KeyboardHookManager keyboardHookManager = new();
         private static ModifierKeys modifierKey;
 
-        public static void BindCheatShortcuts(ToggleCheat[] cheats)
+        public static void BindCheatShortcuts()
         {
-            foreach (ToggleCheat cheat in cheats)
+            foreach (ToggleCheat cheat in CheatManager.GetToggleCheats())
             {
                 if (!string.IsNullOrEmpty(cheat.ShortcutName))
                 {
-                    keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.GetShortcut(cheat.ShortcutName), () =>
-                    {
-                        cheat.Toggle();
-                    });
+                    keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.GetShortcut(cheat.ShortcutName), () => cheat.Toggle());
+                }
+            }
+
+            foreach (ActionCheat cheat in CheatManager.GetActionCheats())
+            {
+                if (!string.IsNullOrEmpty(cheat.ShortcutName))
+                {
+                    keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.GetShortcut(cheat.ShortcutName), () => cheat.Start());
                 }
             }
         }
@@ -36,12 +41,7 @@ namespace HobbitSpeedrunTools
                 _ => throw new Exception("Invalid modifier key"),
             };
 
-            BindCheatShortcuts(CheatManager.GetCheats());
-
-            keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShQuickReload, () =>
-            {
-                CheatManager.QuickReload();
-            });
+            BindCheatShortcuts();
 
             keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShToggleSaveManager, () =>
             {

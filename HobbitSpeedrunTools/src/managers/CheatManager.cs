@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace HobbitSpeedrunTools
 {
-    public enum CHEAT_ID
+    public enum TOGGLE_CHEAT_ID
     {
         AUTO_RESET_SIGNS,
         DEV_MODE,
@@ -16,11 +16,16 @@ namespace HobbitSpeedrunTools
         RENDER_POLY_CACHE,
     }
 
+    public enum ACTION_CHEAT_ID
+    {
+        QUICK_RESET,
+    }
+
     public static class CheatManager
     {
         public static readonly Mem mem = new();
 
-        public static readonly ToggleCheat[] cheatList =
+        public static readonly ToggleCheat[] toggleCheatList =
         {
             new DevMode(mem),
             new InfiniteJumpAttack(mem),
@@ -32,17 +37,10 @@ namespace HobbitSpeedrunTools
             new LockClipwarp(mem),
         };
 
-        public static ToggleCheat? GetCheat(CHEAT_ID id)
+        public static readonly ActionCheat[] actionCheatList =
         {
-            foreach (ToggleCheat cheat in cheatList)
-            {
-                if (cheat.ID == id) return cheat;
-            }
-
-            return null;
-        }
-
-        public static ToggleCheat[] GetCheats() => cheatList;
+            new QuickReset(mem),
+        };
 
         // Starts a new thread handling the cheat loop
         public static void InitCheatManager()
@@ -64,7 +62,7 @@ namespace HobbitSpeedrunTools
                     mem.WriteMemory(MemoryAddresses.memUsageText, "string", StatusManager.GetStatusText());
 
                     // Execute every toggled cheat
-                    foreach (ToggleCheat cheat in cheatList)
+                    foreach (ToggleCheat cheat in toggleCheatList)
                     {
                         cheat.OnTick();
                     }
@@ -75,22 +73,36 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        // Resets the current level
-        public static void QuickReload()
+        public static ToggleCheat? GetCheat(TOGGLE_CHEAT_ID id)
         {
-            if (mem.OpenProcess("meridian"))
+            foreach (ToggleCheat cheat in toggleCheatList)
             {
-                mem.WriteMemory(MemoryAddresses.stamina, "float", "10");
-                mem.WriteMemory(MemoryAddresses.bilboState, "int", "27");
+                if (cheat.ID == id) return cheat;
             }
+
+            return null;
         }
 
+        public static ActionCheat? GetCheat(ACTION_CHEAT_ID id)
+        {
+            foreach (ActionCheat cheat in actionCheatList)
+            {
+                if (cheat.ID == id) return cheat;
+            }
+
+            return null;
+        }
+
+        public static ToggleCheat[] GetToggleCheats() => toggleCheatList;
+
+        public static ActionCheat[] GetActionCheats() => actionCheatList;
+
         // Gets a list of active cheats with short names
-        public static List<string> GetCheatList()
+        public static List<string> GetToggleCheatList()
         {
             List<string> cheats = new();
 
-            foreach (ToggleCheat cheat in cheatList)
+            foreach (ToggleCheat cheat in toggleCheatList)
             {
                 if (cheat.Enabled) cheats.Add(cheat.ShortName ?? "NONAME");
             }

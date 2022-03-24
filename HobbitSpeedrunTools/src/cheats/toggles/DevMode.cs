@@ -4,7 +4,7 @@ namespace HobbitSpeedrunTools
 {
     public class DevMode : ToggleCheat
     {
-        public override CHEAT_ID ID { get; set; } = CHEAT_ID.DEV_MODE;
+        public override TOGGLE_CHEAT_ID ID { get; set; } = TOGGLE_CHEAT_ID.DEV_MODE;
         public override string Name { get; set; } = "Developer Mode";
         public override string ShortName { get; set; } = "DEV";
         public override string ShortcutName { get; set; } = "dev_mode";
