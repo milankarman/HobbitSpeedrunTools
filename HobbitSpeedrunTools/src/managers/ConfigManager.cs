@@ -10,8 +10,6 @@ namespace HobbitSpeedrunTools
 
         public static string? ModifierKey { private set; get; }
 
-        public static int ShQuickReload { private set; get; }
-        public static int ShToggleSaveManager { private set; get; }
         public static int ShNextSaveCollection { private set; get; }
         public static int ShPreviousSaveCollection { private set; get; }
         public static int ShNextSave { private set; get; }
@@ -28,7 +26,6 @@ namespace HobbitSpeedrunTools
 
             ModifierKey = data["Shortcuts"]["modifier_key"];
 
-            ShToggleSaveManager = int.Parse(data["Shortcuts"]["toggle_save_manager"]);
             ShNextSaveCollection = int.Parse(data["Shortcuts"]["next_save_collection"]);
             ShPreviousSaveCollection = int.Parse(data["Shortcuts"]["previous_save_collection"]);
             ShNextSave = int.Parse(data["Shortcuts"]["next_save"]);

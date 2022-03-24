@@ -4,10 +4,10 @@ namespace HobbitSpeedrunTools
 {
     public class RenderOtherTriggers : ToggleCheat
     {
-        public override TOGGLE_CHEAT_ID ID { get; set; } = TOGGLE_CHEAT_ID.RENDER_OTHER_TRIGGERS;
         public override string Name { get; set; } = "Render Other Triggers";
         public override string ShortName { get; set; } = "OTRIG";
         public override string ShortcutName { get; set; } = "render_other_triggers";
+        public override int Index { get; set; } = 3;
 
         public RenderOtherTriggers(Mem _mem)
         {

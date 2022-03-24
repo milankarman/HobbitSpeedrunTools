@@ -69,9 +69,15 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="1" Grid.Column="0" Content="Bilbo Position:"/>
-                    <Label Grid.Row="1" Grid.Column="1" x:Name="txtBilboPos" Content="X:0, Y:0, Z:0"/>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="txtBilboPos" Content="X:0 Y:0 Z:0" HorizontalAlignment="Right"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Bilbo Rotation:"/>
+                    <Label Grid.Row="2" Grid.Column="1" x:Name="txtBilboRotation" Content="360" HorizontalAlignment="Right"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="Clipwarp Position:"/>
+                    <Label Grid.Row="3" Grid.Column="1" x:Name="txtClipwarpPos" Content="X:0 Y:0 Z:0" HorizontalAlignment="Right"/>
                 </Grid>
             </GroupBox>
         </Grid>

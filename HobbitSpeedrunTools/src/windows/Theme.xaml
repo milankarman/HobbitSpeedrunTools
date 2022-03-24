@@ -108,7 +108,7 @@
         <Setter Property="FontFamily" Value="{StaticResource text}" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Foreground" Value="#FFFFFF" />
-        <Setter Property="Padding" Value="0,5,0,5" />
+        <Setter Property="Padding" Value="0,2,0,2" />
     </Style>
 
     <Style TargetType="GroupBox">
