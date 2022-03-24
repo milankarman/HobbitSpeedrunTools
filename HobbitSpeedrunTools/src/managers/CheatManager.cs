@@ -22,14 +22,14 @@ namespace HobbitSpeedrunTools
 
         public static readonly ToggleCheat[] cheatList =
         {
-            new AutoResetSigns(mem),
             new DevMode(mem),
             new InfiniteJumpAttack(mem),
-            new Invincibility(mem),
-            new LockClipwarp(mem),
             new RenderLoadTriggers(mem),
             new RenderOtherTriggers(mem),
             new RenderPolyCache(mem),
+            new AutoResetSigns(mem),
+            new Invincibility(mem),
+            new LockClipwarp(mem),
         };
 
         public static ToggleCheat? GetCheat(CHEAT_ID id)

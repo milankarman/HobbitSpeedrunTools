@@ -5,21 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="HobbitSpeedrunTools" Height="320" Width="600" MinHeight="320" MinWidth="600" ResizeMode="CanResizeWithGrip" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SizeToContent="Manual">
+    <Window.Resources>
+        <DataTemplate x:Key="CheatToggleTemplate">
+            <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded"/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid Height="auto" Margin="10,0,10,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="210"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid>
-            <Label x:Name="lblCheats" Content="Cheats" Width="auto" VerticalAlignment="Top" FontSize="22" HorizontalContentAlignment="Left" FontFamily="{StaticResource header}"/>
-            <CheckBox x:Name="cbxDevMode" Content="Developer Mode" HorizontalAlignment="Stretch" Margin="0,50,0,0" VerticalAlignment="Top" Click="cbxDevMode_Click"/>
-            <CheckBox x:Name="cbxInfiniteJumpAttack" Content="Infinite Jumpattacks" HorizontalAlignment="Stretch" Margin="0,75,0,0" VerticalAlignment="Top" Click="cbxInfiniteJumpAttack_Click"/>
-            <CheckBox x:Name="cbxRenderLoadTriggers" Content="Render Load Triggers" HorizontalAlignment="Stretch" Margin="0,100,0,0" VerticalAlignment="Top" Click="cbxRenderLoadTriggers_Click"/>
-            <CheckBox x:Name="cbxRenderOtherTriggers" Content="Render Other Triggers" HorizontalAlignment="Stretch" Margin="0, 125,0,0" VerticalAlignment="Top" Click="cbxRenderOtherTriggers_Click"/>
-            <CheckBox x:Name="cbxRenderPolycache" Content="Render Polycache" HorizontalAlignment="Stretch" Margin="0, 150,0,0" VerticalAlignment="Top" Click="cbxRenderPolycache_Click"/>
-            <CheckBox x:Name="cbxAutoResetSigns" Content="Auto Reset Signs" HorizontalAlignment="Stretch" Margin="0, 175,0,0" VerticalAlignment="Top" Click="cbxAutoResetSigns_Click"/>
-            <CheckBox x:Name="cbxInvincibility" Content="Invincibility" Margin="0,200,0,0" VerticalAlignment="Top" Click="cbxAutoResetSigns_Click"/>
-            <CheckBox x:Name="cbxLockWarp" Content="Lock Clipwarp Position" Margin="0,225,0,0" VerticalAlignment="Top" Click="cbxLockWarp_Click"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" x:Name="lblCheats" Content="Cheats" Width="auto" VerticalAlignment="Top" FontSize="22" HorizontalContentAlignment="Left" FontFamily="{StaticResource header}"/>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="0,0,0,5">
+                <ItemsControl x:Name="itcCheats" Margin="0,5,0,0"  HorizontalAlignment="Stretch" ItemsSource="{Binding}" ItemTemplate="{StaticResource CheatToggleTemplate}"/>
+            </ScrollViewer>
         </Grid>
         <StackPanel Grid.Column="1" Margin="10,0,0,0">
             <Grid >

@@ -5,6 +5,7 @@ namespace HobbitSpeedrunTools
     public class InfiniteJumpAttack : ToggleCheat
     {
         public override CHEAT_ID ID { get; set; } = CHEAT_ID.INFINITE_JUMP_ATTACKS;
+        public override string Name { get; set; } = "Infinite Jump Attack";
         public override string ShortName { get; set; } = "IJA";
         public override string ShortcutName { get; set; } = "infinite_jump_attack";
 
@@ -17,7 +18,7 @@ namespace HobbitSpeedrunTools
         {
             if (Enabled)
             {
-                mem?.WriteMemory(MemoryAddresses.stamina, "int", "10");
+                mem?.WriteMemory(MemoryAddresses.stamina, "float", "10");
             }
         }
     }

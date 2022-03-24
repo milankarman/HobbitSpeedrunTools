@@ -5,6 +5,7 @@ namespace HobbitSpeedrunTools
     public class AutoResetSigns : ToggleCheat
     {
         public override CHEAT_ID ID { get; set; } = CHEAT_ID.AUTO_RESET_SIGNS;
+        public override string Name { get; set; } = "Automatically Reset Signs";
         public override string ShortName { get; set; } = "AUTO";
         public override string ShortcutName { get; set; } = "automatically_reset_signs";
 

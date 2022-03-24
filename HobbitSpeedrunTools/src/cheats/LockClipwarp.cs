@@ -5,6 +5,7 @@ namespace HobbitSpeedrunTools
     public class LockClipwarp : ToggleCheat
     {
         public override CHEAT_ID ID { get; set; } = CHEAT_ID.LOCK_CLIPWARP;
+        public override string Name { get; set; } = "Lock Clipwarp";
         public override string ShortName { get; set; } = "CLIP";
         public override string ShortcutName { get; set; } = "lock_clipwarp";
 
