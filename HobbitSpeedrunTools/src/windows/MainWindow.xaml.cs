@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -24,7 +25,7 @@ namespace HobbitSpeedrunTools
             Instance = this;
 
             // Add the version number to the titlebar
-            Title += $" {About.version}";
+            Title += $" {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
 
             // Attempt to intialize the cheat manager
             try
@@ -66,8 +67,8 @@ namespace HobbitSpeedrunTools
 
         private void cbxCheat_Checked(object sender, RoutedEventArgs e)
         {
-                CheckBox cmd = (CheckBox)sender;
-                if (cmd.DataContext is ToggleCheat cheat) cheat.Enable();
+            CheckBox cmd = (CheckBox)sender;
+            if (cmd.DataContext is ToggleCheat cheat) cheat.Enable();
         }
 
         private void cbxCheat_Unchecked(object sender, RoutedEventArgs e)

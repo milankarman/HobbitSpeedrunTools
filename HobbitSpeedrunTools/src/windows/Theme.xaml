@@ -203,7 +203,7 @@
                                       StrokeThickness="1" Data="M 0 4 L 3 9 M 3 9 L 9 0" />
                             </Border>
                         </BulletDecorator.Bullet>
-                        <ContentPresenter Margin="5,-1,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True"/>
+                        <ContentPresenter Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True"/>
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="false">

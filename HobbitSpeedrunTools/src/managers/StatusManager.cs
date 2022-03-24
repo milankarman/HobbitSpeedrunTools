@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Reflection;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace HobbitSpeedrunTools
 {
@@ -8,7 +10,7 @@ namespace HobbitSpeedrunTools
         // to fit into the in game display
         public static string GetStatusText()
         {
-            string status = $"HST {About.version}";
+            string status = $"HST {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
 
             List<string> cheats = CheatManager.GetToggleCheatList();
 
