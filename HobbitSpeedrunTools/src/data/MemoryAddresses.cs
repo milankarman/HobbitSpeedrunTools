@@ -4,11 +4,11 @@
     public static class MemoryAddresses
     {
         public const string local = "base+0035BA3C";
+
         public const string devMode = "7600e8";
         public const string loadTriggers = "00777B18";
         public const string otherTriggers = "00777B04";
         public const string polyCache = "00778078";
-        public const string bilboPositionDisplay = "0075FBD4";
         public const string loading = "00798548";
         public const string stamina = local + ",A04";
         public const string invincibility = "0075FBF4";
@@ -26,7 +26,6 @@
         public const string warpCoordsZ = local + ",5F58";
 
         public const string bilboState = local + ",8D8";
-        public const string stateTimer = local + ",91C";
 
         public const string load = "00760358";
         public const string currentLevelID = "00762B5C";
