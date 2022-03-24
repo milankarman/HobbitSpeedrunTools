@@ -104,7 +104,7 @@ namespace HobbitSpeedrunTools
             }
 
             // Generate a name for the backup folder
-            string dateTimeStamp = DateTime.Now.ToString("dd/MM/yyyy_h-mm-ss");
+            string dateTimeStamp = DateTime.Now.ToString("dd-MM-yyyy_h-mm-ss");
             string backupName = $"saves_backup_{dateTimeStamp}";
 
             backupDir = Path.Join(hobbitSaveDir, backupName);
@@ -136,11 +136,21 @@ namespace HobbitSpeedrunTools
             // Attempt to move the files back
             try
             {
+                // Delete copied save manager saves
+                string[] directoryFiles = Directory.GetFiles(hobbitSaveDir, "*.hobbit");
+                foreach (string directoryFile in directoryFiles)
+                {
+                   File.Delete(directoryFile);
+                }
+
+                // Move the saves out of the backup
                 foreach (string save in Directory.GetFiles(backupDir))
                 {
                     FileInfo info = new(save);
                     File.Move(save, Path.Join(hobbitSaveDir, info.Name));
                 }
+
+                DidBackup = false;
             }
             catch
             {

@@ -9,6 +9,7 @@ namespace HobbitSpeedrunTools
     public partial class MainWindow : Window
     {
         public static MainWindow? Instance { get; private set; }
+        private const string disabledText = "Disabled";
 
         public MainWindow()
         {
@@ -49,6 +50,8 @@ namespace HobbitSpeedrunTools
 
             itcCheats.ItemsSource = CheatManager.GetToggleCheats();
             HotkeyManager.InitHotkeyManager();
+
+            InitSaveCollections();
         }
 
         private void cbxCheat_Loaded(object sender, RoutedEventArgs e)
@@ -80,6 +83,8 @@ namespace HobbitSpeedrunTools
             {
                 string[] saveCollections = SaveManager.GetSaveCollections();
 
+                cbxSaveCollections.Items.Add(disabledText);
+
                 // Adds save collections to their ComboBox
                 foreach (string collection in saveCollections)
                 {
@@ -105,6 +110,8 @@ namespace HobbitSpeedrunTools
 
             try
             {
+                if (saveCollection == disabledText) return;
+
                 string[] sortedSaves = SaveManager.GetSaves(saveCollection);
 
                 // Adds saves to their ComboBox
@@ -119,42 +126,34 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        // Back up old saves and initialize saves when the save manager is enabled
-        private void cbxManageSaves_Checked(object sender, RoutedEventArgs e)
-        {
-            cbxSaveCollections.IsEnabled = true;
-            cbxSaves.IsEnabled = true;
-            SaveManager.BackupOldSaves();
-            InitSaveCollections();
-            SaveManager.IsEnabled = true;
-            cbxSaveCollections.SelectedIndex = 0;
-        }
-
-        // Clear saves and restore old saves when the save manager is disabled
-        private void cbxManageSaves_Unchecked(object sender, RoutedEventArgs e)
-        {
-            cbxSaveCollections.IsEnabled = false;
-            cbxSaveCollections.Items.Clear();
-            cbxSaves.IsEnabled = false;
-            cbxSaves.Items.Clear();
-
-            SaveManager.ClearSaves();
-
-            if (SaveManager.DidBackup)
-            {
-                SaveManager.RestoreOldSaves();
-            }
-
-            SaveManager.IsEnabled = false;
-        }
-
         // Updates the saves ComboBox when the save collection ComboBox is updated
-        private void cbxSaveCollections_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void cbxSaveCollections_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string? selected = cbxSaveCollections.SelectedItem?.ToString();
 
+            if (selected == disabledText)
+            {
+                cbxSaves.IsEnabled = false;
+                cbxSaves.Items.Clear();
+
+                // Restore the backed up files if a backup was performed
+                if (SaveManager.DidBackup)
+                {
+                    SaveManager.RestoreOldSaves();
+                }
+
+                return;
+            }
+
             if (selected != null && selected != string.Empty)
             {
+                // Restore the backed up files if a backup was performed
+                if (!SaveManager.DidBackup)
+                {
+                    SaveManager.BackupOldSaves();
+                }
+
+                cbxSaves.IsEnabled = true;
                 InitSaves(selected);
                 SaveManager.SelectedSaveCollectionIndex = cbxSaveCollections.SelectedIndex;
                 cbxSaves.SelectedIndex = 0;
@@ -162,7 +161,7 @@ namespace HobbitSpeedrunTools
         }
 
         // Safely gets the value of the saves ComboBox the selected save to the saves folder
-        private void cbxSaves_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void cbxSaves_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string? selectedSaveCollection = cbxSaveCollections.SelectedItem?.ToString();
             string? selectedSave = cbxSaves.SelectedItem?.ToString();
