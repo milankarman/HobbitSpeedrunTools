@@ -13,6 +13,13 @@ namespace HobbitSpeedrunTools
         public MainWindow()
         {
             InitializeComponent();
+            SourceInitialized += (s, e) =>
+            {
+                MinWidth = ActualWidth;
+                MinHeight = ActualHeight;
+                SizeToContent = SizeToContent.Manual;
+            };
+
             Instance = this;
 
             // Add the version number to the titlebar
@@ -190,7 +197,7 @@ namespace HobbitSpeedrunTools
 
         public void ToggleSaveManager()
         {
-            cbxManageSaves.IsChecked = !cbxManageSaves.IsChecked;
+            // cbxManageSaves.IsChecked = !cbxManageSaves.IsChecked;
         }
 
         // Ensures that proper cleanup will be done before closing the program
