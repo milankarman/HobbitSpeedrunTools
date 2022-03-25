@@ -14,7 +14,12 @@ namespace HobbitSpeedrunTools
             {
                 if (!string.IsNullOrEmpty(cheat.ShortcutName))
                 {
-                    keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.GetShortcut(cheat.ShortcutName), () => cheat.Toggle());
+                    int keyCode = ConfigManager.GetShortcut(cheat.ShortcutName);
+
+                    if (keyCode != 0)
+                    {
+                        keyboardHookManager.RegisterHotkey(modifierKey, keyCode, () => cheat.Toggle());
+                    }
                 }
             }
 

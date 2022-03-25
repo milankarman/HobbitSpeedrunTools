@@ -12,7 +12,10 @@
         public const string loading = "00798548";
         public const string stamina = local + ",A04";
         public const string invincibility = "0075FBF4";
+        public const string rocks = "0075BDB4";
+        public const string keys = "0075BE08";
         public const string health = "0075BDBC";
+        public const string ringMeter = "0075EBC8";
         public const string sign1 = "0075B548";
         public const string sign2 = "0075B54C";
         public const string sign3 = "0075B550";

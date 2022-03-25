@@ -19,6 +19,9 @@ namespace HobbitSpeedrunTools
             new Invincibility(mem),
             new AutoResetSigns(mem),
             new LockClipwarp(mem),
+            new InfiniteRing(mem),
+            new InfiniteRocks(mem),
+            new InfiniteKeys(mem),
         };
 
         public readonly static ActionCheat[] actionCheatList =

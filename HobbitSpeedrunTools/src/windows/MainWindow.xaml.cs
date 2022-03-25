@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace HobbitSpeedrunTools
 {
@@ -240,6 +241,11 @@ namespace HobbitSpeedrunTools
         private void btnOpenConfig_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("notepad.exe", Path.Join(".", "config.ini"));
+        }
+
+        private void btnOpenHelp_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/milankarman/HobbitSpeedrunTools#readme") { CreateNoWindow = true });
         }
     }
 }

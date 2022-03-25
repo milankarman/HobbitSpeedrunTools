@@ -125,7 +125,7 @@
 						BorderBrush="{StaticResource light2}" 
 						BorderThickness="2"
                         CornerRadius="4"
-						Background="{StaticResource dark2}">
+						Background="{StaticResource dark1}">
                         <ScrollViewer x:Name="PART_ContentHost" 
 						    Focusable="false" 
 						    HorizontalScrollBarVisibility="Hidden" 
@@ -227,8 +227,8 @@
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource accent2}"/>
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource accent1}"/>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource accent1}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource accent2}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Border" Property="Background" Value="{StaticResource accent2}"/>
