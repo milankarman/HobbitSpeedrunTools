@@ -15,14 +15,15 @@ namespace HobbitSpeedrunTools
         public MainWindow()
         {
             InitializeComponent();
+
             SourceInitialized += (s, e) =>
             {
-                MinWidth = ActualWidth;
-                MinHeight = ActualHeight;
                 SizeToContent = SizeToContent.Manual;
+                MinWidth = ActualWidth;
+                MinHeight = ActualHeight - 37;
+                Height = MinHeight;
+                Width = MinWidth;
             };
-
-            Instance = this;
 
             // Add the version number to the titlebar
             Title += $" {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
@@ -31,6 +32,9 @@ namespace HobbitSpeedrunTools
             try
             {
                 CheatManager.InitCheatManager();
+                CheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
+                CheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
+                CheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
             }
             catch (Exception ex)
             {
@@ -53,6 +57,25 @@ namespace HobbitSpeedrunTools
             HotkeyManager.InitHotkeyManager();
 
             InitSaveCollections();
+        }
+
+        public void UpdateBilboPosition(float x, float y, float z)
+        {
+            txtBilboPosX.Text = Math.Round(x, 1).ToString();
+            txtBilboPosY.Text = Math.Round(y, 1).ToString();
+            txtBilboPosZ.Text = Math.Round(z, 1).ToString();
+        }
+
+        public void UpdateBilboRotation(double degrees)
+        {
+            txtBilboRotation.Text = Math.Round(degrees, 1).ToString();
+        }
+
+        public void UpdateClipwarpPositition(float x, float y, float z)
+        {
+            txtClipwarpPosX.Text = Math.Round(x, 1).ToString();
+            txtClipwarpPosY.Text = Math.Round(y, 1).ToString();
+            txtClipwarpPosZ.Text = Math.Round(z, 1).ToString();
         }
 
         private void cbxCheat_Loaded(object sender, RoutedEventArgs e)

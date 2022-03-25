@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="HobbitSpeedrunTools" SizeToContent="WidthAndHeight" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SnapsToDevicePixels="True">
+    <!--Width="650" MinWidth="650" Height="390" MinHeight="380"-->
     <Window.Resources>
         <DataTemplate x:Key="CheatToggleTemplate">
-            <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded"/>
+            <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded"/>
         </DataTemplate>
     </Window.Resources>
 
-    <Grid Height="auto" Margin="10,10,10,10">
+    <Grid Margin="10,10,10,10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" MinWidth="200"/>
-            <ColumnDefinition Width="1*" MinWidth="350"/>
+            <ColumnDefinition Width="auto" MinWidth="210"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <Grid>
@@ -22,11 +23,9 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            
+
             <GroupBox Header="Cheats" Grid.Column="0" Grid.Row="0" Margin="0,0,10,10">
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="0,0,0,5">
-                    <ItemsControl x:Name="itcCheats" Margin="0,0,0,0"  HorizontalAlignment="Stretch" ItemsSource="{Binding}" ItemTemplate="{StaticResource CheatToggleTemplate}"/>
-                </ScrollViewer>
+                <ItemsControl x:Name="itcCheats" Margin="0,0,0,0"  HorizontalAlignment="Stretch" ItemsSource="{Binding}" ItemTemplate="{StaticResource CheatToggleTemplate}"/>
             </GroupBox>
 
             <GroupBox Header="Settings" Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
@@ -44,7 +43,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            
+
             <GroupBox Header="Save Manager" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -59,25 +58,30 @@
                     <ComboBox Grid.Row="3" x:Name="cbxSaves" HorizontalAlignment="Stretch" Margin="0,5,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSaves_SelectionChanged" IsEnabled="False"/>
                 </Grid>
             </GroupBox>
-            
+
             <GroupBox Header="Info" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="1" Grid.Column="0" Content="Bilbo Position:"/>
-                    <Label Grid.Row="1" Grid.Column="1" x:Name="txtBilboPos" Content="X:0 Y:0 Z:0" HorizontalAlignment="Right"/>
-                    <Label Grid.Row="2" Grid.Column="0" Content="Bilbo Rotation:"/>
-                    <Label Grid.Row="2" Grid.Column="1" x:Name="txtBilboRotation" Content="360" HorizontalAlignment="Right"/>
-                    <Label Grid.Row="3" Grid.Column="0" Content="Clipwarp Position:"/>
-                    <Label Grid.Row="3" Grid.Column="1" x:Name="txtClipwarpPos" Content="X:0 Y:0 Z:0" HorizontalAlignment="Right"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Bilbo Position:"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtBilboPosX" Width="70" Margin="0,0,5,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBilboPosY" Width="70" Margin="0,0,5,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBilboPosZ" Width="70" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Bilbo Rotation:" Margin="0,5,0,0"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBilboRotation"   Margin="0,5,0,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Clipwarp Position:" Margin="0,5,0,0"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtClipwarpPosX" Width="70" Margin="0,5,5,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="2" Grid.Column="2" x:Name="txtClipwarpPosY" Width="70" Margin="0,5,5,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtClipwarpPosZ" Width="70" Margin="0,5,0,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                 </Grid>
             </GroupBox>
         </Grid>

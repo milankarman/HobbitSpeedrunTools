@@ -1,15 +1,10 @@
 ﻿using Memory;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
 namespace HobbitSpeedrunTools
 {
-    public enum ACTION_CHEAT_ID
-    {
-        QUICK_LOAD,
-        LEVEL_RELOAD,
-    }
-
     public static class CheatManager
     {
         public static readonly Mem mem = new();
@@ -31,6 +26,10 @@ namespace HobbitSpeedrunTools
             new QuickLoad(mem),
             new LevelReload(mem),
         };
+
+        public static Action<float, float, float>? onBilboPositionUpdate;
+        public static Action<double>? onBilboRotationUpdate;
+        public static Action<float, float, float>? onClipwarpPositionUpdate;
 
         // Starts a new thread handling the cheat loop
         public static void InitCheatManager()
@@ -56,11 +55,42 @@ namespace HobbitSpeedrunTools
                     {
                         cheat?.OnTick();
                     }
+
+                    UpdateBilboPosition();
+                    UpdateBilboRotation();
+                    UpdateClipwarpPosition();
                 }
 
                 // Wait for 100ms before repeating
                 Thread.Sleep(100);
             }
+        }
+
+        public static void UpdateBilboPosition()
+        {
+            float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
+            float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
+            float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
+
+            onBilboPositionUpdate?.Invoke(x, y, z);
+        }
+
+        public static void UpdateBilboRotation()
+        {
+            float radians = mem.ReadFloat(MemoryAddresses.bilboYawRad);
+            double degrees = (180 / Math.PI) * radians;
+            degrees = 180 - degrees;
+
+            onBilboRotationUpdate?.Invoke(degrees);
+        }
+
+        public static void UpdateClipwarpPosition()
+        {
+            float x = mem.ReadFloat(MemoryAddresses.warpCoordsX);
+            float y = mem.ReadFloat(MemoryAddresses.warpCoordsY);
+            float z = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
+
+            onClipwarpPositionUpdate?.Invoke(x, y, z);
         }
 
         // Gets a list of active cheats with short names

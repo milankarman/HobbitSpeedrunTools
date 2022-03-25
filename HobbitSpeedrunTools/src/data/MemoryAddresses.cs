@@ -21,6 +21,12 @@
         public const string memUsage = "0075FBBC";
         public const string memUsageText = "00730FFC";
 
+        public const string bilboCoordsX = local + ",14";
+        public const string bilboCoordsY = local + ",1C";
+        public const string bilboCoordsZ = local + ",18";
+
+        public const string bilboYawRad = local + ",614";
+
         public const string warpCoordsX = local + ",5f50";
         public const string warpCoordsY = local + ",5F54";
         public const string warpCoordsZ = local + ",5F58";
