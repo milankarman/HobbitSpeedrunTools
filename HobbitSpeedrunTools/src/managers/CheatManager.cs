@@ -28,6 +28,7 @@ namespace HobbitSpeedrunTools
         {
             new QuickLoad(mem),
             new LevelReload(mem),
+            new InstantClipwarp(mem),
         };
 
         public static Action<float, float, float>? onBilboPositionUpdate;

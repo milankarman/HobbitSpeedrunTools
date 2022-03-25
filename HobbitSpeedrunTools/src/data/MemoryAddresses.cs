@@ -25,8 +25,8 @@
         public const string memUsageText = "00730FFC";
 
         public const string bilboCoordsX = local + ",14";
-        public const string bilboCoordsY = local + ",1C";
-        public const string bilboCoordsZ = local + ",18";
+        public const string bilboCoordsY = local + ",18";
+        public const string bilboCoordsZ = local + ",1C";
 
         public const string bilboYawRad = local + ",614";
 
