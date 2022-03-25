@@ -1,6 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Collections.Generic;
+using System.Reflection;
 
 namespace HobbitSpeedrunTools
 {

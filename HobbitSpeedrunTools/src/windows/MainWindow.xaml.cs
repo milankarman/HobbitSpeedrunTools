@@ -49,7 +49,7 @@ namespace HobbitSpeedrunTools
                 throw;
             }
 
-            itcCheats.ItemsSource = CheatManager.GetToggleCheats();
+            itcCheats.ItemsSource = CheatManager.toggleCheatList;
             HotkeyManager.InitHotkeyManager();
 
             InitSaveCollections();

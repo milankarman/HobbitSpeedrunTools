@@ -137,7 +137,7 @@ namespace HobbitSpeedrunTools
                 // Delete copied save manager saves
                 foreach (string directoryFile in Directory.GetFiles(hobbitSaveDir))
                 {
-                   File.Delete(directoryFile);
+                    File.Delete(directoryFile);
                 }
 
                 // Move the saves out of the backup

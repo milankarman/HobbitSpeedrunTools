@@ -1,5 +1,5 @@
-﻿using System;
-using Memory;
+﻿using Memory;
+using System;
 
 namespace HobbitSpeedrunTools
 {

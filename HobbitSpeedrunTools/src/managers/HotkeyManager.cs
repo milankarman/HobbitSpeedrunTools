@@ -1,5 +1,5 @@
-﻿using System;
-using NonInvasiveKeyboardHookLibrary;
+﻿using NonInvasiveKeyboardHookLibrary;
+using System;
 
 namespace HobbitSpeedrunTools
 {
@@ -10,7 +10,7 @@ namespace HobbitSpeedrunTools
 
         public static void BindCheatShortcuts()
         {
-            foreach (ToggleCheat cheat in CheatManager.GetToggleCheats())
+            foreach (ToggleCheat cheat in CheatManager.toggleCheatList)
             {
                 if (!string.IsNullOrEmpty(cheat.ShortcutName))
                 {
@@ -18,7 +18,7 @@ namespace HobbitSpeedrunTools
                 }
             }
 
-            foreach (ActionCheat cheat in CheatManager.GetActionCheats())
+            foreach (ActionCheat cheat in CheatManager.actionCheatList)
             {
                 if (!string.IsNullOrEmpty(cheat.ShortcutName))
                 {

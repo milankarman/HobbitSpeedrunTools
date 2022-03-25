@@ -1,7 +1,4 @@
 ﻿using Memory;
-using System;
-using System.Reflection;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -17,7 +14,7 @@ namespace HobbitSpeedrunTools
     {
         public static readonly Mem mem = new();
 
-        public static ToggleCheat[] toggleCheatList =
+        public readonly static ToggleCheat[] toggleCheatList =
         {
             new DevMode(mem),
             new InfiniteJumpAttack(mem),
@@ -29,7 +26,7 @@ namespace HobbitSpeedrunTools
             new LockClipwarp(mem),
         };
 
-        public static ActionCheat[] actionCheatList =
+        public readonly static ActionCheat[] actionCheatList =
         {
             new QuickLoad(mem),
             new LevelReload(mem),
@@ -65,10 +62,6 @@ namespace HobbitSpeedrunTools
                 Thread.Sleep(100);
             }
         }
-
-        public static ToggleCheat[] GetToggleCheats() => toggleCheatList;
-
-        public static ActionCheat[] GetActionCheats() => actionCheatList;
 
         // Gets a list of active cheats with short names
         public static List<string> GetToggleCheatList()
