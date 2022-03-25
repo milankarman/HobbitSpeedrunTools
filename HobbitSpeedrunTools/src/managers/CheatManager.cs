@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace HobbitSpeedrunTools
 {
-    public static class CheatManager
+    public class CheatManager
     {
         public static readonly Mem mem = new();
 
@@ -78,8 +78,14 @@ namespace HobbitSpeedrunTools
         public static void UpdateBilboRotation()
         {
             float radians = mem.ReadFloat(MemoryAddresses.bilboYawRad);
-            double degrees = (180 / Math.PI) * radians;
-            degrees = 180 - degrees;
+
+            double degrees = 0;
+
+            if (radians != 0)
+            {
+                degrees = (180 / Math.PI) * radians;
+                degrees = 360 - degrees;
+            }
 
             onBilboRotationUpdate?.Invoke(degrees);
         }

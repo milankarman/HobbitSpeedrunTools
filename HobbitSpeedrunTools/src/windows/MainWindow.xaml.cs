@@ -56,26 +56,30 @@ namespace HobbitSpeedrunTools
             itcCheats.ItemsSource = CheatManager.toggleCheatList;
             HotkeyManager.InitHotkeyManager();
 
+            UpdateBilboPosition(0, 0, 0);
+            UpdateBilboRotation(0);
+            UpdateClipwarpPositition(0, 0, 0);
+
             InitSaveCollections();
         }
 
         public void UpdateBilboPosition(float x, float y, float z)
         {
-            txtBilboPosX.Text = Math.Round(x, 1).ToString();
-            txtBilboPosY.Text = Math.Round(y, 1).ToString();
-            txtBilboPosZ.Text = Math.Round(z, 1).ToString();
+            txtBilboPosX.Text = Math.Round(x, 1).ToString("n1");
+            txtBilboPosY.Text = Math.Round(y, 1).ToString("n1");
+            txtBilboPosZ.Text = Math.Round(z, 1).ToString("n1");
         }
 
         public void UpdateBilboRotation(double degrees)
         {
-            txtBilboRotation.Text = Math.Round(degrees, 1).ToString();
+            txtBilboRotation.Text = Math.Round(degrees, 1).ToString("n1");
         }
 
         public void UpdateClipwarpPositition(float x, float y, float z)
         {
-            txtClipwarpPosX.Text = Math.Round(x, 1).ToString();
-            txtClipwarpPosY.Text = Math.Round(y, 1).ToString();
-            txtClipwarpPosZ.Text = Math.Round(z, 1).ToString();
+            txtClipwarpPosX.Text = Math.Round(x, 1).ToString("n1");
+            txtClipwarpPosY.Text = Math.Round(y, 1).ToString("n1");
+            txtClipwarpPosZ.Text = Math.Round(z, 1).ToString("n1");
         }
 
         private void cbxCheat_Loaded(object sender, RoutedEventArgs e)
