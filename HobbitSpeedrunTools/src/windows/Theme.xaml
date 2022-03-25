@@ -227,15 +227,15 @@
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource accent1}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource accent2}"/>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource accent1}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource accent2}"/>
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource accent1}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource accent2}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource light2}"/>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource accent1}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource accent2}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter TargetName="Border" Property="Background" Value="{StaticResource dark1}"/>
