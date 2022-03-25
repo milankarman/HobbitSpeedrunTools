@@ -17,43 +17,27 @@ namespace HobbitSpeedrunTools
     {
         public static readonly Mem mem = new();
 
-        public static List<ToggleCheat?> toggleCheatList = new();
-        public static List<ActionCheat?> actionCheatList = new();
+        public static ToggleCheat[] toggleCheatList =
+        {
+            new DevMode(mem),
+            new InfiniteJumpAttack(mem),
+            new RenderLoadTriggers(mem),
+            new RenderOtherTriggers(mem),
+            new RenderPolyCache(mem),
+            new Invincibility(mem),
+            new AutoResetSigns(mem),
+            new LockClipwarp(mem),
+        };
+
+        public static ActionCheat[] actionCheatList =
+        {
+            new QuickLoad(mem),
+            new LevelReload(mem),
+        };
 
         // Starts a new thread handling the cheat loop
         public static void InitCheatManager()
         {
-            // Automatically creates instances of every cheat class inheriting from ToggleCheat
-            Assembly? toggleCheatAssembly = Assembly.GetAssembly(typeof(ToggleCheat));
-
-            if (toggleCheatAssembly != null)
-            {
-                Type[] toggleCheatTypes = toggleCheatAssembly.GetTypes().Where(t => t.IsSubclassOf(typeof(ToggleCheat))).ToArray();
-
-                foreach (Type type in toggleCheatTypes)
-                {
-                    ToggleCheat? cheat = (ToggleCheat?)Activator.CreateInstance(type, mem);
-                    toggleCheatList.Add(cheat);
-                }
-
-                toggleCheatList = toggleCheatList.OrderBy(cheat => cheat?.Index).ToList();
-            }
-
-            // Automatically creates instances of every cheat class inheriting from ActionCheat
-            Assembly? actionCheatAssembly = Assembly.GetAssembly(typeof(ActionCheat));
-
-            if (actionCheatAssembly != null)
-            {
-                Type[] actionCheatTypes = actionCheatAssembly.GetTypes().Where(t => t.IsSubclassOf(typeof(ActionCheat))).ToArray();
-
-                foreach (Type type in actionCheatTypes)
-                {
-                    actionCheatList.Add((ActionCheat?)Activator.CreateInstance(type, mem));
-                }
-
-                actionCheatList = actionCheatList.OrderBy(cheat => cheat?.Index).ToList();
-            }
-
             Thread cheatLoopThread = new(CheatLoop);
             cheatLoopThread.IsBackground = true;
             cheatLoopThread.Start();
@@ -82,9 +66,9 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        public static List<ToggleCheat?> GetToggleCheats() => toggleCheatList;
+        public static ToggleCheat[] GetToggleCheats() => toggleCheatList;
 
-        public static List<ActionCheat?> GetActionCheats() => actionCheatList;
+        public static ActionCheat[] GetActionCheats() => actionCheatList;
 
         // Gets a list of active cheats with short names
         public static List<string> GetToggleCheatList()

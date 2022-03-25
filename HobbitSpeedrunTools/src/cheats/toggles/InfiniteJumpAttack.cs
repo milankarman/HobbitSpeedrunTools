@@ -7,7 +7,6 @@ namespace HobbitSpeedrunTools
         public override string Name { get; set; } = "Infinite Jump Attack";
         public override string ShortName { get; set; } = "IJA";
         public override string ShortcutName { get; set; } = "infinite_jump_attack";
-        public override int Index { get; set; } = 1;
 
         public InfiniteJumpAttack(Mem _mem)
         {

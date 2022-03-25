@@ -6,7 +6,6 @@ namespace HobbitSpeedrunTools
     {
         public override string Name { get; set; } = "Level Reload";
         public override string ShortcutName { get; set; } = "level_reload";
-        public override int Index { get; set; } = 0;
 
         public LevelReload(Mem _mem)
         {

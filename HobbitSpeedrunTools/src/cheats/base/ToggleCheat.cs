@@ -10,7 +10,6 @@ namespace HobbitSpeedrunTools
         public abstract string Name { get; set; }
         public abstract string ShortName { get; set; }
         public abstract string ShortcutName { get; set; }
-        public abstract int Index { get; set; }
 
         public Action? onEnable;
         public Action? onDisable;
