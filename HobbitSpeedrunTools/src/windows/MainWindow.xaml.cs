@@ -66,21 +66,21 @@ namespace HobbitSpeedrunTools
 
         public void UpdateBilboPosition(float x, float y, float z)
         {
-            txtBilboPosX.Text = Math.Round(x, 1).ToString("n1");
-            txtBilboPosY.Text = Math.Round(y, 1).ToString("n1");
-            txtBilboPosZ.Text = Math.Round(z, 1).ToString("n1");
+            txtBilboPosX.Text = Math.Round(x, 1).ToString("0.0");
+            txtBilboPosY.Text = Math.Round(y, 1).ToString("0.0");
+            txtBilboPosZ.Text = Math.Round(z, 1).ToString("0.0");
         }
 
         public void UpdateBilboRotation(double degrees)
         {
-            txtBilboRotation.Text = Math.Round(degrees, 1).ToString("n1");
+            txtBilboRotation.Text = Math.Round(degrees, 1).ToString("0.0");
         }
 
         public void UpdateClipwarpPositition(float x, float y, float z)
         {
-            txtClipwarpPosX.Text = Math.Round(x, 1).ToString("n1");
-            txtClipwarpPosY.Text = Math.Round(y, 1).ToString("n1");
-            txtClipwarpPosZ.Text = Math.Round(z, 1).ToString("n1");
+            txtClipwarpPosX.Text = Math.Round(x, 1).ToString("0.0");
+            txtClipwarpPosY.Text = Math.Round(y, 1).ToString("0.0");
+            txtClipwarpPosZ.Text = Math.Round(z, 1).ToString("0.0");
         }
 
         private void cbxCheat_Loaded(object sender, RoutedEventArgs e)

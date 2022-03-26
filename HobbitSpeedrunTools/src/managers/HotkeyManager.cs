@@ -18,7 +18,10 @@ namespace HobbitSpeedrunTools
 
                     if (keyCode != 0)
                     {
-                        keyboardHookManager.RegisterHotkey(modifierKey, keyCode, () => cheat.Toggle());
+                        keyboardHookManager.RegisterHotkey(modifierKey, keyCode, () => {
+                            if (!cheat.Enabled) cheat.Enable();
+                            else cheat.Disable();
+                        });
                     }
                 }
             }
