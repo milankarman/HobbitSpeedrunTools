@@ -20,6 +20,7 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
 		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+		<ApplicationIcon>img\icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
