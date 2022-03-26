@@ -313,7 +313,7 @@
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder" Background="{StaticResource dark1}" BorderThickness="2"
                                         BorderBrush="{StaticResource light2}"/>
-                                <ScrollViewer Margin="5,5,5,5">
+                                <ScrollViewer Margin="0" Padding="5">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                             </Grid>
