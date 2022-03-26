@@ -22,7 +22,7 @@ namespace HobbitSpeedrunTools
 
         public static void InitConfigManager()
         {
-            data = parser.ReadFile("config.ini");
+            data = parser.ReadFile("./config.ini");
 
             ModifierKey = data["Shortcuts"]["modifier_key"];
 
