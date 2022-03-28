@@ -3,18 +3,52 @@ using System;
 
 namespace HobbitSpeedrunTools
 {
-    public static class HotkeyManager
+    public class HotkeyManager
     {
-        private static readonly KeyboardHookManager keyboardHookManager = new();
-        private static ModifierKeys modifierKey;
+        private readonly KeyboardHookManager keyboardHookManager = new();
+        private ModifierKeys modifierKey;
 
-        public static void BindCheatShortcuts()
+        private SaveManager saveManager;
+        private CheatManager cheatManager;
+        private ConfigManager configManager;
+
+        public HotkeyManager(SaveManager _saveManager, CheatManager _cheatManager, ConfigManager _configManager)
         {
-            foreach (ToggleCheat cheat in CheatManager.toggleCheatList)
+            saveManager = _saveManager;
+            cheatManager = _cheatManager;
+            configManager = _configManager;
+
+            keyboardHookManager.Start();
+
+            // Parses and sets the modifier key set in the config
+            modifierKey = configManager.ModifierKey switch
+            {
+                "ctrl" => ModifierKeys.Control,
+                "shift" => ModifierKeys.Shift,
+                "alt" => ModifierKeys.Alt,
+                "win" => ModifierKeys.WindowsKey,
+                _ => throw new Exception("Invalid modifier key"),
+            };
+
+            BindCheatHotkeys();
+            BindSaveHotkeys();
+        }
+
+        private void BindSaveHotkeys()
+        {
+            keyboardHookManager.RegisterHotkey(modifierKey, configManager.ShNextSaveCollection, () => saveManager.NextSaveCollection());
+            keyboardHookManager.RegisterHotkey(modifierKey, configManager.ShPreviousSaveCollection, () => saveManager.PreviousSaveCollection());
+            keyboardHookManager.RegisterHotkey(modifierKey, configManager.ShNextSave, () => saveManager.NextSave());
+            keyboardHookManager.RegisterHotkey(modifierKey, configManager.ShPreviousSave, () => saveManager.PreviousSave());
+        }
+
+        public void BindCheatHotkeys()
+        {
+            foreach (ToggleCheat cheat in cheatManager.toggleCheatList)
             {
                 if (!string.IsNullOrEmpty(cheat.ShortcutName))
                 {
-                    int keyCode = ConfigManager.GetShortcut(cheat.ShortcutName);
+                    int keyCode = configManager.GetShortcut(cheat.ShortcutName);
 
                     if (keyCode != 0)
                     {
@@ -31,11 +65,11 @@ namespace HobbitSpeedrunTools
                 }
             }
 
-            foreach (ActionCheat cheat in CheatManager.actionCheatList)
+            foreach (ActionCheat cheat in cheatManager.actionCheatList)
             {
                 if (!string.IsNullOrEmpty(cheat.ShortcutName))
                 {
-                    keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.GetShortcut(cheat.ShortcutName), () =>
+                    keyboardHookManager.RegisterHotkey(modifierKey, configManager.GetShortcut(cheat.ShortcutName), () =>
                     {
                         try
                         {
@@ -45,43 +79,6 @@ namespace HobbitSpeedrunTools
                     });
                 }
             }
-        }
-
-        public static void InitHotkeyManager()
-        {
-            keyboardHookManager.Start();
-
-            // Parses and sets the modifier key set in the config
-            modifierKey = ConfigManager.ModifierKey switch
-            {
-                "ctrl" => ModifierKeys.Control,
-                "shift" => ModifierKeys.Shift,
-                "alt" => ModifierKeys.Alt,
-                "win" => ModifierKeys.WindowsKey,
-                _ => throw new Exception("Invalid modifier key"),
-            };
-
-            BindCheatShortcuts();
-
-            //keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShNextSaveCollection, () =>
-            //{
-            //    MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.NextSaveCollection());
-            //});
-
-            //keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShPreviousSaveCollection, () =>
-            //{
-            //    MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.PreviousSaveCollection());
-            //});
-
-            //keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShNextSave, () =>
-            //{
-            //    MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.NextSave());
-            //});
-
-            //keyboardHookManager.RegisterHotkey(modifierKey, ConfigManager.ShPreviousSave, () =>
-            //{
-            //    MainWindow.Instance?.Dispatcher.Invoke(() => MainWindow.Instance.PreviousSave());
-            //});
         }
     }
 }

@@ -3,24 +3,19 @@ using IniParser.Model;
 
 namespace HobbitSpeedrunTools
 {
-    public static class ConfigManager
+    public class ConfigManager
     {
-        private static readonly FileIniDataParser parser = new();
-        private static IniData data = new();
+        private readonly FileIniDataParser parser = new();
+        private IniData data = new();
 
-        public static string? ModifierKey { private set; get; }
+        public string? ModifierKey { private set; get; }
 
-        public static int ShNextSaveCollection { private set; get; }
-        public static int ShPreviousSaveCollection { private set; get; }
-        public static int ShNextSave { private set; get; }
-        public static int ShPreviousSave { private set; get; }
+        public int ShNextSaveCollection { private set; get; }
+        public int ShPreviousSaveCollection { private set; get; }
+        public int ShNextSave { private set; get; }
+        public int ShPreviousSave { private set; get; }
 
-        public static int GetShortcut(string key)
-        {
-            return int.Parse(data["Shortcuts"][key]);
-        }
-
-        public static void InitConfigManager()
+        public ConfigManager()
         {
             data = parser.ReadFile("./config.ini");
 
@@ -30,6 +25,11 @@ namespace HobbitSpeedrunTools
             ShPreviousSaveCollection = int.Parse(data["Shortcuts"]["previous_save_collection"]);
             ShNextSave = int.Parse(data["Shortcuts"]["next_save"]);
             ShPreviousSave = int.Parse(data["Shortcuts"]["previous_save"]);
+        }
+
+        public int GetShortcut(string key)
+        {
+            return int.Parse(data["Shortcuts"][key]);
         }
     }
 }

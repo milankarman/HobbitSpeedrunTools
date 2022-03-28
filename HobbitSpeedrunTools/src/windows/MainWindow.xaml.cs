@@ -9,9 +9,10 @@ namespace HobbitSpeedrunTools
 {
     public partial class MainWindow : Window
     {
-        private const string disabledText = "Disabled";
-
         private readonly SaveManager saveManager;
+        private readonly CheatManager cheatManager;
+        private readonly HotkeyManager hotkeyManager;
+        private readonly ConfigManager configManager;
 
         public MainWindow()
         {
@@ -31,14 +32,14 @@ namespace HobbitSpeedrunTools
 
             try
             {
-                CheatManager.InitCheatManager();
-                CheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
-                CheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
-                CheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
+                cheatManager = new CheatManager();
+                cheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
+                cheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
+                cheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
 
                 saveManager = new SaveManager();
-                ConfigManager.InitConfigManager();
-                HotkeyManager.InitHotkeyManager();
+                configManager = new ConfigManager();
+                hotkeyManager = new HotkeyManager(saveManager, cheatManager, configManager);
             }
             catch (Exception ex)
             {
@@ -46,7 +47,7 @@ namespace HobbitSpeedrunTools
                 throw;
             }
 
-            itcCheats.ItemsSource = CheatManager.toggleCheatList;
+            itcCheats.ItemsSource = cheatManager.toggleCheatList;
 
             cbxSaveCollections.Items.Add("Disabled");
 

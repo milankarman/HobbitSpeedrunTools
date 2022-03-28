@@ -12,22 +12,22 @@ namespace HobbitSpeedrunTools
         {
             string status = $"HST {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
 
-            List<string> cheats = CheatManager.GetToggleCheatList();
+            //List<string> cheats = CheatManager.GetToggleCheatList();
 
-            if (cheats.Count > 0)
-            {
-                status += "\nCheats: ";
-            }
+            //if (cheats.Count > 0)
+            //{
+            //    status += "\nCheats: ";
+            //}
 
-            for (int i = 0; i < cheats.Count; i++)
-            {
-                status += cheats[i];
+            //for (int i = 0; i < cheats.Count; i++)
+            //{
+            //    status += cheats[i];
 
-                if (i < cheats.Count - 1)
-                {
-                    status += " ";
-                }
-            }
+            //    if (i < cheats.Count - 1)
+            //    {
+            //        status += " ";
+            //    }
+            //}
 
             //if (SaveManager.SelectedSaveCollectionIndex > 0)
             //{

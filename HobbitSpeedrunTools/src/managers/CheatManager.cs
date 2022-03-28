@@ -7,44 +7,47 @@ namespace HobbitSpeedrunTools
 {
     public class CheatManager
     {
-        public static readonly Mem mem = new();
+        public readonly Mem mem = new();
 
-        public readonly static ToggleCheat[] toggleCheatList =
-        {
-            new DevMode(mem),
-            new InfiniteJumpAttack(mem),
-            new RenderLoadTriggers(mem),
-            new RenderOtherTriggers(mem),
-            new RenderPolyCache(mem),
-            new Invincibility(mem),
-            new AutoResetSigns(mem),
-            new LockClipwarp(mem),
-            new InfiniteRing(mem),
-            new InfiniteRocks(mem),
-            new InfiniteKeys(mem),
-        };
+        public readonly ToggleCheat[] toggleCheatList;
+        public readonly ActionCheat[] actionCheatList;
 
-        public readonly static ActionCheat[] actionCheatList =
-        {
-            new QuickLoad(mem),
-            new LevelReload(mem),
-            new InstantClipwarp(mem),
-        };
-
-        public static Action<float, float, float>? onBilboPositionUpdate;
-        public static Action<double>? onBilboRotationUpdate;
-        public static Action<float, float, float>? onClipwarpPositionUpdate;
+        public Action<float, float, float>? onBilboPositionUpdate;
+        public Action<double>? onBilboRotationUpdate;
+        public Action<float, float, float>? onClipwarpPositionUpdate;
 
         // Starts a new thread handling the cheat loop
-        public static void InitCheatManager()
+        public CheatManager()
         {
             Thread cheatLoopThread = new(CheatLoop);
             cheatLoopThread.IsBackground = true;
             cheatLoopThread.Start();
+
+            toggleCheatList = new ToggleCheat[]
+            {
+                new DevMode(mem),
+                new InfiniteJumpAttack(mem),
+                new RenderLoadTriggers(mem),
+                new RenderOtherTriggers(mem),
+                new RenderPolyCache(mem),
+                new Invincibility(mem),
+                new AutoResetSigns(mem),
+                new LockClipwarp(mem),
+                new InfiniteRing(mem),
+                new InfiniteRocks(mem),
+                new InfiniteKeys(mem),
+            };
+
+            actionCheatList = new ActionCheat[]
+            {
+                new QuickLoad(mem),
+                new LevelReload(mem),
+                new InstantClipwarp(mem),
+            };
         }
 
         // Continuously checks which cheats should be enabled and handles automatic cheats
-        private static void CheatLoop()
+        private void CheatLoop()
         {
             while (true)
             {
@@ -70,7 +73,7 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        public static void UpdateBilboPosition()
+        public void UpdateBilboPosition()
         {
             float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
             float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
@@ -79,7 +82,7 @@ namespace HobbitSpeedrunTools
             onBilboPositionUpdate?.Invoke(x, y, z);
         }
 
-        public static void UpdateBilboRotation()
+        public void UpdateBilboRotation()
         {
             float radians = mem.ReadFloat(MemoryAddresses.bilboYawRad);
 
@@ -94,7 +97,7 @@ namespace HobbitSpeedrunTools
             onBilboRotationUpdate?.Invoke(degrees);
         }
 
-        public static void UpdateClipwarpPosition()
+        public void UpdateClipwarpPosition()
         {
             float x = mem.ReadFloat(MemoryAddresses.warpCoordsX);
             float y = mem.ReadFloat(MemoryAddresses.warpCoordsY);
@@ -104,7 +107,7 @@ namespace HobbitSpeedrunTools
         }
 
         // Gets a list of active cheats with short names
-        public static List<string> GetToggleCheatList()
+        public List<string> GetToggleCheatList()
         {
             List<string> cheats = new();
 
