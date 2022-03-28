@@ -4,21 +4,55 @@ using System.Linq;
 
 namespace HobbitSpeedrunTools
 {
-    public static class SaveManager
+    public class SaveManager
     {
-        public static bool DidBackup { get; private set; }
-
-        public static int SelectedSaveCollectionIndex { get; set; }
-        public static int SelectedSaveIndex { get; set; }
-
-        private static readonly string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
-        private static readonly string applicationSaveDir = Path.Join(".", "save-collections");
-        private static string backupDir = "";
-
-        // Detects all folders within the save collections folder and lists them in its respective ComboBox
-        public static string[] GetSaveCollections()
+        public class SaveCollection
         {
-            // Check if the required directories exist
+            public string name;
+            public string path;
+            public Save[] saves;
+
+            public SaveCollection(string _name, string _path, Save[] _saves)
+            {
+                name = _name;
+                path = _path;
+                saves = _saves;
+            }
+        }
+
+        public class Save
+        {
+            public string name;
+            public string path;
+
+            public Save(string _name, string _path)
+            {
+                name = _name;
+                path = _path;
+            }
+        }
+
+        public SaveCollection[] SaveCollections { get; private set; }
+
+        public SaveCollection SelectedSaveCollection { get => SaveCollections[saveCollectionIndex]; }
+        public Save SelectedSave { get => SelectedSaveCollection.saves[saveIndex]; }
+
+        public bool DidBackup { get; private set; }
+
+        public Action? onNextSaveCollection;
+        public Action? onPreviousSaveCollection;
+        public Action? onNextSave;
+        public Action? onPreviousSave;
+
+        private int saveCollectionIndex;
+        private int saveIndex;
+
+        private readonly string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
+        private readonly string applicationSaveDir = "save-collections";
+        private string backupDir = "";
+
+        public SaveManager()
+        {
             if (!Directory.Exists(hobbitSaveDir))
             {
                 throw new Exception("The Hobbit saves folder not found at: {hobbitSaveDir}");
@@ -29,69 +63,76 @@ namespace HobbitSpeedrunTools
                 throw new Exception("The Hobbit saves folder not found at: {applicationSaveDir}");
             }
 
-            // Sorts the save collections based on the number before the period
-            string[] unsortedSaveCollections = Directory.GetDirectories(applicationSaveDir, "*", SearchOption.TopDirectoryOnly);
+            SaveCollections = GetSaveCollections();
+        }
 
-            for (int i = 0; i < unsortedSaveCollections.Length; i++)
+        public SaveCollection[] GetSaveCollections()
+        {
+            string[] saveCollectionPaths = Directory.GetDirectories(applicationSaveDir, "*", SearchOption.TopDirectoryOnly);
+            SaveCollection[] saveCollections = new SaveCollection[saveCollectionPaths.Length];
+
+            for (int i = 0; i < saveCollectionPaths.Length; i++)
             {
-                FileInfo info = new(unsortedSaveCollections[i]);
-                unsortedSaveCollections[i] = info.Name;
+                FileInfo info = new(saveCollectionPaths[i]);
+
+                string name = info.Name;
+                string path = saveCollectionPaths[i];
+
+                Save[] saves = GetSaves(path);
+                saveCollections[i] = new SaveCollection(name, path, saves);
             }
 
-            string[] sortedSaveCollections;
-
-            // Handle sorting errors
             try
             {
-                sortedSaveCollections = SortStringArrayByLeadingNumber(unsortedSaveCollections);
+                saveCollections = saveCollections.OrderBy(x => int.Parse(x.name.Split(".")[0])).ToArray();
             }
             catch
             {
-                return unsortedSaveCollections;
                 throw new Exception("The Hobbit saves folder not found at: {applicationSaveDir}");
             }
 
-            return sortedSaveCollections;
+            return saveCollections;
         }
 
-        // Detects all saves within the selected save collection and lists them in its respective ComboBox
-        public static string[] GetSaves(string saveCollection)
+        public Save[] GetSaves(string saveCollectionPath)
         {
-            // Sorts the saves collections based on the number before the period
-            string[] unsortedSaves = Directory.GetFiles(Path.Join(applicationSaveDir, saveCollection));
+            string[] savePaths = Directory.GetFiles(saveCollectionPath);
+            Save[] saves = new Save[savePaths.Length];
 
-            for (int i = 0; i < unsortedSaves.Length; i++)
+            for (int i = 0; i < savePaths.Length; i++)
             {
-                FileInfo info = new(unsortedSaves[i]);
-                unsortedSaves[i] = Path.GetFileNameWithoutExtension(info.Name);
+                FileInfo info = new(savePaths[i]);
+
+                saves[i] = new Save(info.Name.Replace(".hobbit", ""), savePaths[i]);
             }
 
-            string[] sortedSaves;
-
-            // Handle sorting errors
             try
             {
-                sortedSaves = SortStringArrayByLeadingNumber(unsortedSaves);
+                saves = saves.OrderBy(x => int.Parse(x.name.Split(".")[0])).ToArray();
             }
             catch
             {
-                return unsortedSaves;
                 throw new Exception("Failed to sort saves. Ensure the save file names are written in the right format.");
             }
 
-            return sortedSaves;
+            return saves;
         }
 
-        // Copies the selected save into the saves folder
-        public static void SelectSave(string saveCollection, string save)
+        public void SelectSaveCollection(int _saveCollectionIndex)
         {
             ClearSaves();
-
-            File.Copy(Path.Join(applicationSaveDir, saveCollection, $"{save}.hobbit"), Path.Join(hobbitSaveDir, $"{save}.hobbit"));
+            saveCollectionIndex = Math.Clamp(_saveCollectionIndex + 1, 0, SaveCollections.Length - 1);
+            SelectSave(0);
         }
 
-        // Moves all existing saves into a new folder within the saves folder for safekeeping
-        public static void BackupOldSaves()
+        public void SelectSave(int _saveIndex)
+        {
+            ClearSaves();
+            saveIndex = Math.Clamp(_saveIndex - 1, 0, SelectedSaveCollection.saves.Length - 1);
+            File.Copy(Path.Join(SelectedSave.path), Path.Join(hobbitSaveDir, SelectedSave.name + ".hobbit"));
+        }
+
+        public void BackupOldSaves()
         {
             // Get old files and cancel if there are none
             string[] oldFiles = Directory.GetFiles(hobbitSaveDir);
@@ -122,8 +163,7 @@ namespace HobbitSpeedrunTools
             DidBackup = true;
         }
 
-        // Moves all backed up saves back into the saves folder
-        public static void RestoreOldSaves()
+        public void RestoreOldSaves()
         {
             // Check if the backup still exists
             if (!Directory.Exists(backupDir))
@@ -159,20 +199,36 @@ namespace HobbitSpeedrunTools
             DidBackup = false;
         }
 
+        public void NextSaveCollection()
+        {
+            SelectSaveCollection(saveCollectionIndex + 1);
+            onNextSaveCollection?.Invoke();
+        }
 
-        // Removes all files in the saves folder (this does not include folders)
-        public static void ClearSaves()
+        public void PreviousSaveCollection()
+        {
+            SelectSaveCollection(saveCollectionIndex - 1);
+            onPreviousSaveCollection?.Invoke();
+        }
+
+        public void NextSave()
+        {
+            SelectSave(saveIndex + 1);
+            onNextSave?.Invoke();
+        }
+
+        public void PreviousSave()
+        {
+            SelectSave(saveIndex + 1);
+            onPreviousSaveCollection?.Invoke();
+        }
+
+        public void ClearSaves()
         {
             foreach (string save in Directory.GetFiles(hobbitSaveDir))
             {
                 File.Delete(save);
             }
-        }
-
-        // Sorts an array of strings based on leading numbers (Example: "7. My String")
-        private static string[] SortStringArrayByLeadingNumber(string[] array)
-        {
-            return array.OrderBy(x => int.Parse(x.Split(".")[0])).ToArray();
         }
     }
 }

@@ -4,14 +4,14 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace HobbitSpeedrunTools
 {
     public partial class MainWindow : Window
     {
-        public static MainWindow? Instance { get; private set; }
         private const string disabledText = "Disabled";
+
+        private readonly SaveManager saveManager;
 
         public MainWindow()
         {
@@ -29,24 +29,16 @@ namespace HobbitSpeedrunTools
             // Add the version number to the titlebar
             Title += $" {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
 
-            // Attempt to intialize the cheat manager
             try
             {
                 CheatManager.InitCheatManager();
                 CheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
                 CheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
                 CheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                throw;
-            }
 
-            // Attempt to intialize the config manager
-            try
-            {
+                saveManager = new SaveManager();
                 ConfigManager.InitConfigManager();
+                HotkeyManager.InitHotkeyManager();
             }
             catch (Exception ex)
             {
@@ -55,13 +47,19 @@ namespace HobbitSpeedrunTools
             }
 
             itcCheats.ItemsSource = CheatManager.toggleCheatList;
-            HotkeyManager.InitHotkeyManager();
+
+            cbxSaveCollections.Items.Add("Disabled");
+
+            foreach (SaveManager.SaveCollection saveCollection in saveManager.SaveCollections)
+            {
+                cbxSaveCollections.Items.Add(saveCollection.name);
+            }
+
+            cbxSaveCollections.SelectedIndex = 0;
 
             UpdateBilboPosition(0, 0, 0);
             UpdateBilboRotation(0);
             UpdateClipwarpPositition(0, 0, 0);
-
-            InitSaveCollections();
         }
 
         public void UpdateBilboPosition(float x, float y, float z)
@@ -105,134 +103,46 @@ namespace HobbitSpeedrunTools
             if (cmd.DataContext is ToggleCheat cheat) cheat.Disable();
         }
 
-        // Loads the save collections into their ComboBox
-        private void InitSaveCollections()
-        {
-            try
-            {
-                string[] saveCollections = SaveManager.GetSaveCollections();
-
-                cbxSaveCollections.Items.Add(disabledText);
-
-                // Adds save collections to their ComboBox
-                foreach (string collection in saveCollections)
-                {
-                    cbxSaveCollections.Items.Add(collection);
-                }
-
-                // Selects first save collection by default
-                if (cbxSaveCollections.Items.Count > 0)
-                {
-                    cbxSaveCollections.SelectedIndex = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        // Loads the saves for the selected save collection into their ComboBox
-        private void InitSaves(string saveCollection)
-        {
-            cbxSaves.Items.Clear();
-
-            try
-            {
-                if (saveCollection == disabledText) return;
-
-                string[] sortedSaves = SaveManager.GetSaves(saveCollection);
-
-                // Adds saves to their ComboBox
-                foreach (string save in sortedSaves)
-                {
-                    cbxSaves.Items.Add(save);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         // Updates the saves ComboBox when the save collection ComboBox is updated
         private void cbxSaveCollections_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string? selected = cbxSaveCollections.SelectedItem?.ToString();
-
-            if (selected == disabledText)
+            if (cbxSaveCollections.SelectedIndex > 0)
             {
-                cbxSaves.IsEnabled = false;
+                saveManager.SelectSaveCollection(cbxSaveCollections.SelectedIndex - 1);
                 cbxSaves.Items.Clear();
 
-                // Restore the backed up files if a backup was performed
-                if (SaveManager.DidBackup)
+                foreach (SaveManager.Save save in saveManager.SelectedSaveCollection.saves)
                 {
-                    SaveManager.RestoreOldSaves();
-                }
-
-                return;
-            }
-
-            if (selected != null && selected != string.Empty)
-            {
-                // Restore the backed up files if a backup was performed
-                if (!SaveManager.DidBackup)
-                {
-                    SaveManager.BackupOldSaves();
+                    cbxSaves.Items.Add(save.name);
                 }
 
                 cbxSaves.IsEnabled = true;
-                InitSaves(selected);
-                SaveManager.SelectedSaveCollectionIndex = cbxSaveCollections.SelectedIndex;
-                cbxSaves.SelectedIndex = 0;
+                cbxSaves.SelectedItem = saveManager.SelectedSave.name;
             }
+            else
+            {
+                saveManager.ClearSaves();
+
+                if (saveManager.DidBackup) saveManager.RestoreOldSaves();
+
+                cbxSaves.Items.Clear();
+                cbxSaves.IsEnabled = false;
+            }
+
         }
 
         // Safely gets the value of the saves ComboBox the selected save to the saves folder
         private void cbxSaves_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string? selectedSaveCollection = cbxSaveCollections.SelectedItem?.ToString();
-            string? selectedSave = cbxSaves.SelectedItem?.ToString();
-
-            if (!string.IsNullOrEmpty(selectedSaveCollection) && !string.IsNullOrEmpty(selectedSave))
-            {
-                SaveManager.SelectSave(selectedSaveCollection, selectedSave);
-                SaveManager.SelectedSaveIndex = cbxSaves.SelectedIndex;
-            }
-        }
-
-        // Save manager keyboard navigation
-        public void NextSaveCollection()
-        {
-            if (cbxSaveCollections.SelectedIndex < cbxSaveCollections.Items.Count) cbxSaveCollections.SelectedIndex += 1;
-        }
-
-        public void PreviousSaveCollection()
-        {
-            if (cbxSaveCollections.SelectedIndex > 0) cbxSaveCollections.SelectedIndex -= 1;
-        }
-
-        public void NextSave()
-        {
-            if (cbxSaves.SelectedIndex < cbxSaves.Items.Count) cbxSaves.SelectedIndex += 1;
-        }
-
-        public void PreviousSave()
-        {
-            if (cbxSaves.SelectedIndex > 0) cbxSaves.SelectedIndex -= 1;
+            saveManager.SelectSave(cbxSaves.SelectedIndex);
         }
 
         // Ensures that proper cleanup will be done before closing the program
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            SaveManager.ClearSaves();
+            saveManager.ClearSaves();
 
-            // Restore the backed up files if a backup was performed
-            if (SaveManager.DidBackup)
-            {
-                SaveManager.RestoreOldSaves();
-            }
+            if (saveManager.DidBackup) saveManager.RestoreOldSaves();
 
             base.OnClosing(e);
         }

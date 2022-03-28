@@ -29,10 +29,10 @@ namespace HobbitSpeedrunTools
                 }
             }
 
-            if (SaveManager.SelectedSaveCollectionIndex > 0)
-            {
-                status += $"\nSave: {SaveManager.SelectedSaveCollectionIndex}-{SaveManager.SelectedSaveIndex + 1}";
-            }
+            //if (SaveManager.SelectedSaveCollectionIndex > 0)
+            //{
+            //    status += $"\nSave: {SaveManager.SelectedSaveCollectionIndex}-{SaveManager.SelectedSaveIndex + 1}";
+            //}
 
             status = status.PadRight(65, ' ')[..65];
 
