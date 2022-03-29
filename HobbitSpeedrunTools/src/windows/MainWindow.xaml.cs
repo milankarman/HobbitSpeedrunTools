@@ -38,6 +38,9 @@ namespace HobbitSpeedrunTools
                 cheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
 
                 saveManager = new SaveManager();
+                saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
+                saveManager.onSaveChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
+
                 configManager = new ConfigManager();
                 hotkeyManager = new HotkeyManager(saveManager, cheatManager, configManager);
             }
@@ -49,11 +52,16 @@ namespace HobbitSpeedrunTools
 
             itcCheats.ItemsSource = cheatManager.toggleCheatList;
 
-            cbxSaveCollections.Items.Add("Disabled");
-
-            foreach (SaveManager.SaveCollection saveCollection in saveManager.SaveCollections)
+            foreach (SaveManager.SaveCollection? saveCollection in saveManager.SaveCollections)
             {
-                cbxSaveCollections.Items.Add(saveCollection.name);
+                if (saveCollection != null)
+                {
+                    cbxSaveCollections.Items.Add(saveCollection.name);
+                }
+                else
+                {
+                    cbxSaveCollections.Items.Add("Disabled");
+                }
             }
 
             cbxSaveCollections.SelectedIndex = 0;
@@ -82,6 +90,26 @@ namespace HobbitSpeedrunTools
             txtClipwarpPosZ.Text = Math.Round(z, 1).ToString("0.0");
         }
 
+        private void UpdateSavesManagerUI()
+        {
+            cbxSaves.Items.Clear();
+
+            if (saveManager.SelectedSaveCollection != null && saveManager.Saves != null)
+            {
+                foreach (SaveManager.Save save in saveManager.Saves)
+                    cbxSaves.Items.Add(save.name);
+
+                cbxSaves.IsEnabled = true;
+            }
+            else
+            {
+                cbxSaves.IsEnabled = false;
+            }
+
+            cbxSaveCollections.SelectedIndex = saveManager.SaveCollectionIndex;
+            cbxSaves.SelectedIndex = saveManager.SaveIndex;
+        }
+
         private void cbxCheat_Loaded(object sender, RoutedEventArgs e)
         {
             CheckBox cbx = (CheckBox)sender;
@@ -104,41 +132,6 @@ namespace HobbitSpeedrunTools
             if (cmd.DataContext is ToggleCheat cheat) cheat.Disable();
         }
 
-        // Updates the saves ComboBox when the save collection ComboBox is updated
-        private void cbxSaveCollections_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbxSaveCollections.SelectedIndex > 0)
-            {
-                saveManager.SelectSaveCollection(cbxSaveCollections.SelectedIndex - 1);
-                cbxSaves.Items.Clear();
-
-                foreach (SaveManager.Save save in saveManager.SelectedSaveCollection.saves)
-                {
-                    cbxSaves.Items.Add(save.name);
-                }
-
-                cbxSaves.IsEnabled = true;
-                cbxSaves.SelectedItem = saveManager.SelectedSave.name;
-            }
-            else
-            {
-                saveManager.ClearSaves();
-
-                if (saveManager.DidBackup) saveManager.RestoreOldSaves();
-
-                cbxSaves.Items.Clear();
-                cbxSaves.IsEnabled = false;
-            }
-
-        }
-
-        // Safely gets the value of the saves ComboBox the selected save to the saves folder
-        private void cbxSaves_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            saveManager.SelectSave(cbxSaves.SelectedIndex);
-        }
-
-        // Ensures that proper cleanup will be done before closing the program
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             saveManager.ClearSaves();
@@ -148,7 +141,6 @@ namespace HobbitSpeedrunTools
             base.OnClosing(e);
         }
 
-        // Opens the config file in notepad
         private void btnOpenConfig_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("notepad.exe", Path.Join(".", "config.ini"));
@@ -157,6 +149,18 @@ namespace HobbitSpeedrunTools
         private void btnOpenHelp_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/milankarman/HobbitSpeedrunTools#readme") { CreateNoWindow = true });
+        }
+
+        private void cbxSaveCollections_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbxSaveCollections.SelectedIndex != saveManager.SaveCollectionIndex)
+                saveManager.SelectSaveCollection(cbxSaveCollections.SelectedIndex);
+        }
+
+        private void cbxSaves_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbxSaves.SelectedIndex != saveManager.SaveIndex)
+                saveManager.SelectSave(cbxSaves.SelectedIndex);
         }
     }
 }

@@ -32,20 +32,20 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        public SaveCollection[] SaveCollections { get; private set; }
+        public SaveCollection?[] SaveCollections { get; private set; }
+        public Save[]? Saves { get => SelectedSaveCollection?.saves; }
 
-        public SaveCollection SelectedSaveCollection { get => SaveCollections[saveCollectionIndex]; }
-        public Save SelectedSave { get => SelectedSaveCollection.saves[saveIndex]; }
+        public SaveCollection? SelectedSaveCollection { get => SaveCollections[SaveCollectionIndex]; }
+        public Save? SelectedSave { get => SelectedSaveCollection?.saves[SaveIndex]; }
+
+
+        public int SaveCollectionIndex { get; private set; }
+        public int SaveIndex { get; private set; }
 
         public bool DidBackup { get; private set; }
 
-        public Action? onNextSaveCollection;
-        public Action? onPreviousSaveCollection;
-        public Action? onNextSave;
-        public Action? onPreviousSave;
-
-        private int saveCollectionIndex;
-        private int saveIndex;
+        public Action? onSaveCollectionChanged;
+        public Action? onSaveChanged;
 
         private readonly string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
         private readonly string applicationSaveDir = "save-collections";
@@ -66,10 +66,10 @@ namespace HobbitSpeedrunTools
             SaveCollections = GetSaveCollections();
         }
 
-        public SaveCollection[] GetSaveCollections()
+        private SaveCollection[] GetSaveCollections()
         {
             string[] saveCollectionPaths = Directory.GetDirectories(applicationSaveDir, "*", SearchOption.TopDirectoryOnly);
-            SaveCollection[] saveCollections = new SaveCollection[saveCollectionPaths.Length];
+            SaveCollection[] saveCollections = new SaveCollection[saveCollectionPaths.Length + 1];
 
             for (int i = 0; i < saveCollectionPaths.Length; i++)
             {
@@ -79,12 +79,15 @@ namespace HobbitSpeedrunTools
                 string path = saveCollectionPaths[i];
 
                 Save[] saves = GetSaves(path);
-                saveCollections[i] = new SaveCollection(name, path, saves);
+                saveCollections[i + 1] = new SaveCollection(name, path, saves);
             }
 
             try
             {
-                saveCollections = saveCollections.OrderBy(x => int.Parse(x.name.Split(".")[0])).ToArray();
+                saveCollections = saveCollections.OrderBy(x => {
+                    if (x == null) return 0;
+                    return int.Parse(x.name.Split(".")[0]);
+                }).ToArray();
             }
             catch
             {
@@ -94,7 +97,7 @@ namespace HobbitSpeedrunTools
             return saveCollections;
         }
 
-        public Save[] GetSaves(string saveCollectionPath)
+        private Save[] GetSaves(string saveCollectionPath)
         {
             string[] savePaths = Directory.GetFiles(saveCollectionPath);
             Save[] saves = new Save[savePaths.Length];
@@ -121,15 +124,34 @@ namespace HobbitSpeedrunTools
         public void SelectSaveCollection(int _saveCollectionIndex)
         {
             ClearSaves();
-            saveCollectionIndex = Math.Clamp(_saveCollectionIndex + 1, 0, SaveCollections.Length - 1);
-            SelectSave(0);
+            SaveCollectionIndex = Math.Clamp(_saveCollectionIndex, 0, SaveCollections.Length - 1);
+
+            if (SelectedSaveCollection != null)
+            {
+                SelectSave(0);
+            }
+            else
+            {
+                SaveIndex = 0;
+
+                if (DidBackup) RestoreOldSaves();
+            }
+
+            onSaveCollectionChanged?.Invoke();
         }
 
         public void SelectSave(int _saveIndex)
         {
-            ClearSaves();
-            saveIndex = Math.Clamp(_saveIndex - 1, 0, SelectedSaveCollection.saves.Length - 1);
-            File.Copy(Path.Join(SelectedSave.path), Path.Join(hobbitSaveDir, SelectedSave.name + ".hobbit"));
+            if (SelectedSaveCollection != null)
+            {
+                ClearSaves();
+                SaveIndex = Math.Clamp(_saveIndex, 0, SelectedSaveCollection.saves.Length - 1);
+                
+                if (SelectedSave != null)
+                    File.Copy(Path.Join(SelectedSave.path), Path.Join(hobbitSaveDir, SelectedSave.name + ".hobbit"));
+            }
+
+            onSaveChanged?.Invoke();
         }
 
         public void BackupOldSaves()
@@ -199,30 +221,6 @@ namespace HobbitSpeedrunTools
             DidBackup = false;
         }
 
-        public void NextSaveCollection()
-        {
-            SelectSaveCollection(saveCollectionIndex + 1);
-            onNextSaveCollection?.Invoke();
-        }
-
-        public void PreviousSaveCollection()
-        {
-            SelectSaveCollection(saveCollectionIndex - 1);
-            onPreviousSaveCollection?.Invoke();
-        }
-
-        public void NextSave()
-        {
-            SelectSave(saveIndex + 1);
-            onNextSave?.Invoke();
-        }
-
-        public void PreviousSave()
-        {
-            SelectSave(saveIndex + 1);
-            onPreviousSaveCollection?.Invoke();
-        }
-
         public void ClearSaves()
         {
             foreach (string save in Directory.GetFiles(hobbitSaveDir))
@@ -230,5 +228,13 @@ namespace HobbitSpeedrunTools
                 File.Delete(save);
             }
         }
+
+        public void NextSaveCollection() => SelectSaveCollection(SaveCollectionIndex + 1);
+
+        public void PreviousSaveCollection() => SelectSaveCollection(SaveCollectionIndex - 1);
+
+        public void NextSave() => SelectSave(SaveIndex + 1);
+
+        public void PreviousSave() => SelectSave(SaveIndex - 1);
     }
 }
