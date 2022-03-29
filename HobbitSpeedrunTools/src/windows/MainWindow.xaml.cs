@@ -14,6 +14,8 @@ namespace HobbitSpeedrunTools
         private readonly HotkeyManager hotkeyManager;
         private readonly ConfigManager configManager;
 
+        private bool updatingSaveManager;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -151,16 +153,24 @@ namespace HobbitSpeedrunTools
             Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/milankarman/HobbitSpeedrunTools#readme") { CreateNoWindow = true });
         }
 
-        private void cbxSaveCollections_DropDownClosed(object sender, EventArgs e)
+        private void cbxSaveCollections_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbxSaveCollections.SelectedIndex != saveManager.SaveCollectionIndex)
+            if (!updatingSaveManager && cbxSaveCollections.SelectedIndex >= 0)
+            {
+                updatingSaveManager = true;
                 saveManager.SelectSaveCollection(cbxSaveCollections.SelectedIndex);
+                updatingSaveManager = false;
+            }
         }
 
-        private void cbxSaves_DropDownClosed(object sender, EventArgs e)
+        private void cbxSaves_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbxSaves.SelectedIndex != saveManager.SaveIndex)
+            if (!updatingSaveManager && cbxSaves.SelectedIndex >= 0)
+            {
+                updatingSaveManager = true;
                 saveManager.SelectSave(cbxSaves.SelectedIndex);
+                updatingSaveManager = false;
+            }
         }
     }
 }
