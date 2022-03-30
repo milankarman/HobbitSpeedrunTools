@@ -8,6 +8,7 @@ namespace HobbitSpeedrunTools
     public class CheatManager
     {
         public readonly Mem mem = new();
+        public StatusManager? statusManager; 
 
         public readonly ToggleCheat[] toggleCheatList;
         public readonly ActionCheat[] actionCheatList;
@@ -54,8 +55,11 @@ namespace HobbitSpeedrunTools
                 // Attempt to hook to the game's process
                 if (mem.OpenProcess("meridian"))
                 {
-                    mem.WriteMemory(MemoryAddresses.memUsage, "int", "1");
-                    mem.WriteMemory(MemoryAddresses.memUsageText, "string", StatusManager.GetStatusText());
+                    if (statusManager != null)
+                    {
+                        mem.WriteMemory(MemoryAddresses.memUsage, "int", "1");
+                        mem.WriteMemory(MemoryAddresses.memUsageText, "string", statusManager.GetStatusText());
+                    }
 
                     // Execute every toggled cheat
                     foreach (ToggleCheat? cheat in toggleCheatList)

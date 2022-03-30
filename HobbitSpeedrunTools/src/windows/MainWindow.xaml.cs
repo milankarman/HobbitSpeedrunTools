@@ -43,6 +43,9 @@ namespace HobbitSpeedrunTools
                 saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
                 saveManager.onSaveChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
 
+                StatusManager statusManager = new StatusManager(cheatManager, saveManager);
+                cheatManager.statusManager = statusManager;
+
                 configManager = new ConfigManager();
                 hotkeyManager = new HotkeyManager(saveManager, cheatManager, configManager);
             }
@@ -56,14 +59,8 @@ namespace HobbitSpeedrunTools
 
             foreach (SaveManager.SaveCollection? saveCollection in saveManager.SaveCollections)
             {
-                if (saveCollection != null)
-                {
-                    cbxSaveCollections.Items.Add(saveCollection.name);
-                }
-                else
-                {
-                    cbxSaveCollections.Items.Add("Disabled");
-                }
+                if (saveCollection != null) cbxSaveCollections.Items.Add(saveCollection.name);
+                else cbxSaveCollections.Items.Add("Disabled");
             }
 
             cbxSaveCollections.SelectedIndex = 0;
@@ -134,20 +131,6 @@ namespace HobbitSpeedrunTools
             if (cmd.DataContext is ToggleCheat cheat) cheat.Disable();
         }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            saveManager.ClearSaves();
-
-            if (saveManager.DidBackup) saveManager.RestoreOldSaves();
-
-            base.OnClosing(e);
-        }
-
-        private void btnOpenConfig_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("notepad.exe", Path.Join(".", "config.ini"));
-        }
-
         private void btnOpenHelp_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/milankarman/HobbitSpeedrunTools#readme") { CreateNoWindow = true });
@@ -171,6 +154,20 @@ namespace HobbitSpeedrunTools
                 saveManager.SelectSave(cbxSaves.SelectedIndex);
                 updatingSaveManager = false;
             }
+        }
+
+        private void btnOpenConfig_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("notepad.exe", Path.Join(".", "config.ini"));
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            saveManager.ClearSaves();
+
+            if (saveManager.DidBackup) saveManager.RestoreOldSaves();
+
+            base.OnClosing(e);
         }
     }
 }

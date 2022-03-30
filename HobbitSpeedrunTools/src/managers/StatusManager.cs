@@ -4,35 +4,39 @@ using System.Reflection;
 
 namespace HobbitSpeedrunTools
 {
-    public static class StatusManager
+    public class StatusManager
     {
-        // Prints the current status of cheats and save manager in 64 characters
-        // to fit into the in game display
-        public static string GetStatusText()
+        public CheatManager cheatManager;
+        public SaveManager saveManager;
+
+        public StatusManager(CheatManager _cheatManager, SaveManager _saveManager)
+        {
+            cheatManager = _cheatManager;
+            saveManager = _saveManager;
+        }
+
+        public string GetStatusText()
         {
             string status = $"HST {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
 
-            //List<string> cheats = CheatManager.GetToggleCheatList();
+            List<string> cheats = cheatManager.GetToggleCheatList();
 
-            //if (cheats.Count > 0)
-            //{
-            //    status += "\nCheats: ";
-            //}
+            if (cheats.Count > 0) status += "\nCheats: ";
 
-            //for (int i = 0; i < cheats.Count; i++)
-            //{
-            //    status += cheats[i];
+            for (int i = 0; i < cheats.Count; i++)
+            {
+                status += cheats[i];
 
-            //    if (i < cheats.Count - 1)
-            //    {
-            //        status += " ";
-            //    }
-            //}
+                if (i < cheats.Count - 1)
+                {
+                    status += " ";
+                }
+            }
 
-            //if (SaveManager.SelectedSaveCollectionIndex > 0)
-            //{
-            //    status += $"\nSave: {SaveManager.SelectedSaveCollectionIndex}-{SaveManager.SelectedSaveIndex + 1}";
-            //}
+            if (saveManager.SaveCollectionIndex > 0)
+            {
+                status += $"\nSave: {saveManager.SaveCollectionIndex}-{saveManager.SaveIndex + 1}";
+            }
 
             status = status.PadRight(65, ' ')[..65];
 
