@@ -12,6 +12,7 @@ namespace HobbitSpeedrunTools
         private readonly SaveManager saveManager;
         private readonly CheatManager cheatManager;
         private readonly ConfigManager configManager;
+        private readonly HotkeyManager hotkeyManager;
 
         private bool updatingSaveManager;
 
@@ -33,20 +34,20 @@ namespace HobbitSpeedrunTools
 
             try
             {
-                cheatManager = new CheatManager();
+                cheatManager = new();
                 cheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
                 cheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
                 cheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
 
-                saveManager = new SaveManager();
+                saveManager = new();
                 saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
                 saveManager.onSaveChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
 
                 StatusManager statusManager = new(cheatManager, saveManager);
                 cheatManager.statusManager = statusManager;
 
-                configManager = new ConfigManager();
-                HotkeyManager hotkeyManager = new(saveManager, cheatManager, configManager);
+                configManager = new();
+                hotkeyManager = new(saveManager, cheatManager, configManager);
             }
             catch (Exception ex)
             {
