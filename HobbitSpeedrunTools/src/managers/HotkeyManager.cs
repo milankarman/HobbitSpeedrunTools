@@ -6,11 +6,11 @@ namespace HobbitSpeedrunTools
     public class HotkeyManager
     {
         private readonly KeyboardHookManager keyboardHookManager = new();
-        private ModifierKeys modifierKey;
+        private readonly ModifierKeys modifierKey;
 
-        private SaveManager saveManager;
-        private CheatManager cheatManager;
-        private ConfigManager configManager;
+        private readonly SaveManager saveManager;
+        private readonly CheatManager cheatManager;
+        private readonly ConfigManager configManager;
 
         public HotkeyManager(SaveManager _saveManager, CheatManager _cheatManager, ConfigManager _configManager)
         {

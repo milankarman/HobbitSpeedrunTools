@@ -11,7 +11,6 @@ namespace HobbitSpeedrunTools
     {
         private readonly SaveManager saveManager;
         private readonly CheatManager cheatManager;
-        private readonly HotkeyManager hotkeyManager;
         private readonly ConfigManager configManager;
 
         private bool updatingSaveManager;
@@ -43,11 +42,11 @@ namespace HobbitSpeedrunTools
                 saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
                 saveManager.onSaveChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
 
-                StatusManager statusManager = new StatusManager(cheatManager, saveManager);
+                StatusManager statusManager = new(cheatManager, saveManager);
                 cheatManager.statusManager = statusManager;
 
                 configManager = new ConfigManager();
-                hotkeyManager = new HotkeyManager(saveManager, cheatManager, configManager);
+                HotkeyManager hotkeyManager = new(saveManager, cheatManager, configManager);
             }
             catch (Exception ex)
             {

@@ -6,7 +6,7 @@ namespace HobbitSpeedrunTools
     public class ConfigManager
     {
         private readonly FileIniDataParser parser = new();
-        private IniData data = new();
+        private readonly IniData data = new();
 
         public string? ModifierKey { private set; get; }
 
