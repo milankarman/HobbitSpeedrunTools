@@ -66,8 +66,9 @@ This tool is made to effeciently practice for The Hobbit speedruns by providing 
 
 Start the program and The Hobbit. Tick any of the checkboxes of the cheats you might want and select any save collection and save combination you might want. Everything else is automatic. Have a look at [shortcuts](#shortcuts) for useful shortcuts that 
 
-**Only use HobbitSpeedrunTools for practice, make sure to close it and restart your game for real runs**
+To use fly mode you'll have to enable developer mode and hit CTRL + F in game. When flying you can hold N to clip through objects. Unfortunately this isn't rebindable as it's all programmed to work together this way in the game itself.
 
+**Only use HobbitSpeedrunTools for practice, make sure to close it and restart your game for real runs**
 
 ## Shortcuts
 
