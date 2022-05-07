@@ -51,7 +51,8 @@ namespace HobbitSpeedrunTools
                 hotkeyManager = new(saveManager, cheatManager, configManager);
 
                 timerManager = new();
-                timerManager.onTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
+                timerManager.onTimerTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
+                timerManager.onTimerEnd += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
             }
             catch (Exception ex)
             {
