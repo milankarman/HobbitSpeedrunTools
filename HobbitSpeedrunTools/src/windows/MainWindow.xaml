@@ -83,26 +83,47 @@
             <GroupBox Header="Segment Timer" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10">
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Timer"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTimer" Margin="0,0,0,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Start On"/>
-                    <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cbxTimerStart" HorizontalAlignment="Stretch" Margin="0,0,0,5" VerticalAlignment="Top" Width="auto">
-                        <ComboBoxItem IsSelected="True">Level Start</ComboBoxItem>
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtTimer" Margin="0,0,0,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Best Time"/>
+                    <Grid Grid.Row="1" Grid.Column="2"> 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" x:Name="txtBestTime" Margin="0,0,0,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                        <Button Grid.Column="1" Content="↻" Click="btnOpenConfig_Click" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Start On"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerStart" HorizontalAlignment="Stretch" Margin="0,0,0,5" VerticalAlignment="Top" Width="auto">
+                        <ComboBoxItem IsSelected="True">None</ComboBoxItem>
+                        <ComboBoxItem>Level Start</ComboBoxItem>
                         <ComboBoxItem>Movement</ComboBoxItem>
                     </ComboBox>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="End On"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbxTimerEnd" HorizontalAlignment="Stretch" Margin="0,0,0,5" VerticalAlignment="Top" Width="auto">
-                        <ComboBoxItem IsSelected="True">Next Level</ComboBoxItem>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="End On"/>
+                    <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerEnd" HorizontalAlignment="Stretch" Margin="0,0,0,5" VerticalAlignment="Top" Width="auto">
+                        <ComboBoxItem IsSelected="True">None</ComboBoxItem>
+                        <ComboBoxItem>Next Level</ComboBoxItem>
                         <ComboBoxItem>Point Reached</ComboBoxItem>
                     </ComboBox>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="End Position"/>
+                    <Grid Grid.Row="4" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Set" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                    </Grid>
                 </Grid>
             </GroupBox>
         </Grid>

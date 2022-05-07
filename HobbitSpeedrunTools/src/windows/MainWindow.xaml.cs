@@ -13,6 +13,7 @@ namespace HobbitSpeedrunTools
         private readonly CheatManager cheatManager;
         private readonly ConfigManager configManager;
         private readonly HotkeyManager hotkeyManager;
+        private readonly TimerManager timerManager;
 
         private bool updatingSaveManager;
 
@@ -48,6 +49,9 @@ namespace HobbitSpeedrunTools
 
                 configManager = new();
                 hotkeyManager = new(saveManager, cheatManager, configManager);
+
+                timerManager = new();
+                timerManager.onTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
             }
             catch (Exception ex)
             {
@@ -68,6 +72,11 @@ namespace HobbitSpeedrunTools
             UpdateBilboPosition(0, 0, 0);
             UpdateBilboRotation(0);
             UpdateClipwarpPositition(0, 0, 0);
+        }
+
+        public void UpdateTimer(TimeSpan time)
+        {
+            txtTimer.Text = time.ToString();
         }
 
         public void UpdateBilboPosition(float x, float y, float z)
