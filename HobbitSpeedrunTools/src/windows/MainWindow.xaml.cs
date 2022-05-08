@@ -39,7 +39,7 @@ namespace HobbitSpeedrunTools
                 timerManager.onTimerTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
                 timerManager.onTimerEnd += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
 
-                cheatManager = new(timerManager);
+                cheatManager = new();
                 cheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
                 cheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
                 cheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));

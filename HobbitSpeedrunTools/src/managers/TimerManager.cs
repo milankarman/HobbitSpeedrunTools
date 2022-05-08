@@ -1,8 +1,8 @@
 ﻿using Memory;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Numerics;
+using System.Linq;
 
 namespace HobbitSpeedrunTools
 {
@@ -47,9 +47,12 @@ namespace HobbitSpeedrunTools
             {
                 if (mem.OpenProcess("meridian"))
                 {
-                    if (TimerShouldEnable()) stopped = false;
-
-                    if (stopped) continue;
+                    if (TimerShouldReset() || stopped)
+                    {
+                        stopped = false;
+                        timer = false;
+                        continue;
+                    }
 
                     if (TimerShouldStop())
                     {
@@ -75,9 +78,10 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        private bool TimerShouldEnable()
+        private bool TimerShouldReset()
         {
-            return mem.ReadInt(MemoryAddresses.loading) == 1;
+            return mem.ReadInt(MemoryAddresses.loading) == 1
+                || StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState));
         }
 
         private bool TimerShouldStart()
