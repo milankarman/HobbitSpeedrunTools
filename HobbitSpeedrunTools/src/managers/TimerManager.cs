@@ -1,8 +1,8 @@
 ﻿using Memory;
 using System;
-using System.Threading;
-using System.Numerics;
 using System.Linq;
+using System.Numerics;
+using System.Threading;
 
 namespace HobbitSpeedrunTools
 {
@@ -29,7 +29,6 @@ namespace HobbitSpeedrunTools
             STOPPED,
         }
 
-
         public readonly Mem mem = new();
         public bool stopped = true;
 
@@ -41,9 +40,10 @@ namespace HobbitSpeedrunTools
         public END_CONDITION endCondition;
 
         public Vector3 endPointPosition = new(0, 0, 0);
-        public float endPointDistance = 100;
+        public int endPointDistance = 150;
 
         private DateTime startTime;
+        private int startLevel;
 
         public TimerManager()
         {
@@ -61,6 +61,7 @@ namespace HobbitSpeedrunTools
                     if (TimerShouldReset())
                     {
                         timerState = TIMER_STATE.READY;
+                        startLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
                     }
 
                     if (timerState == TIMER_STATE.READY && TimerShouldStart())
@@ -81,14 +82,15 @@ namespace HobbitSpeedrunTools
                     }
                 }
 
-                Thread.Sleep(1000 / 30);
+                Thread.Sleep(1);
             }
         }
 
         private bool TimerShouldReset()
         {
             return mem.ReadInt(MemoryAddresses.loading) == 1
-                || StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState));
+                || StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState))
+                || startLevel != mem.ReadInt(MemoryAddresses.currentLevelID);
         }
 
         private bool TimerShouldStart()
@@ -99,7 +101,7 @@ namespace HobbitSpeedrunTools
                     break;
 
                 case START_CONDITION.LEVEL_START:
-                    return mem.ReadInt(MemoryAddresses.outOfLevelState) == 10;
+                    return mem.ReadInt(MemoryAddresses.loadFinished) == 1;
 
                 case START_CONDITION.MOVEMENT:
                     return StateLists.movementStates.Contains(mem.ReadInt(MemoryAddresses.bilboState));
@@ -116,7 +118,7 @@ namespace HobbitSpeedrunTools
                     break;
 
                 case END_CONDITION.NEXT_LEVEL:
-                    return mem.ReadInt(MemoryAddresses.outOfLevelState) != 10;
+                    return mem.ReadInt(MemoryAddresses.outOfLevelState) != 13;
 
                 case END_CONDITION.POINT_REACHED:
                     float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
@@ -133,11 +135,14 @@ namespace HobbitSpeedrunTools
 
         public void SetEndPointPosition()
         {
-            float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
-            float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
-            float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
+            if (mem.OpenProcess("meridian"))
+            {
+                float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
+                float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
+                float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
 
-            endPointPosition = new(x, y, z);
+                endPointPosition = new(x, y, z);
+            }
         }
     }
 }

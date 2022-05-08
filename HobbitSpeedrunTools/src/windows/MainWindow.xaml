@@ -120,7 +120,7 @@
                         <Button Grid.Column="0" Content="Set" x:Name="btnSetEndPoint" Margin="10,0,0,5" VerticalAlignment="Top" Click="btnSetEndPoint_Click"/>
                     </Grid>
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Point Radius" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtPointRadius" Margin="10,0,0,0" Text="100" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtPointRadius" Margin="10,0,0,0" Text="100" HorizontalContentAlignment="Right" TextChanged="txtPointRadius_TextChanged"/>
                 </Grid>
             </GroupBox>
 

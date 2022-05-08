@@ -37,6 +37,8 @@
         public const string bilboState = local + ",8D8";
 
         public const string load = "00760358";
+        public const string loadFinished = "0076035C";
+        public const string continueRunLevel = "00760354";
         public const string currentLevelID = "00762B5C";
         public const string outOfLevelState = "00762B58";
     }

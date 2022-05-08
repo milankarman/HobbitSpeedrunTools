@@ -2,8 +2,10 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace HobbitSpeedrunTools
 {
@@ -78,7 +80,7 @@ namespace HobbitSpeedrunTools
 
         public void UpdateTimer(TimeSpan time)
         {
-            txtTimer.Text = time.ToString();
+            txtTimer.Text = time.ToString("mm\\:ss\\.fff");
         }
 
         public void UpdateBestTime(TimeSpan time)
@@ -86,7 +88,7 @@ namespace HobbitSpeedrunTools
             if (bestTime == null || time < bestTime)
             {
                 bestTime = time;
-                txtBestTime.Text = bestTime.ToString();
+                txtBestTime.Text = bestTime?.ToString("mm\\:ss\\.fff");
             }
         }
 
@@ -235,6 +237,25 @@ namespace HobbitSpeedrunTools
         {
             txtBestTime.Text = "00:00.000";
             bestTime = null;
+        }
+
+
+        // Ensures a textbox only allows integer inputs of a given range
+        public static void ClampInteger(TextBox textBox, int minValue, int maxValue)
+        {
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+                int value = Math.Clamp(int.Parse(textBox.Text), minValue, maxValue);
+                textBox.Text = value.ToString();
+            }
+        }
+
+        private void txtPointRadius_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ClampInteger(txtPointRadius, 1, 9999);
+
+            if (timerManager !=  null)
+                timerManager.endPointDistance = int.Parse(txtPointRadius.Text);
         }
     }
 }
