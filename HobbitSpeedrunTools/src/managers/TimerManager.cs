@@ -23,16 +23,16 @@ namespace HobbitSpeedrunTools
         }
 
         public readonly Mem mem = new();
+        public bool stopped = true;
 
         public Action<TimeSpan>? onTimerTick;
         public Action<TimeSpan>? onTimerEnd;
 
-        public START_CONDITION startCondition = START_CONDITION.MOVEMENT;
-        public END_CONDITION endCondition = END_CONDITION.POINT_REACHED;
+        public START_CONDITION startCondition;
+        public END_CONDITION endCondition;
 
         private DateTime startTime;
         private bool timer;
-        private bool stopped;
 
         public TimerManager()
         {
@@ -47,37 +47,37 @@ namespace HobbitSpeedrunTools
             {
                 if (mem.OpenProcess("meridian"))
                 {
-                    if (stopped)
+                    if (TimerShouldEnable()) stopped = false;
+
+                    if (stopped) continue;
+
+                    if (TimerShouldStop())
                     {
-                        stopped = mem.ReadInt(MemoryAddresses.outOfLevelState) == 10;
+                        onTimerEnd?.Invoke(DateTime.Now - startTime);
+                        timer = false;
+                        stopped = true;
+                        continue;
                     }
-                    else
+
+                    if (!timer && TimerShouldStart())
                     {
-                        if (TimerShouldStop())
-                        {
-                            timer = false;
-                            stopped = true;
-                            onTimerEnd?.Invoke(DateTime.Now - startTime);
-                            continue;
-                        }
-
-                        if (!timer && TimerShouldStart())
-                        {
-                            startTime = DateTime.Now;
-                            timer = true;
-                        }
-
-                        if (timer)
-                        {
-                            onTimerTick?.Invoke(DateTime.Now - startTime);
-                        }
+                        startTime = DateTime.Now;
+                        timer = true;
                     }
-        
 
+                    if (timer)
+                    {
+                        onTimerTick?.Invoke(DateTime.Now - startTime);
+                    }
                 }
 
                 Thread.Sleep(1000 / 30);
             }
+        }
+
+        private bool TimerShouldEnable()
+        {
+            return mem.ReadInt(MemoryAddresses.loading) == 1;
         }
 
         private bool TimerShouldStart()

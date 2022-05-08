@@ -35,7 +35,11 @@ namespace HobbitSpeedrunTools
 
             try
             {
-                cheatManager = new();
+                timerManager = new();
+                timerManager.onTimerTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
+                timerManager.onTimerEnd += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
+
+                cheatManager = new(timerManager);
                 cheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
                 cheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
                 cheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
@@ -49,10 +53,6 @@ namespace HobbitSpeedrunTools
 
                 configManager = new();
                 hotkeyManager = new(saveManager, cheatManager, configManager);
-
-                timerManager = new();
-                timerManager.onTimerTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
-                timerManager.onTimerEnd += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
             }
             catch (Exception ex)
             {
@@ -178,6 +178,42 @@ namespace HobbitSpeedrunTools
             if (saveManager.DidBackup) saveManager.RestoreOldSaves();
 
             base.OnClosing(e);
+        }
+
+        private void cbxTimerStart_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (cbxTimerStart.SelectedValue?.ToString())
+            {
+                case "None":
+                    timerManager.startCondition = TimerManager.START_CONDITION.NONE;
+                    break;
+
+                case "Level Start":
+                    timerManager.startCondition = TimerManager.START_CONDITION.LEVEL_START;
+                    break;
+
+                case "Movement":
+                    timerManager.startCondition = TimerManager.START_CONDITION.MOVEMENT;
+                    break;
+            }
+        }
+
+        private void cbxTimerEnd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (cbxTimerEnd.SelectedValue?.ToString())
+            {
+                case "None":
+                    timerManager.endCondition = TimerManager.END_CONDITION.NONE;
+                    break;
+
+                case "Next Level":
+                    timerManager.endCondition = TimerManager.END_CONDITION.NEXT_LEVEL;
+                    break;
+
+                case "Point Reached":
+                    timerManager.endCondition = TimerManager.END_CONDITION.POINT_REACHED;
+                    break;
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace HobbitSpeedrunTools
         public Action<float, float, float>? onClipwarpPositionUpdate;
 
         // Starts a new thread handling the cheat loop
-        public CheatManager()
+        public CheatManager(TimerManager timerManager)
         {
             Thread cheatLoopThread = new(CheatLoop);
             cheatLoopThread.IsBackground = true;
@@ -41,7 +41,7 @@ namespace HobbitSpeedrunTools
 
             actionCheatList = new ActionCheat[]
             {
-                new QuickLoad(mem),
+                new QuickLoad(mem, timerManager),
                 new LevelReload(mem),
                 new InstantClipwarp(mem),
             };

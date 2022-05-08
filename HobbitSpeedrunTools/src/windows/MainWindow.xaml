@@ -105,13 +105,13 @@
                         <Button Grid.Column="1" Content="↻" Click="btnOpenConfig_Click" Margin="0,0,0,0" VerticalAlignment="Top"/>
                     </Grid>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Start On"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerStart" HorizontalAlignment="Stretch" Margin="0,0,0,5" VerticalAlignment="Top" Width="auto">
+                    <ComboBox SelectedValuePath="Content" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerStart" HorizontalAlignment="Stretch" Margin="0,0,0,5" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxTimerStart_SelectionChanged">
                         <ComboBoxItem IsSelected="True">None</ComboBoxItem>
                         <ComboBoxItem>Level Start</ComboBoxItem>
                         <ComboBoxItem>Movement</ComboBoxItem>
                     </ComboBox>
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="End On"/>
-                    <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerEnd" HorizontalAlignment="Stretch" Margin="0,0,0,5" VerticalAlignment="Top" Width="auto">
+                    <ComboBox SelectedValuePath="Content" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerEnd" HorizontalAlignment="Stretch" Margin="0,0,0,5" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxTimerEnd_SelectionChanged">
                         <ComboBoxItem IsSelected="True">None</ComboBoxItem>
                         <ComboBoxItem>Next Level</ComboBoxItem>
                         <ComboBoxItem>Point Reached</ComboBoxItem>
