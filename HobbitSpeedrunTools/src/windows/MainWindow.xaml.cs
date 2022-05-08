@@ -48,7 +48,7 @@ namespace HobbitSpeedrunTools
                 saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
                 saveManager.onSaveChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
 
-                StatusManager statusManager = new(cheatManager, saveManager);
+                StatusManager statusManager = new(cheatManager, saveManager, timerManager);
                 cheatManager.statusManager = statusManager;
 
                 configManager = new();

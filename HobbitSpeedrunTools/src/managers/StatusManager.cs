@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -8,11 +9,17 @@ namespace HobbitSpeedrunTools
     {
         public CheatManager cheatManager;
         public SaveManager saveManager;
+        public TimerManager timerManager;
 
-        public StatusManager(CheatManager _cheatManager, SaveManager _saveManager)
+        public TimeSpan timerTime;
+
+        public StatusManager(CheatManager _cheatManager, SaveManager _saveManager, TimerManager _timerManager)
         {
             cheatManager = _cheatManager;
             saveManager = _saveManager;
+            timerManager = _timerManager;
+
+            timerManager.onTimerTick += (time) => timerTime = time;
         }
 
         public string GetStatusText()
@@ -36,6 +43,11 @@ namespace HobbitSpeedrunTools
             if (saveManager.SaveCollectionIndex > 0)
             {
                 status += $"\nSave: {saveManager.SaveCollectionIndex}-{saveManager.SaveIndex + 1}";
+            }
+
+            if (timerManager.startCondition != TimerManager.START_CONDITION.NONE)
+            {
+                status += $"\n{timerTime:mm\\:ss\\.ff}";
             }
 
             status = status.PadRight(65, ' ')[..65];

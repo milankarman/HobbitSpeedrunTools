@@ -122,8 +122,8 @@ namespace HobbitSpeedrunTools
                     float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
                     float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
 
-                    Vector3 position = new Vector3(x, y, z);
-                    Vector3 endPoint = new Vector3(-1746, -227, -1898);
+                    Vector3 position = new(x, y, z);
+                    Vector3 endPoint = new(-1746, -227, -1898);
 
                     return Vector3.Distance(position, endPoint) < 100;
             }

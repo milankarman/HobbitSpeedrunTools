@@ -5,7 +5,7 @@
 		<RootNamespace>HobbitSpeedrunTools</RootNamespace>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<Version>1.2.1</Version>
+		<Version>1.3.0</Version>
 		<Authors>milankarman</Authors>
 		<Description>A tool for effeciently practicing for speedruns of The Hobbit.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
