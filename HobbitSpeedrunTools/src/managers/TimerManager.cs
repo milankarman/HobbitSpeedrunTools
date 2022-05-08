@@ -22,17 +22,25 @@ namespace HobbitSpeedrunTools
             POINT_REACHED,
         }
 
+        public enum TIMER_STATE
+        {
+            READY,
+            STARTED,
+            STOPPED,
+        }
+
+
         public readonly Mem mem = new();
         public bool stopped = true;
 
         public Action<TimeSpan>? onTimerTick;
         public Action<TimeSpan>? onTimerEnd;
 
+        public TIMER_STATE timerState;
         public START_CONDITION startCondition;
         public END_CONDITION endCondition;
 
         private DateTime startTime;
-        private bool timer;
 
         public TimerManager()
         {
@@ -47,30 +55,25 @@ namespace HobbitSpeedrunTools
             {
                 if (mem.OpenProcess("meridian"))
                 {
-                    if (TimerShouldReset() || stopped)
+                    if (TimerShouldReset())
                     {
-                        stopped = false;
-                        timer = false;
-                        continue;
+                        timerState = TIMER_STATE.READY;
+                    }
+
+                    if (timerState == TIMER_STATE.READY && TimerShouldStart())
+                    {
+                        startTime = DateTime.Now;
+                        timerState = TIMER_STATE.STARTED;
+                    }
+
+                    if (timerState == TIMER_STATE.STARTED)
+                    {
+                        onTimerTick?.Invoke(DateTime.Now - startTime);
                     }
 
                     if (TimerShouldStop())
                     {
-                        onTimerEnd?.Invoke(DateTime.Now - startTime);
-                        timer = false;
-                        stopped = true;
-                        continue;
-                    }
-
-                    if (!timer && TimerShouldStart())
-                    {
-                        startTime = DateTime.Now;
-                        timer = true;
-                    }
-
-                    if (timer)
-                    {
-                        onTimerTick?.Invoke(DateTime.Now - startTime);
+                        timerState = TIMER_STATE.STOPPED;
                     }
                 }
 
