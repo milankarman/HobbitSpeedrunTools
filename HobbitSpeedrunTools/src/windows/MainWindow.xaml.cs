@@ -16,6 +16,7 @@ namespace HobbitSpeedrunTools
         private readonly TimerManager timerManager;
 
         private bool updatingSaveManager;
+        private TimeSpan? bestTime;
 
         public MainWindow()
         {
@@ -37,7 +38,7 @@ namespace HobbitSpeedrunTools
             {
                 timerManager = new();
                 timerManager.onTimerTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
-                timerManager.onTimerEnd += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
+                timerManager.onTimerEnd += (time) => Dispatcher.Invoke(() => UpdateBestTime(time));
 
                 cheatManager = new();
                 cheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
@@ -78,6 +79,15 @@ namespace HobbitSpeedrunTools
         public void UpdateTimer(TimeSpan time)
         {
             txtTimer.Text = time.ToString();
+        }
+
+        public void UpdateBestTime(TimeSpan time)
+        {
+            if (bestTime == null || time < bestTime)
+            {
+                bestTime = time;
+                txtBestTime.Text = bestTime.ToString();
+            }
         }
 
         public void UpdateBilboPosition(float x, float y, float z)
@@ -214,6 +224,17 @@ namespace HobbitSpeedrunTools
                     timerManager.endCondition = TimerManager.END_CONDITION.POINT_REACHED;
                     break;
             }
+        }
+
+        private void btnSetEndPoint_Click(object sender, RoutedEventArgs e)
+        {
+            timerManager.SetEndPointPosition();
+        }
+
+        private void btnResetBestTime_Click(object sender, RoutedEventArgs e)
+        {
+            txtBestTime.Text = "00:00.000";
+            bestTime = null;
         }
     }
 }

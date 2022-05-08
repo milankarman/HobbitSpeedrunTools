@@ -97,7 +97,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="0" x:Name="txtBestTime" Margin="10,0,5,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                        <Button Grid.Column="1" Content="↻" Click="btnOpenConfig_Click" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <Button Grid.Column="1" Content="↻" x:Name="btnResetBestTime" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnResetBestTime_Click"/>
                     </Grid>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Start On" VerticalAlignment="Center"/>
                     <ComboBox SelectedValuePath="Content" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerStart" HorizontalAlignment="Stretch" Margin="10,0,0,5" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxTimerStart_SelectionChanged">
@@ -117,7 +117,7 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Set" Margin="10,0,0,5" VerticalAlignment="Top"/>
+                        <Button Grid.Column="0" Content="Set" x:Name="btnSetEndPoint" Margin="10,0,0,5" VerticalAlignment="Top" Click="btnSetEndPoint_Click"/>
                     </Grid>
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Point Radius" VerticalAlignment="Center"/>
                     <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtPointRadius" Margin="10,0,0,0" Text="100" HorizontalContentAlignment="Right"/>

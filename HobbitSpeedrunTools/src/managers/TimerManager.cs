@@ -40,6 +40,9 @@ namespace HobbitSpeedrunTools
         public START_CONDITION startCondition;
         public END_CONDITION endCondition;
 
+        public Vector3 endPointPosition = new(0, 0, 0);
+        public float endPointDistance = 100;
+
         private DateTime startTime;
 
         public TimerManager()
@@ -74,6 +77,7 @@ namespace HobbitSpeedrunTools
                     if (TimerShouldStop())
                     {
                         timerState = TIMER_STATE.STOPPED;
+                        onTimerEnd?.Invoke(DateTime.Now - startTime);
                     }
                 }
 
@@ -95,12 +99,10 @@ namespace HobbitSpeedrunTools
                     break;
 
                 case START_CONDITION.LEVEL_START:
-                    int outOfLevelState = mem.ReadInt(MemoryAddresses.outOfLevelState);
-                    return outOfLevelState == 10;
+                    return mem.ReadInt(MemoryAddresses.outOfLevelState) == 10;
 
                 case START_CONDITION.MOVEMENT:
-                    int bilboState = mem.ReadInt(MemoryAddresses.bilboState);
-                    return bilboState == 3 || bilboState == 5 || bilboState == 15;
+                    return StateLists.movementStates.Contains(mem.ReadInt(MemoryAddresses.bilboState));
             }
 
             return false;
@@ -114,21 +116,28 @@ namespace HobbitSpeedrunTools
                     break;
 
                 case END_CONDITION.NEXT_LEVEL:
-                    int outOfLevelState = mem.ReadInt(MemoryAddresses.outOfLevelState);
-                    return outOfLevelState != 10;
+                    return mem.ReadInt(MemoryAddresses.outOfLevelState) != 10;
 
                 case END_CONDITION.POINT_REACHED:
                     float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
                     float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
                     float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
 
-                    Vector3 position = new(x, y, z);
-                    Vector3 endPoint = new(-1746, -227, -1898);
+                    Vector3 bilboPosition = new(x, y, z);
 
-                    return Vector3.Distance(position, endPoint) < 100;
+                    return Vector3.Distance(bilboPosition, endPointPosition) < endPointDistance;
             }
 
             return false;
+        }
+
+        public void SetEndPointPosition()
+        {
+            float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
+            float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
+            float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
+
+            endPointPosition = new(x, y, z);
         }
     }
 }
