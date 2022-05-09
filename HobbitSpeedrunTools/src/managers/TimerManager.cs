@@ -43,7 +43,6 @@ namespace HobbitSpeedrunTools
         public int endPointDistance = 150;
 
         private DateTime startTime;
-        private int startLevel;
 
         public TimerManager()
         {
@@ -54,84 +53,107 @@ namespace HobbitSpeedrunTools
 
         private void TimerLoop()
         {
+            bool timerStarted = false;
+            bool timerBlocked = false;
+            bool readyToUnblock = false;
+            int startLevel = 0;
+
             while (true)
             {
                 if (mem.OpenProcess("meridian"))
                 {
-                    if (TimerShouldReset())
+                    if (timerBlocked)
                     {
-                        timerState = TIMER_STATE.READY;
-                        startLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
+                        if (mem.ReadInt(MemoryAddresses.loadFinished) == 1)
+                        {
+                            readyToUnblock = true;
+                        }
+
+                        if (readyToUnblock && mem.ReadInt(MemoryAddresses.outOfLevelState) == 17)
+                        {
+                            timerBlocked = false;
+                            readyToUnblock = false;
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     }
 
-                    if (timerState == TIMER_STATE.READY && TimerShouldStart())
+                    if (timerStarted == false && mem.ReadInt(MemoryAddresses.loadFinished) == 1)
                     {
                         startTime = DateTime.Now;
-                        timerState = TIMER_STATE.STARTED;
+                        startLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
+                        timerStarted = true;
                     }
 
-                    if (timerState == TIMER_STATE.STARTED)
+                    if (timerStarted && mem.ReadInt(MemoryAddresses.currentLevelID) != startLevel)
+                    {
+                        timerStarted = false;
+                        timerBlocked = true;
+                        onTimerEnd?.Invoke(DateTime.Now - startTime);
+                    }
+
+                    if (timerStarted)
                     {
                         onTimerTick?.Invoke(DateTime.Now - startTime);
                     }
-
-                    if (TimerShouldStop())
-                    {
-                        timerState = TIMER_STATE.STOPPED;
-                        onTimerEnd?.Invoke(DateTime.Now - startTime);
-                    }
                 }
-
-                Thread.Sleep(1);
             }
         }
 
-        private bool TimerShouldReset()
-        {
-            return mem.ReadInt(MemoryAddresses.loading) == 1
-                || StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState))
-                || startLevel != mem.ReadInt(MemoryAddresses.currentLevelID);
-        }
 
-        private bool TimerShouldStart()
-        {
-            switch (startCondition)
-            {
-                case START_CONDITION.NONE:
-                    break;
+        //private bool TimerShouldReset()
+        //{
+        //    //return StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState))
+        //    //    || startLevel != mem.ReadInt(MemoryAddresses.currentLevelID);
+        //}
 
-                case START_CONDITION.LEVEL_START:
-                    return mem.ReadInt(MemoryAddresses.loadFinished) == 1;
+        //private bool TimerShouldStart()
+        //{
+        //    switch (startCondition)
+        //    {
+        //        case START_CONDITION.NONE:
+        //            break;
 
-                case START_CONDITION.MOVEMENT:
-                    return StateLists.movementStates.Contains(mem.ReadInt(MemoryAddresses.bilboState));
-            }
+        //        case START_CONDITION.LEVEL_START:
+        //            return mem.ReadInt(MemoryAddresses.loadFinished) == 1;
 
-            return false;
-        }
+        //        case START_CONDITION.MOVEMENT:
+        //            return StateLists.movementStates.Contains(mem.ReadInt(MemoryAddresses.bilboState));
+        //    }
 
-        private bool TimerShouldStop()
-        {
-            switch (endCondition)
-            {
-                case END_CONDITION.NONE:
-                    break;
+        //    return false;
+        //}
 
-                case END_CONDITION.NEXT_LEVEL:
-                    return mem.ReadInt(MemoryAddresses.outOfLevelState) != 13;
+        //private bool TimerShouldStop()
+        //{
+        //    switch (endCondition)
+        //    {
+        //        case END_CONDITION.NONE:
+        //            break;
 
-                case END_CONDITION.POINT_REACHED:
-                    float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
-                    float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
-                    float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
+        //        case END_CONDITION.NEXT_LEVEL:
+        //            int newLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
+        //            if (startLevel != newLevel)
+        //            {
+        //                newLevel = startLevel;
+        //                return true;
+        //            }
+        //            return false;
 
-                    Vector3 bilboPosition = new(x, y, z);
+        //        case END_CONDITION.POINT_REACHED:
+        //            float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
+        //            float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
+        //            float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
 
-                    return Vector3.Distance(bilboPosition, endPointPosition) < endPointDistance;
-            }
+        //            Vector3 bilboPosition = new(x, y, z);
 
-            return false;
-        }
+        //            return Vector3.Distance(bilboPosition, endPointPosition) < endPointDistance;
+        //    }
+
+        //    return false;
+        //}
 
         public void SetEndPointPosition()
         {
