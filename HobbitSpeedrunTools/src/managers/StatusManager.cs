@@ -45,7 +45,7 @@ namespace HobbitSpeedrunTools
                 status += $"\nSave: {saveManager.SaveCollectionIndex}-{saveManager.SaveIndex + 1}";
             }
 
-            if (timerManager.startCondition != TimerManager.START_CONDITION.NONE)
+            if (timerManager.mode != TimerManager.TIMER_MODE.OFF)
             {
                 status += $"\n{timerTime:mm\\:ss\\.ff}";
             }

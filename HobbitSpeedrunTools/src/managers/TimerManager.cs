@@ -8,41 +8,31 @@ namespace HobbitSpeedrunTools
 {
     public class TimerManager
     {
-        public enum START_CONDITION
+        public enum TIMER_MODE
         {
-            NONE,
-            LEVEL_START,
-            MOVEMENT,
-        }
-
-        public enum END_CONDITION
-        {
-            NONE,
-            NEXT_LEVEL,
-            POINT_REACHED,
-        }
-
-        public enum TIMER_STATE
-        {
-            READY,
-            STARTED,
-            STOPPED,
+            OFF,
+            FULL_LEVEL,
+            MOVE_TO_POINT,
         }
 
         public readonly Mem mem = new();
-        public bool stopped = true;
+
+        public TIMER_MODE mode;
 
         public Action<TimeSpan>? onTimerTick;
-        public Action<TimeSpan>? onTimerEnd;
+        public Action<TimeSpan>? onNewBestTime;
 
-        public TIMER_STATE timerState;
-        public START_CONDITION startCondition;
-        public END_CONDITION endCondition;
-
-        public Vector3 endPointPosition = new(0, 0, 0);
+        public Vector3? endPointPosition;
         public int endPointDistance = 150;
 
+        public TimeSpan? bestTime;
+
         private DateTime startTime;
+
+        private bool timerStarted = false;
+        private bool timerBlocked = false;
+        private bool readyToReset = false;
+        private int startLevel = 0;
 
         public TimerManager()
         {
@@ -53,107 +43,134 @@ namespace HobbitSpeedrunTools
 
         private void TimerLoop()
         {
-            bool timerStarted = false;
-            bool timerBlocked = false;
-            bool readyToUnblock = false;
-            int startLevel = 0;
-
             while (true)
             {
                 if (mem.OpenProcess("meridian"))
                 {
-                    if (timerBlocked)
+                    switch (mode)
                     {
-                        if (mem.ReadInt(MemoryAddresses.loadFinished) == 1)
-                        {
-                            readyToUnblock = true;
-                        }
+                        case TIMER_MODE.OFF:
+                            break;
 
-                        if (readyToUnblock && mem.ReadInt(MemoryAddresses.outOfLevelState) == 17)
-                        {
-                            timerBlocked = false;
-                            readyToUnblock = false;
-                        }
-                        else
-                        {
-                            continue;
-                        }
+                        case TIMER_MODE.FULL_LEVEL:
+                            HandleLevelTimer();
+                            break;
+
+                        case TIMER_MODE.MOVE_TO_POINT:
+                            HandlePointTimer();
+                            break;
                     }
 
-                    if (timerStarted == false && mem.ReadInt(MemoryAddresses.loadFinished) == 1)
-                    {
-                        startTime = DateTime.Now;
-                        startLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
-                        timerStarted = true;
-                    }
-
-                    if (timerStarted && mem.ReadInt(MemoryAddresses.currentLevelID) != startLevel)
-                    {
-                        timerStarted = false;
-                        timerBlocked = true;
-                        onTimerEnd?.Invoke(DateTime.Now - startTime);
-                    }
-
-                    if (timerStarted)
-                    {
-                        onTimerTick?.Invoke(DateTime.Now - startTime);
-                    }
                 }
             }
         }
 
+        private void HandleLevelTimer()
+        {
+            if (timerBlocked)
+            {
+                if (mem.ReadInt(MemoryAddresses.loadFinished) == 1)
+                {
+                    readyToReset = true;
+                }
 
-        //private bool TimerShouldReset()
-        //{
-        //    //return StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState))
-        //    //    || startLevel != mem.ReadInt(MemoryAddresses.currentLevelID);
-        //}
+                if (readyToReset && mem.ReadInt(MemoryAddresses.outOfLevelState) == 17)
+                {
+                    timerBlocked = false;
+                    readyToReset = false;
+                }
+                else
+                {
+                    return;
+                }
+            }
 
-        //private bool TimerShouldStart()
-        //{
-        //    switch (startCondition)
-        //    {
-        //        case START_CONDITION.NONE:
-        //            break;
+            if (timerStarted == false && mem.ReadInt(MemoryAddresses.loadFinished) == 1)
+            {
+                startTime = DateTime.Now;
+                startLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
+                timerStarted = true;
+            }
 
-        //        case START_CONDITION.LEVEL_START:
-        //            return mem.ReadInt(MemoryAddresses.loadFinished) == 1;
+            if (timerStarted && mem.ReadInt(MemoryAddresses.currentLevelID) != startLevel)
+            {
+                timerStarted = false;
+                timerBlocked = true;
 
-        //        case START_CONDITION.MOVEMENT:
-        //            return StateLists.movementStates.Contains(mem.ReadInt(MemoryAddresses.bilboState));
-        //    }
+                if (bestTime != null || DateTime.Now - startTime < bestTime)
+                {
+                    onNewBestTime?.Invoke(DateTime.Now - startTime);
+                }
+            }
 
-        //    return false;
-        //}
+            if (timerStarted)
+            {
+                onTimerTick?.Invoke(DateTime.Now - startTime);
+            }
+        }
 
-        //private bool TimerShouldStop()
-        //{
-        //    switch (endCondition)
-        //    {
-        //        case END_CONDITION.NONE:
-        //            break;
+        private void HandlePointTimer()
+        {
+            if (endPointPosition == null) return;
 
-        //        case END_CONDITION.NEXT_LEVEL:
-        //            int newLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
-        //            if (startLevel != newLevel)
-        //            {
-        //                newLevel = startLevel;
-        //                return true;
-        //            }
-        //            return false;
+            if (timerBlocked)
+            {
+                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+                {
+                    timerBlocked = false;
+                }
+                else
+                {
+                    return;
+                }
+            }
 
-        //        case END_CONDITION.POINT_REACHED:
-        //            float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
-        //            float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
-        //            float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
+            if (timerStarted == false && StateLists.movementStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+            {
+                startTime = DateTime.Now;
+                timerStarted = true;
+            }
 
-        //            Vector3 bilboPosition = new(x, y, z);
+            if (timerStarted)
+            {
+                float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
+                float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
+                float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
 
-        //            return Vector3.Distance(bilboPosition, endPointPosition) < endPointDistance;
-        //    }
+                Vector3 bilboPosition = new(x, y, z);
 
-        //    return false;
-        //}
+                if (Vector3.Distance(bilboPosition, (Vector3)endPointPosition) < endPointDistance)
+                {
+                    timerStarted = false;
+                    timerBlocked = true;
+
+                    if (bestTime != null || DateTime.Now - startTime < bestTime)
+                    {
+                        onNewBestTime?.Invoke(DateTime.Now - startTime);
+                    }
+                }
+            }
+
+            if (timerStarted)
+            {
+                onTimerTick?.Invoke(DateTime.Now - startTime);
+            }
+        }
+
+        public void SetTimerMode(TIMER_MODE _mode)
+        {
+            mode = _mode;
+            ResetTimerStates();
+        }
+
+        public void ResetTimerStates()
+        {
+            timerStarted = false;
+            timerBlocked = false;
+            readyToReset = false;
+            startLevel = 0;
+            bestTime = null;
+        }
 
         public void SetEndPointPosition()
         {

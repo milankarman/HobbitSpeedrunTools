@@ -18,7 +18,6 @@ namespace HobbitSpeedrunTools
         private readonly TimerManager timerManager;
 
         private bool updatingSaveManager;
-        private TimeSpan? bestTime;
 
         public MainWindow()
         {
@@ -40,7 +39,7 @@ namespace HobbitSpeedrunTools
             {
                 timerManager = new();
                 timerManager.onTimerTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
-                timerManager.onTimerEnd += (time) => Dispatcher.Invoke(() => UpdateBestTime(time));
+                timerManager.onNewBestTime += (time) => Dispatcher.Invoke(() => UpdateBestTime(time));
 
                 cheatManager = new();
                 cheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
@@ -85,11 +84,7 @@ namespace HobbitSpeedrunTools
 
         public void UpdateBestTime(TimeSpan time)
         {
-            if (bestTime == null || time < bestTime)
-            {
-                bestTime = time;
-                txtBestTime.Text = bestTime?.ToString("mm\\:ss\\.fff");
-            }
+            txtBestTime.Text = time.ToString("mm\\:ss\\.fff");
         }
 
         public void UpdateBilboPosition(float x, float y, float z)
@@ -192,38 +187,26 @@ namespace HobbitSpeedrunTools
             base.OnClosing(e);
         }
 
-        private void cbxTimerStart_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cbxTimerMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (cbxTimerStart.SelectedValue?.ToString())
+            switch (cbxTimerMode.SelectedValue?.ToString())
             {
-                case "None":
-                    timerManager.startCondition = TimerManager.START_CONDITION.NONE;
+                case "Off":
+                    timerManager.SetTimerMode(TimerManager.TIMER_MODE.OFF);
+                    btnSetEndPoint.IsEnabled = false;
+                    txtPointRadius.IsEnabled = false;
                     break;
 
-                case "Level Start":
-                    timerManager.startCondition = TimerManager.START_CONDITION.LEVEL_START;
+                case "Full Level":
+                    timerManager.SetTimerMode(TimerManager.TIMER_MODE.FULL_LEVEL);
+                    btnSetEndPoint.IsEnabled = false;
+                    txtPointRadius.IsEnabled = false;
                     break;
 
-                case "Movement":
-                    timerManager.startCondition = TimerManager.START_CONDITION.MOVEMENT;
-                    break;
-            }
-        }
-
-        private void cbxTimerEnd_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            switch (cbxTimerEnd.SelectedValue?.ToString())
-            {
-                case "None":
-                    timerManager.endCondition = TimerManager.END_CONDITION.NONE;
-                    break;
-
-                case "Next Level":
-                    timerManager.endCondition = TimerManager.END_CONDITION.NEXT_LEVEL;
-                    break;
-
-                case "Point Reached":
-                    timerManager.endCondition = TimerManager.END_CONDITION.POINT_REACHED;
+                case "Move To Point":
+                    timerManager.SetTimerMode(TimerManager.TIMER_MODE.MOVE_TO_POINT);
+                    btnSetEndPoint.IsEnabled = true;
+                    txtPointRadius.IsEnabled = true;
                     break;
             }
         }
@@ -236,7 +219,7 @@ namespace HobbitSpeedrunTools
         private void btnResetBestTime_Click(object sender, RoutedEventArgs e)
         {
             txtBestTime.Text = "00:00.000";
-            bestTime = null;
+            timerManager.ResetTimerStates();
         }
 
 
@@ -254,7 +237,7 @@ namespace HobbitSpeedrunTools
         {
             ClampInteger(txtPointRadius, 1, 9999);
 
-            if (timerManager !=  null)
+            if (timerManager != null)
                 timerManager.endPointDistance = int.Parse(txtPointRadius.Text);
         }
     }

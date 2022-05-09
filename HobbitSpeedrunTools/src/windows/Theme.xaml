@@ -114,6 +114,7 @@
 
     <Style TargetType="TextBox">
         <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{StaticResource dark1}" />
         <Setter Property="FontFamily" Value="{StaticResource text}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Padding" Value="5,0,5,0" />
@@ -125,7 +126,7 @@
 						BorderBrush="{StaticResource light2}" 
 						BorderThickness="2"
                         CornerRadius="4"
-						Background="{StaticResource dark1}">
+                        Background="{TemplateBinding Background}">
                         <ScrollViewer x:Name="PART_ContentHost" 
 						    Focusable="false" 
 						    HorizontalScrollBarVisibility="Hidden" 
@@ -133,6 +134,11 @@
                         >
                         </ScrollViewer>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="{DynamicResource dark2}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -192,6 +198,9 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource accent1}"/>
                             <Setter Property="Background" Value="{DynamicResource accent2}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="{DynamicResource dark2}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
