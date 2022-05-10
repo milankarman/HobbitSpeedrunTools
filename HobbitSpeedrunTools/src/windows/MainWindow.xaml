@@ -86,6 +86,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Timer" VerticalAlignment="Center"/>
                     <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtTimer" Margin="10,0,0,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
@@ -98,22 +99,31 @@
                         <TextBox Grid.Column="0" x:Name="txtBestTime" Margin="10,0,5,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                         <Button Grid.Column="1" Content="↻" x:Name="btnResetBestTime" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnResetBestTime_Click"/>
                     </Grid>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Mode" VerticalAlignment="Center"/>
-                    <ComboBox SelectedValuePath="Content" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerMode" HorizontalAlignment="Stretch" Margin="10,0,0,5" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxTimerMode_SelectionChanged">
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Average Time" VerticalAlignment="Center"/>
+                    <Grid Grid.Row="2" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" x:Name="txtAverageTime" Margin="10,0,5,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                        <Button Grid.Column="1" Content="↻" x:Name="btnResetAverageTime" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnResetAverageTime_Click"/>
+                    </Grid>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Mode" VerticalAlignment="Center"/>
+                    <ComboBox SelectedValuePath="Content" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerMode" HorizontalAlignment="Stretch" Margin="10,0,0,5" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxTimerMode_SelectionChanged">
                         <ComboBoxItem IsSelected="True">Off</ComboBoxItem>
                         <ComboBoxItem>Full Level</ComboBoxItem>
                         <ComboBoxItem>Move To Point</ComboBoxItem>
                     </ComboBox>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="End Point" VerticalAlignment="Center"/>
-                    <Grid Grid.Row="3" Grid.Column="1">
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="End Point" VerticalAlignment="Center"/>
+                    <Grid Grid.Row="4" Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Content="Set" x:Name="btnSetEndPoint" Margin="10,0,0,5" VerticalAlignment="Top" Click="btnSetEndPoint_Click" IsEnabled="false"/>
                     </Grid>
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Point Radius" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtPointRadius" Margin="10,0,0,0" Text="100" HorizontalContentAlignment="Right" TextChanged="txtPointRadius_TextChanged" IsEnabled="false"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Point Radius" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtPointRadius" Margin="10,0,0,0" Text="100" HorizontalContentAlignment="Right" TextChanged="txtPointRadius_TextChanged" IsEnabled="false"/>
                 </Grid>
             </GroupBox>
 

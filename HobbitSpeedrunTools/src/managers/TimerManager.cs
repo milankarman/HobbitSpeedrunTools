@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace HobbitSpeedrunTools
 {
@@ -21,6 +22,8 @@ namespace HobbitSpeedrunTools
 
         public Action<TimeSpan>? onTimerTick;
         public Action<TimeSpan>? onNewBestTime;
+        public Action<TimeSpan>? onUpdateAverageTime;
+
 
         public Vector3? endPointPosition;
         public int endPointDistance = 150;
@@ -28,7 +31,7 @@ namespace HobbitSpeedrunTools
         public TimeSpan? bestTime;
 
         private DateTime startTime;
-
+        private List<TimeSpan> previousTimes = new();
         private bool timerStarted = false;
         private bool timerBlocked = false;
         private bool readyToReset = false;
@@ -60,7 +63,6 @@ namespace HobbitSpeedrunTools
                             HandlePointTimer();
                             break;
                     }
-
                 }
             }
         }
@@ -90,22 +92,30 @@ namespace HobbitSpeedrunTools
                 startTime = DateTime.Now;
                 startLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
                 timerStarted = true;
+                return;
             }
+
+            TimeSpan currentTime = DateTime.Now - startTime;
 
             if (timerStarted && mem.ReadInt(MemoryAddresses.currentLevelID) != startLevel)
             {
                 timerStarted = false;
                 timerBlocked = true;
 
-                if (bestTime != null || DateTime.Now - startTime < bestTime)
+                previousTimes.Add(currentTime);
+
+                onUpdateAverageTime?.Invoke(GetAverageTime());
+                onTimerTick?.Invoke(currentTime);
+
+                if (bestTime == null || currentTime < bestTime)
                 {
-                    onNewBestTime?.Invoke(DateTime.Now - startTime);
+                    onNewBestTime?.Invoke(currentTime);
                 }
             }
 
             if (timerStarted)
             {
-                onTimerTick?.Invoke(DateTime.Now - startTime);
+                onTimerTick?.Invoke(currentTime);
             }
         }
 
@@ -129,10 +139,19 @@ namespace HobbitSpeedrunTools
             {
                 startTime = DateTime.Now;
                 timerStarted = true;
+                return;
             }
+
+            TimeSpan currentTime = DateTime.Now - startTime;
 
             if (timerStarted)
             {
+                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+                {
+                    timerStarted = false;
+                    return;
+                }
+
                 float x = mem.ReadFloat(MemoryAddresses.bilboCoordsX);
                 float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
                 float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
@@ -144,17 +163,35 @@ namespace HobbitSpeedrunTools
                     timerStarted = false;
                     timerBlocked = true;
 
-                    if (bestTime != null || DateTime.Now - startTime < bestTime)
+                    previousTimes.Add(currentTime);
+
+                    onUpdateAverageTime?.Invoke(GetAverageTime());
+                    onTimerTick?.Invoke(currentTime);
+
+                    if (bestTime == null || currentTime < bestTime)
                     {
-                        onNewBestTime?.Invoke(DateTime.Now - startTime);
+                        bestTime = DateTime.Now - startTime;
+                        onNewBestTime?.Invoke(currentTime);
                     }
                 }
             }
 
             if (timerStarted)
             {
-                onTimerTick?.Invoke(DateTime.Now - startTime);
+                onTimerTick?.Invoke(currentTime);
             }
+        }
+
+        private TimeSpan GetAverageTime()
+        {
+            TimeSpan total = new();
+
+            foreach (TimeSpan time in previousTimes)
+            {
+                total += time;
+            }
+
+            return total / previousTimes.Count;
         }
 
         public void SetTimerMode(TIMER_MODE _mode)
@@ -170,6 +207,16 @@ namespace HobbitSpeedrunTools
             readyToReset = false;
             startLevel = 0;
             bestTime = null;
+
+            onTimerTick?.Invoke(new TimeSpan());
+            onNewBestTime?.Invoke(new TimeSpan());
+            ResetAverageTime();
+        }
+
+        public void ResetAverageTime()
+        {
+            previousTimes.Clear();
+            onUpdateAverageTime?.Invoke(new TimeSpan());
         }
 
         public void SetEndPointPosition()
@@ -182,6 +229,9 @@ namespace HobbitSpeedrunTools
 
                 endPointPosition = new(x, y, z);
             }
+
+            ResetTimerStates();
+            timerBlocked = true;
         }
     }
 }

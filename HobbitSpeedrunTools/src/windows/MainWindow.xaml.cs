@@ -40,6 +40,7 @@ namespace HobbitSpeedrunTools
                 timerManager = new();
                 timerManager.onTimerTick += (time) => Dispatcher.Invoke(() => UpdateTimer(time));
                 timerManager.onNewBestTime += (time) => Dispatcher.Invoke(() => UpdateBestTime(time));
+                timerManager.onUpdateAverageTime += (time) => Dispatcher.Invoke(() => UpdateAverageTime(time));
 
                 cheatManager = new();
                 cheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
@@ -85,6 +86,11 @@ namespace HobbitSpeedrunTools
         public void UpdateBestTime(TimeSpan time)
         {
             txtBestTime.Text = time.ToString("mm\\:ss\\.fff");
+        }
+
+        public void UpdateAverageTime(TimeSpan time)
+        {
+            txtAverageTime.Text = time.ToString("mm\\:ss\\.fff");
         }
 
         public void UpdateBilboPosition(float x, float y, float z)
@@ -218,10 +224,13 @@ namespace HobbitSpeedrunTools
 
         private void btnResetBestTime_Click(object sender, RoutedEventArgs e)
         {
-            txtBestTime.Text = "00:00.000";
             timerManager.ResetTimerStates();
         }
 
+        private void btnResetAverageTime_Click(object sender, RoutedEventArgs e)
+        {
+            timerManager.ResetAverageTime();
+        }
 
         // Ensures a textbox only allows integer inputs of a given range
         public static void ClampInteger(TextBox textBox, int minValue, int maxValue)
