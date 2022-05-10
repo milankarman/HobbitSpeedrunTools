@@ -24,11 +24,12 @@ namespace HobbitSpeedrunTools
         public Action<TimeSpan>? onNewBestTime;
         public Action<TimeSpan>? onUpdateAverageTime;
 
-
         public Vector3? endPointPosition;
         public int endPointDistance = 150;
 
         public TimeSpan? bestTime;
+
+        private int timerUpdateRate = 1000 / 60;
 
         private DateTime startTime;
         private List<TimeSpan> previousTimes = new();
@@ -64,6 +65,8 @@ namespace HobbitSpeedrunTools
                             break;
                     }
                 }
+
+                Thread.Sleep(timerUpdateRate);
             }
         }
 
@@ -97,19 +100,29 @@ namespace HobbitSpeedrunTools
 
             TimeSpan currentTime = DateTime.Now - startTime;
 
-            if (timerStarted && mem.ReadInt(MemoryAddresses.currentLevelID) != startLevel)
+            if (timerStarted)
             {
-                timerStarted = false;
-                timerBlocked = true;
 
-                previousTimes.Add(currentTime);
 
-                onUpdateAverageTime?.Invoke(GetAverageTime());
-                onTimerTick?.Invoke(currentTime);
-
-                if (bestTime == null || currentTime < bestTime)
+                if (mem.ReadInt(MemoryAddresses.currentLevelID) == startLevel + 1)
                 {
-                    onNewBestTime?.Invoke(currentTime);
+                    timerStarted = false;
+                    timerBlocked = true;
+
+                    previousTimes.Add(currentTime);
+
+                    onUpdateAverageTime?.Invoke(GetAverageTime());
+                    onTimerTick?.Invoke(currentTime);
+
+                    if (bestTime == null || currentTime < bestTime)
+                    {
+                        bestTime = currentTime;
+                        onNewBestTime?.Invoke(currentTime);
+                    }
+                }
+                else if (mem.ReadInt(MemoryAddresses.currentLevelID) != startLevel)
+                {
+                    timerStarted = false;
                 }
             }
 

@@ -7,11 +7,12 @@ namespace HobbitSpeedrunTools
 {
     public class StatusManager
     {
-        public CheatManager cheatManager;
-        public SaveManager saveManager;
-        public TimerManager timerManager;
+        private CheatManager cheatManager;
+        private SaveManager saveManager;
+        private TimerManager timerManager;
 
-        public TimeSpan timerTime;
+        private TimeSpan timerTime;
+        private TimeSpan timerBestTime;
 
         public StatusManager(CheatManager _cheatManager, SaveManager _saveManager, TimerManager _timerManager)
         {
@@ -20,6 +21,7 @@ namespace HobbitSpeedrunTools
             timerManager = _timerManager;
 
             timerManager.onTimerTick += (time) => timerTime = time;
+            timerManager.onNewBestTime += (time) => timerBestTime = time;
         }
 
         public string GetStatusText()
@@ -47,7 +49,7 @@ namespace HobbitSpeedrunTools
 
             if (timerManager.mode != TimerManager.TIMER_MODE.OFF)
             {
-                status += $"\n{timerTime:mm\\:ss\\.ff}";
+                status += $"\nT:{timerTime:mm\\:ss\\.ff} B:{timerBestTime:mm\\:ss\\.ff}";
             }
 
             status = status.PadRight(65, ' ')[..65];
