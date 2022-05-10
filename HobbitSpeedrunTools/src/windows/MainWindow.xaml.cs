@@ -195,26 +195,42 @@ namespace HobbitSpeedrunTools
 
         private void cbxTimerMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (timerManager == null) return;
+
             switch (cbxTimerMode.SelectedValue?.ToString())
             {
                 case "Off":
                     timerManager.SetTimerMode(TimerManager.TIMER_MODE.OFF);
-                    btnSetEndPoint.IsEnabled = false;
-                    txtPointRadius.IsEnabled = false;
+                    SetLevelTimerSettingVisibility(false);
+                    SetPointTimerSettingVisibility(false);
                     break;
 
                 case "Full Level":
                     timerManager.SetTimerMode(TimerManager.TIMER_MODE.FULL_LEVEL);
-                    btnSetEndPoint.IsEnabled = false;
-                    txtPointRadius.IsEnabled = false;
+                    SetLevelTimerSettingVisibility(true);
+                    SetPointTimerSettingVisibility(false);
                     break;
 
                 case "Move To Point":
                     timerManager.SetTimerMode(TimerManager.TIMER_MODE.MOVE_TO_POINT);
-                    btnSetEndPoint.IsEnabled = true;
-                    txtPointRadius.IsEnabled = true;
+                    SetLevelTimerSettingVisibility(false);
+                    SetPointTimerSettingVisibility(true);
                     break;
             }
+        }
+
+        private void SetLevelTimerSettingVisibility(bool visible)
+        {
+            lblSelectedLevel.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            cbxSelectedLevel.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void SetPointTimerSettingVisibility(bool visible)
+        {
+            lblEndPoint.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            btnSetEndPoint.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            lblPointRadius.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            txtPointRadius.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void btnSetEndPoint_Click(object sender, RoutedEventArgs e)
@@ -248,6 +264,11 @@ namespace HobbitSpeedrunTools
 
             if (timerManager != null)
                 timerManager.endPointDistance = int.Parse(txtPointRadius.Text);
+        }
+
+        private void cbxSelectedLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

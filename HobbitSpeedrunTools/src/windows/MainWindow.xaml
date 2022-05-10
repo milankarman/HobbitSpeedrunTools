@@ -87,10 +87,11 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Timer" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Timer" VerticalAlignment="Center" Margin="0,0,0,5"/>
                     <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtTimer" Margin="10,0,0,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Best Time" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Best Time" VerticalAlignment="Center" Margin="0,0,0,5"/>
                     <Grid Grid.Row="1" Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
@@ -99,7 +100,7 @@
                         <TextBox Grid.Column="0" x:Name="txtBestTime" Margin="10,0,5,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                         <Button Grid.Column="1" Content="↻" x:Name="btnResetBestTime" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnResetBestTime_Click"/>
                     </Grid>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Average Time" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Average Time" VerticalAlignment="Center" Margin="0,0,0,5"/>
                     <Grid Grid.Row="2" Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
@@ -108,22 +109,31 @@
                         <TextBox Grid.Column="0" x:Name="txtAverageTime" Margin="10,0,5,5" Text="00:00.000" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                         <Button Grid.Column="1" Content="↻" x:Name="btnResetAverageTime" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnResetAverageTime_Click"/>
                     </Grid>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Mode" VerticalAlignment="Center"/>
-                    <ComboBox SelectedValuePath="Content" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerMode" HorizontalAlignment="Stretch" Margin="10,0,0,5" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxTimerMode_SelectionChanged">
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Mode" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <ComboBox SelectedValuePath="Content" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxTimerMode" HorizontalAlignment="Stretch" Margin="10,0,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxTimerMode_SelectionChanged">
                         <ComboBoxItem IsSelected="True">Off</ComboBoxItem>
                         <ComboBoxItem>Full Level</ComboBoxItem>
                         <ComboBoxItem>Move To Point</ComboBoxItem>
                     </ComboBox>
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="End Point" VerticalAlignment="Center"/>
-                    <Grid Grid.Row="4" Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Set" x:Name="btnSetEndPoint" Margin="10,0,0,5" VerticalAlignment="Top" Click="btnSetEndPoint_Click" IsEnabled="false"/>
-                    </Grid>
-                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Point Radius" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtPointRadius" Margin="10,0,0,0" Text="100" HorizontalContentAlignment="Right" TextChanged="txtPointRadius_TextChanged" IsEnabled="false"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="End Point" VerticalAlignment="Center" x:Name="lblEndPoint" Margin="0,5,0,0" Visibility="Collapsed"/>
+                    <Button Grid.Row="4" Grid.Column="1" Content="Set" x:Name="btnSetEndPoint" Margin="10,5,0,0" VerticalAlignment="Top" Click="btnSetEndPoint_Click" Visibility="Collapsed"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Point Radius" x:Name="lblPointRadius" VerticalAlignment="Center" Margin="0,5,0,0" Visibility="Collapsed"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="txtPointRadius" Margin="10,5,0,0" Text="100" HorizontalContentAlignment="Right" TextChanged="txtPointRadius_TextChanged" Visibility="Collapsed"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Level" VerticalAlignment="Center" x:Name="lblSelectedLevel" Margin="0,5,0,0" Visibility="Collapsed"/>
+                    <ComboBox SelectedValuePath="Content" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" x:Name="cbxSelectedLevel" HorizontalAlignment="Stretch" Margin="10,5,0,0" VerticalAlignment="Top" Width="auto" SelectionChanged="cbxSelectedLevel_SelectionChanged" Visibility="Collapsed">
+                        <ComboBoxItem IsSelected="True">Dream World</ComboBoxItem>
+                        <ComboBoxItem>Unexpected Party</ComboBoxItem>
+                        <ComboBoxItem>Roast Mutton</ComboBoxItem>
+                        <ComboBoxItem>Troll Hole</ComboBoxItem>
+                        <ComboBoxItem>Over Hill</ComboBoxItem>
+                        <ComboBoxItem>Riddles</ComboBoxItem>
+                        <ComboBoxItem>Flies</ComboBoxItem>
+                        <ComboBoxItem>Barrels</ComboBoxItem>
+                        <ComboBoxItem>Warm Welcome</ComboBoxItem>
+                        <ComboBoxItem>Inside Info</ComboBoxItem>
+                        <ComboBoxItem>Gathering</ComboBoxItem>
+                        <ComboBoxItem>Clouds Burst</ComboBoxItem>
+                    </ComboBox>
                 </Grid>
             </GroupBox>
 
