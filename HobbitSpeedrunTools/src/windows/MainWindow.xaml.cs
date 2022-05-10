@@ -268,7 +268,8 @@ namespace HobbitSpeedrunTools
 
         private void cbxSelectedLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (timerManager != null)
+                timerManager.selectedLevel = cbxSelectedLevel.SelectedIndex;
         }
     }
 }

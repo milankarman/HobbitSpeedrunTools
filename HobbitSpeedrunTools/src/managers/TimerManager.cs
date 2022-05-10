@@ -24,19 +24,19 @@ namespace HobbitSpeedrunTools
         public Action<TimeSpan>? onNewBestTime;
         public Action<TimeSpan>? onUpdateAverageTime;
 
+        public int selectedLevel = 0;
+
         public Vector3? endPointPosition;
         public int endPointDistance = 150;
 
         public TimeSpan? bestTime;
 
-        private int timerUpdateRate = 1000 / 60;
+        private readonly int timerUpdateRate = 1000 / 60;
 
         private DateTime startTime;
         private List<TimeSpan> previousTimes = new();
         private bool timerStarted = false;
         private bool timerBlocked = false;
-        private bool readyToReset = false;
-        private int startLevel = 0;
 
         public TimerManager()
         {
@@ -72,28 +72,12 @@ namespace HobbitSpeedrunTools
 
         private void HandleLevelTimer()
         {
-            if (timerBlocked)
-            {
-                if (mem.ReadInt(MemoryAddresses.loadFinished) == 1)
-                {
-                    readyToReset = true;
-                }
-
-                if (readyToReset && mem.ReadInt(MemoryAddresses.outOfLevelState) == 17)
-                {
-                    timerBlocked = false;
-                    readyToReset = false;
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            if (timerStarted == false && mem.ReadInt(MemoryAddresses.loadFinished) == 1)
+            if (timerStarted == false
+                && mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel
+                && mem.ReadInt(MemoryAddresses.loadFinished) == 1
+                && StateLists.levelLoadedOutOfLevelStates.Contains(mem.ReadInt(MemoryAddresses.outOfLevelState)))
             {
                 startTime = DateTime.Now;
-                startLevel = mem.ReadInt(MemoryAddresses.currentLevelID);
                 timerStarted = true;
                 return;
             }
@@ -102,9 +86,7 @@ namespace HobbitSpeedrunTools
 
             if (timerStarted)
             {
-
-
-                if (mem.ReadInt(MemoryAddresses.currentLevelID) == startLevel + 1)
+                if (mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel + 1)
                 {
                     timerStarted = false;
                     timerBlocked = true;
@@ -120,7 +102,8 @@ namespace HobbitSpeedrunTools
                         onNewBestTime?.Invoke(currentTime);
                     }
                 }
-                else if (mem.ReadInt(MemoryAddresses.currentLevelID) != startLevel)
+                else if (mem.ReadInt(MemoryAddresses.currentLevelID) != selectedLevel
+                    || mem.ReadInt(MemoryAddresses.outOfLevelState) == 17)
                 {
                     timerStarted = false;
                 }
@@ -217,8 +200,6 @@ namespace HobbitSpeedrunTools
         {
             timerStarted = false;
             timerBlocked = false;
-            readyToReset = false;
-            startLevel = 0;
             bestTime = null;
 
             onTimerTick?.Invoke(new TimeSpan());
