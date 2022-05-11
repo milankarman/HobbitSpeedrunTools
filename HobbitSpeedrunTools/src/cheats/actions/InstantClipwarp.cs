@@ -1,4 +1,5 @@
 ﻿using Memory;
+using System.Globalization;
 
 namespace HobbitSpeedrunTools
 {
@@ -20,9 +21,9 @@ namespace HobbitSpeedrunTools
             float y = mem.ReadFloat(MemoryAddresses.warpCoordsY);
             float z = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
 
-            mem.WriteMemory(MemoryAddresses.bilboCoordsX, "float", x.ToString());
-            mem.WriteMemory(MemoryAddresses.bilboCoordsY, "float", y.ToString());
-            mem.WriteMemory(MemoryAddresses.bilboCoordsZ, "float", z.ToString());
+            mem.WriteMemory(MemoryAddresses.bilboCoordsX, "float", x.ToString(CultureInfo.InvariantCulture));
+            mem.WriteMemory(MemoryAddresses.bilboCoordsY, "float", y.ToString(CultureInfo.InvariantCulture));
+            mem.WriteMemory(MemoryAddresses.bilboCoordsZ, "float", z.ToString(CultureInfo.InvariantCulture));
         }
     }
 }

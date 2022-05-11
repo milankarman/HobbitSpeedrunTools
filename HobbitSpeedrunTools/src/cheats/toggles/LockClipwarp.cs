@@ -1,4 +1,5 @@
 ﻿using Memory;
+using System.Globalization;
 
 namespace HobbitSpeedrunTools
 {
@@ -32,9 +33,9 @@ namespace HobbitSpeedrunTools
         {
             if (Enabled && mem != null)
             {
-                mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", savedWarpPosX.ToString());
-                mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", savedWarpPosY.ToString());
-                mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", savedWarpPosZ.ToString());
+                mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", savedWarpPosX.ToString(CultureInfo.InvariantCulture));
+                mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", savedWarpPosY.ToString(CultureInfo.InvariantCulture));
+                mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", savedWarpPosZ.ToString(CultureInfo.InvariantCulture));
             }
         }
     }
