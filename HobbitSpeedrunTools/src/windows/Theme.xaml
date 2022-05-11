@@ -36,12 +36,12 @@
 
                                 <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right">
                                     <Button Name="btnMinimize" Template="{DynamicResource ResizeWindowButton}" Width="40" VerticalContentAlignment="Bottom"
-                                                WindowChrome.IsHitTestVisibleInChrome="True" Click="Minimize_Event">
+                                                WindowChrome.IsHitTestVisibleInChrome="True" Click="Minimize_Event" Height="auto">
                                         <Rectangle Width="10" VerticalAlignment="Center" Margin="1 1 0 0" Fill="{StaticResource dark2}" Stroke="{StaticResource light1}" StrokeThickness="1"/>
                                     </Button>
 
                                     <Button Name="btnRestore" Template="{DynamicResource ResizeWindowButton}" Width="40" WindowChrome.IsHitTestVisibleInChrome="True" 
-                                                Click="AutoMinimize_Event">
+                                                Click="AutoMinimize_Event" Height="auto">
                                         <Grid Width="12" Height="12">
                                             <Rectangle StrokeThickness="1" Fill="{StaticResource dark2}" Stroke="{StaticResource light1}" Margin="3,0,0,3"/>
                                             <Rectangle StrokeThickness="1" Fill="{StaticResource dark2}" Stroke="{StaticResource light1}" Margin="0 3 3 0"/>
@@ -49,7 +49,7 @@
                                     </Button>
 
                                     <Button Name="btnClose" Template="{DynamicResource CloseWindowButton}" Width="40" WindowChrome.IsHitTestVisibleInChrome="True"
-                                                Click="CloseWindow_Event">
+                                                Click="CloseWindow_Event" Height="auto">
                                         <Grid Margin="0 1 0 0">
                                             <Line X1="0" Y1="0" X2="11" Y2="11" Stroke="{StaticResource light1}" StrokeThickness="1" />
                                             <Line X1="0" Y2="0" Y1="11" X2="11" Stroke="{StaticResource light1}" StrokeThickness="1" />
