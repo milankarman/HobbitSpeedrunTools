@@ -16,6 +16,7 @@ namespace HobbitSpeedrunTools
         private readonly TimerManager timerManager;
 
         private bool updatingSaveManager;
+        private int lastSaveCollectionIndex;
 
         public MainWindow()
         {
@@ -161,10 +162,11 @@ namespace HobbitSpeedrunTools
         {
             if (!updatingSaveManager && cbxSaveCollections.SelectedIndex >= 0)
             {
-                if (!saveManager.DidBackup)
+                if (!saveManager.DidBackup && lastSaveCollectionIndex == 0)
                 {
                     saveManager.BackupOldSaves();
                 }
+
                 updatingSaveManager = true;
                 saveManager.SelectSaveCollection(cbxSaveCollections.SelectedIndex);
                 updatingSaveManager = false;
@@ -173,9 +175,12 @@ namespace HobbitSpeedrunTools
             {
                 if (saveManager.DidBackup)
                 {
+                    saveManager.ClearSaves();
                     saveManager.RestoreOldSaves();
                 }
-            }    
+            }
+
+            lastSaveCollectionIndex = cbxSaveCollections.SelectedIndex;
         }
 
         private void cbxSaves_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -277,9 +282,12 @@ namespace HobbitSpeedrunTools
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            saveManager.ClearSaves();
+            if (cbxSaveCollections.SelectedIndex > 0)
+            {
+                saveManager.ClearSaves();
 
-            if (saveManager.DidBackup) saveManager.RestoreOldSaves();
+                if (saveManager.DidBackup) saveManager.RestoreOldSaves();
+            }
 
             base.OnClosing(e);
         }
