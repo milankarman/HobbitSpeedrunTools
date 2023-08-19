@@ -50,6 +50,7 @@ namespace HobbitSpeedrunTools
         private readonly string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
         private readonly string applicationSaveDir = "save-collections";
         private string backupDir = "";
+        private int lastSaveCollectionIndex;
 
         public SaveManager()
         {
@@ -123,6 +124,8 @@ namespace HobbitSpeedrunTools
 
         public void SelectSaveCollection(int _saveCollectionIndex)
         {
+            if (!DidBackup) BackupOldSaves();
+
             ClearSaves();
             SaveCollectionIndex = Math.Clamp(_saveCollectionIndex, 0, SaveCollections.Length - 1);
 
