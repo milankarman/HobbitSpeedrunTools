@@ -89,7 +89,8 @@ namespace HobbitSpeedrunTools
                 if (mem.ReadInt(MemoryAddresses.currentLevelID) > 10
                     && mem.ReadInt(MemoryAddresses.onCutscene) == 1
                     && mem.ReadInt(MemoryAddresses.cutsceneID) == 0x3853B400
-                    || mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel + 1)
+                    || mem.ReadInt(MemoryAddresses.outOfLevelState) == 19
+                    && mem.ReadInt(MemoryAddresses.currentLevelID) > selectedLevel)
                 {
                     timerStarted = false;
                     timerBlocked = true;
@@ -105,11 +106,23 @@ namespace HobbitSpeedrunTools
                         onNewBestTime?.Invoke(currentTime);
                     }
                 }
-                else if (mem.ReadInt(MemoryAddresses.currentLevelID) != selectedLevel
-                    || mem.ReadInt(MemoryAddresses.outOfLevelState) == 17)
+
+                // Reset conditions, shoutouts to Shocky.
+                if (mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel)
                 {
-                    timerStarted = false;
+                    // Reset condition for dream world.
+                    if (selectedLevel == 0 && mem.ReadInt(MemoryAddresses.outOfLevelState) == 20 && currentTime.TotalSeconds >= 0.05d) timerStarted = false;
+
+                    // Reset condition for AUP.
+                    if (selectedLevel == 1 && mem.ReadInt(MemoryAddresses.outOfLevelState) == 17) timerStarted = false;
+
+                    // Reset condition for all other level segments.
+                    if (mem.ReadInt(MemoryAddresses.outOfLevelState) == 12) timerStarted = false; 
                 }
+
+                // If for some reason we load a save thats passed the levels or before the start level in the segment or IL, we reset.
+                if (mem.ReadInt(MemoryAddresses.currentLevelID) > selectedLevel + 1
+                    || mem.ReadInt(MemoryAddresses.currentLevelID) < selectedLevel) timerStarted = false;
             }
 
             if (timerStarted)

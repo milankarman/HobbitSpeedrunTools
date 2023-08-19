@@ -230,6 +230,15 @@ namespace HobbitSpeedrunTools
             }
         }
 
+        private void cbxSelectedLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (timerManager != null)
+            {
+                timerManager.selectedLevel = cbxSelectedLevel.SelectedIndex;
+                timerManager.ResetTimerStates();
+            }
+        }
+
         private void SetLevelTimerSettingVisibility(bool visible)
         {
             lblSelectedLevel.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
@@ -275,12 +284,6 @@ namespace HobbitSpeedrunTools
 
             if (timerManager != null)
                 timerManager.endPointDistance = int.Parse(txtPointRadius.Text);
-        }
-
-        private void cbxSelectedLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (timerManager != null)
-                timerManager.selectedLevel = cbxSelectedLevel.SelectedIndex;
         }
     }
 }
