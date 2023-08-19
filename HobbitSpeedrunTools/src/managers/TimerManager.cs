@@ -86,7 +86,10 @@ namespace HobbitSpeedrunTools
 
             if (timerStarted)
             {
-                if (mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel + 1)
+                if (mem.ReadInt(MemoryAddresses.currentLevelID) > 10
+                    && mem.ReadInt(MemoryAddresses.onCutscene) == 1
+                    && mem.ReadInt(MemoryAddresses.cutsceneID) == 0x3853B400
+                    || mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel + 1)
                 {
                     timerStarted = false;
                     timerBlocked = true;

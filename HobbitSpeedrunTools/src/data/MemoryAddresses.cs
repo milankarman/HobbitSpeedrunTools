@@ -41,5 +41,8 @@
         public const string continueRunLevel = "00760354";
         public const string currentLevelID = "00762B5C";
         public const string outOfLevelState = "00762B58";
+
+        public const string onCutscene = "0075CCE4";
+        public const string cutsceneID = "0075CD00";
     }
 }

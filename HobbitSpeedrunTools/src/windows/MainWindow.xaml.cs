@@ -163,10 +163,21 @@ namespace HobbitSpeedrunTools
         {
             if (!updatingSaveManager && cbxSaveCollections.SelectedIndex >= 0)
             {
+                if (!saveManager.DidBackup)
+                {
+                    saveManager.BackupOldSaves();
+                }
                 updatingSaveManager = true;
                 saveManager.SelectSaveCollection(cbxSaveCollections.SelectedIndex);
                 updatingSaveManager = false;
             }
+            else
+            {
+                if (saveManager.DidBackup)
+                {
+                    saveManager.RestoreOldSaves();
+                }
+            }    
         }
 
         private void cbxSaves_SelectionChanged(object sender, SelectionChangedEventArgs e)
