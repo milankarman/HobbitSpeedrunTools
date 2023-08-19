@@ -2,10 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace HobbitSpeedrunTools
 {
@@ -195,15 +193,6 @@ namespace HobbitSpeedrunTools
             Process.Start("notepad.exe", Path.Join(".", "config.ini"));
         }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            saveManager.ClearSaves();
-
-            if (saveManager.DidBackup) saveManager.RestoreOldSaves();
-
-            base.OnClosing(e);
-        }
-
         private void cbxTimerMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (timerManager == null) return;
@@ -284,6 +273,15 @@ namespace HobbitSpeedrunTools
 
             if (timerManager != null)
                 timerManager.endPointDistance = int.Parse(txtPointRadius.Text);
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            saveManager.ClearSaves();
+
+            if (saveManager.DidBackup) saveManager.RestoreOldSaves();
+
+            base.OnClosing(e);
         }
     }
 }
