@@ -31,7 +31,7 @@ namespace HobbitSpeedrunTools
             };
 
             // Add the version number to the titlebar
-            Title += $" {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
+            Title += $" {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
 
             try
             {

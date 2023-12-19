@@ -26,7 +26,7 @@ namespace HobbitSpeedrunTools
 
         public string GetStatusText()
         {
-            string status = $"HST {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}";
+            string status = $"HST {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
 
             List<string> cheats = cheatManager.GetToggleCheatList();
 
