@@ -14,6 +14,8 @@
         public const string invincibility = "0075FBF4";
         public const string rocks = "0075BDB4";
         public const string keys = "0075BE08";
+        public const string healthPotions = "0075BE6C";
+        public const string antidotes = "0075BE70";
         public const string health = "0075BDBC";
         public const string ringMeter = "0075EBC8";
         public const string sign1 = "0075B548";

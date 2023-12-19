@@ -37,6 +37,7 @@ namespace HobbitSpeedrunTools
                 new InfiniteRing(mem),
                 new InfiniteRocks(mem),
                 new InfiniteKeys(mem),
+                new InfinitePotions(mem),
             };
 
             actionCheatList = new ActionCheat[]
