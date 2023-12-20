@@ -17,8 +17,8 @@ namespace HobbitSpeedrunTools
         {
             if (Enabled)
             {
-                mem?.WriteMemory(MemoryAddresses.healthPotions, "float", "99");
-                mem?.WriteMemory(MemoryAddresses.antidotes, "float", "99");
+                mem?.WriteMemory(MemoryAddresses.healthPotions, "float", "5");
+                mem?.WriteMemory(MemoryAddresses.antidotes, "float", "5");
             }
         }
     }
