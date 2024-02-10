@@ -144,9 +144,9 @@ namespace HobbitSpeedrunTools
             return saves;
         }
 
-        private SaveSettings[] GetSaveSettings(string path, Save[] saves)
+        private SaveSettings[] GetSaveSettings(string _path, Save[] saves)
         {
-            string settingsPath = path + "\\SaveSettings.json";
+            string path = _path + "\\SaveSettings.json";
             SaveSettings[] collectionSettings = new SaveSettings[saves.Length];
             int cheatLength = cheatManager.toggleCheatList.Length;
 
@@ -156,11 +156,11 @@ namespace HobbitSpeedrunTools
                 collectionSettings[i] = new SaveSettings(saves[i].name, cheatLength);
             }
 
-            if(File.Exists(settingsPath))
+            if(File.Exists(path))
             {
                 // ** NOTE **
                 //Check to make sure data from file was read correctly. Not sure of a way to notify the user if the data was not read successfully...
-                if (JsonConvert.DeserializeObject<List<SaveSettings>>(File.ReadAllText(settingsPath)) is List<SaveSettings> settingsFromFile) 
+                if (JsonConvert.DeserializeObject<List<SaveSettings>>(File.ReadAllText(path)) is List<SaveSettings> settingsFromFile) 
                 {
                     // Loop through default collection settings
                     for(int i = 0;i < collectionSettings.Length; i++)
@@ -182,38 +182,31 @@ namespace HobbitSpeedrunTools
                     }
                 }
 
-                //Attempt to write new settings to the file.
-                try
-                {
-                    using (StreamWriter sw = new StreamWriter(settingsPath))
-                    {
-                        sw.Write(JsonConvert.SerializeObject(collectionSettings));
-                    }
-                }
-                catch
-                {
-                    throw new Exception("Cannot Save to Settings File!");
-                }
-
-                return collectionSettings;
+                //Attempt to write new settings to the file and return.
+                return TrySaveSettingsAndReturn(path, collectionSettings);
             }
 
-            // If File doesn't exist, create it and attempt to write to it.
+            // If File doesn't exist, create it and attempt to write to it. Then return.
+            return TrySaveSettingsAndReturn(path, collectionSettings, create:true);
+        }
+
+        public SaveSettings[] TrySaveSettingsAndReturn(string path, SaveSettings[] settings, bool create=false)
+        {
             try
             {
-                File.Create(settingsPath).Dispose();
+                if(create) File.Create(path).Dispose();
 
-                using (StreamWriter sw = new StreamWriter(settingsPath))
+                using (StreamWriter sw = new StreamWriter(path))
                 {
-                    sw.Write(JsonConvert.SerializeObject(collectionSettings));
+                    sw.Write(JsonConvert.SerializeObject(settings));
                 }
             }
             catch
             {
-                throw new Exception("Cannot Create Save Settings File!");
+                throw new Exception("Cannot Save to Settings File!");
             }
 
-            return collectionSettings;
+            return settings;
         }
 
         public void SelectSaveCollection(int _saveCollectionIndex)
