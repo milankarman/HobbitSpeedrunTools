@@ -45,7 +45,7 @@ namespace HobbitSpeedrunTools
                 cheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
                 cheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
 
-                saveManager = new();
+                saveManager = new(cheatManager);
                 saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
                 saveManager.onSaveChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
 

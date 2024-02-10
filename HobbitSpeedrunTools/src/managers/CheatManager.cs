@@ -8,7 +8,8 @@ namespace HobbitSpeedrunTools
     public class CheatManager
     {
         public readonly Mem mem = new();
-        public StatusManager? statusManager; 
+        public static bool isHooked = false;
+        public StatusManager? statusManager;
 
         public readonly ToggleCheat[] toggleCheatList;
         public readonly ActionCheat[] actionCheatList;
@@ -53,8 +54,9 @@ namespace HobbitSpeedrunTools
         {
             while (true)
             {
+                isHooked = mem.OpenProcess("meridian");
                 // Attempt to hook to the game's process
-                if (mem.OpenProcess("meridian"))
+                if (isHooked)
                 {
                     if (statusManager != null)
                     {
@@ -109,6 +111,28 @@ namespace HobbitSpeedrunTools
             float z = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
 
             onClipwarpPositionUpdate?.Invoke(x, y, z);
+        }
+
+        public void OverrideClipwarpPosition(float x, float y, float z)
+        {
+            foreach(ToggleCheat toggleCheat in toggleCheatList)
+            {
+                if (toggleCheat is LockClipwarp)
+                {
+                    LockClipwarp lockClipwarp = (LockClipwarp)toggleCheat;
+                    lockClipwarp.OverwriteSavedWarpPosition(x, y, z);
+                    onClipwarpPositionUpdate?.Invoke(x, y, z);
+                    return;
+                }
+            }
+        }
+
+        public void UpdateCheatToggles(bool[] toggleActive)
+        {
+            for (int i = 0; i < toggleCheatList.Length; i++)
+            {
+                toggleCheatList[i].SetActive(toggleActive[i]);
+            }
         }
 
         // Gets a list of active cheats with short names

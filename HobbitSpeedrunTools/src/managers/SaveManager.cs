@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Documents;
 
 namespace HobbitSpeedrunTools
 {
@@ -11,12 +15,14 @@ namespace HobbitSpeedrunTools
             public string name;
             public string path;
             public Save[] saves;
+            public SaveSettings[] saveSettings;
 
-            public SaveCollection(string _name, string _path, Save[] _saves)
+            public SaveCollection(string _name, string _path, Save[] _saves, SaveSettings[] _saveSettings)
             {
                 name = _name;
                 path = _path;
                 saves = _saves;
+                saveSettings = _saveSettings;
             }
         }
 
@@ -32,12 +38,26 @@ namespace HobbitSpeedrunTools
             }
         }
 
+        public class SaveSettings
+        {
+            public string name;
+            public bool[] toggles;
+            public float clipwarpX;
+            public float clipwarpY;
+            public float clipwarpZ;
+
+            public SaveSettings(string _name, int toggleCheatsLength)
+            {
+                name = _name;
+                toggles = new bool[toggleCheatsLength];
+            }
+        }
+
         public SaveCollection?[] SaveCollections { get; private set; }
         public Save[]? Saves { get => SelectedSaveCollection?.saves; }
 
         public SaveCollection? SelectedSaveCollection { get => SaveCollections[SaveCollectionIndex]; }
         public Save? SelectedSave { get => SelectedSaveCollection?.saves[SaveIndex]; }
-
 
         public int SaveCollectionIndex { get; private set; }
         public int SaveIndex { get; private set; }
@@ -46,12 +66,13 @@ namespace HobbitSpeedrunTools
 
         public Action? onSaveCollectionChanged;
         public Action? onSaveChanged;
+        private readonly CheatManager cheatManager;
 
         private readonly string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
         private readonly string applicationSaveDir = "save-collections";
         private string backupDir = "";
 
-        public SaveManager()
+        public SaveManager(CheatManager _cheatManager)
         {
             if (!Directory.Exists(hobbitSaveDir))
             {
@@ -63,6 +84,7 @@ namespace HobbitSpeedrunTools
                 throw new Exception("The Hobbit saves folder not found at: {applicationSaveDir}");
             }
 
+            cheatManager = _cheatManager;
             SaveCollections = GetSaveCollections();
         }
 
@@ -79,7 +101,8 @@ namespace HobbitSpeedrunTools
                 string path = saveCollectionPaths[i];
 
                 Save[] saves = GetSaves(path);
-                saveCollections[i + 1] = new SaveCollection(name, path, saves);
+                SaveSettings[] saveSettings = GetSaveSettings(path, saves);
+                saveCollections[i + 1] = new SaveCollection(name, path, saves, saveSettings);
             }
 
             try
@@ -99,7 +122,7 @@ namespace HobbitSpeedrunTools
 
         private Save[] GetSaves(string saveCollectionPath)
         {
-            string[] savePaths = Directory.GetFiles(saveCollectionPath);
+            string[] savePaths = Directory.GetFiles(saveCollectionPath).Where(name => name.EndsWith(".hobbit")).ToArray();
             Save[] saves = new Save[savePaths.Length];
 
             for (int i = 0; i < savePaths.Length; i++)
@@ -119,6 +142,78 @@ namespace HobbitSpeedrunTools
             }
 
             return saves;
+        }
+
+        private SaveSettings[] GetSaveSettings(string path, Save[] saves)
+        {
+            string settingsPath = path + "\\SaveSettings.json";
+            SaveSettings[] collectionSettings = new SaveSettings[saves.Length];
+            int cheatLength = cheatManager.toggleCheatList.Length;
+
+            for(int i = 0; i < saves.Length; i++)
+            {
+                // Create Default Collection Settings.
+                collectionSettings[i] = new SaveSettings(saves[i].name, cheatLength);
+            }
+
+            if(File.Exists(settingsPath))
+            {
+                // ** NOTE **
+                //Check to make sure data from file was read correctly. Not sure of a way to notify the user if the data was not read successfully...
+                if (JsonConvert.DeserializeObject<List<SaveSettings>>(File.ReadAllText(settingsPath)) is List<SaveSettings> settingsFromFile) 
+                {
+                    // Loop through default collection settings
+                    for(int i = 0;i < collectionSettings.Length; i++)
+                    {
+                        // Check to see if setting exists. If it does, then set it to the save.
+                        // Any new saves will have default settings.
+                        // Any removed saves will simply not get copied over and overwritten.
+                        // Reordering saves work but if a save was completely renamed, I can't think of a way to retain its settings.
+                        foreach(SaveSettings setting in settingsFromFile)
+                        {
+                            string nameSplit = collectionSettings[i].name.Split(".")[1];
+                            // If save has existing settings, then set it.
+                            if (nameSplit == setting.name.Split(".")[1])
+                            {
+                                collectionSettings[i] = setting;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //Attempt to write new settings to the file.
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(settingsPath))
+                    {
+                        sw.Write(JsonConvert.SerializeObject(collectionSettings));
+                    }
+                }
+                catch
+                {
+                    throw new Exception("Cannot Save to Settings File!");
+                }
+
+                return collectionSettings;
+            }
+
+            // If File doesn't exist, create it and attempt to write to it.
+            try
+            {
+                File.Create(settingsPath).Dispose();
+
+                using (StreamWriter sw = new StreamWriter(settingsPath))
+                {
+                    sw.Write(JsonConvert.SerializeObject(collectionSettings));
+                }
+            }
+            catch
+            {
+                throw new Exception("Cannot Create Save Settings File!");
+            }
+
+            return collectionSettings;
         }
 
         public void SelectSaveCollection(int _saveCollectionIndex)
@@ -144,16 +239,21 @@ namespace HobbitSpeedrunTools
 
         public void SelectSave(int _saveIndex)
         {
-            if (SelectedSaveCollection != null)
-            {
-                ClearSaves();
-                SaveIndex = Math.Clamp(_saveIndex, 0, SelectedSaveCollection.saves.Length - 1);
-                
-                if (SelectedSave != null)
-                    File.Copy(Path.Join(SelectedSave.path), Path.Join(hobbitSaveDir, SelectedSave.name + ".hobbit"));
-            }
+            if (SelectedSaveCollection == null) return;
+
+            ClearSaves();
+            SaveIndex = Math.Clamp(_saveIndex, 0, SelectedSaveCollection.saves.Length - 1);
+
+            if (SelectedSave == null) return;
+
+            File.Copy(Path.Join(SelectedSave.path), Path.Join(hobbitSaveDir, SelectedSave.name + ".hobbit"));
 
             onSaveChanged?.Invoke();
+
+            SaveSettings settings = SelectedSaveCollection.saveSettings[SaveIndex];
+            // Call toggle cheats first, so I can overwrite saved clipwarp position in lockclipwarp toggle.
+            cheatManager.UpdateCheatToggles(settings.toggles);
+            cheatManager.OverrideClipwarpPosition(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
         }
 
         public void BackupOldSaves()
