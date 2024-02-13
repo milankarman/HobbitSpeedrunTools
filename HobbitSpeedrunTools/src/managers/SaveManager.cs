@@ -77,12 +77,14 @@ namespace HobbitSpeedrunTools
         {
             if (!Directory.Exists(hobbitSaveDir))
             {
-                throw new Exception("The Hobbit saves folder not found at: {hobbitSaveDir}");
+                throw new Exception($"The Hobbit saves folder not found at {hobbitSaveDir}, make sure you've started a new game in The Hobbit and try " +
+                    $"running HobbitSpeedrunTools again.");
             }
 
             if (!Directory.Exists(applicationSaveDir))
             {
-                throw new Exception("The Hobbit saves folder not found at: {applicationSaveDir}");
+                throw new Exception($"Save collections folder not found at {applicationSaveDir}." +
+                    $"If you're installing HobbitSpeedrunTools manually make sure to extract all included files.");
             }
 
             cheatManager = _cheatManager;
