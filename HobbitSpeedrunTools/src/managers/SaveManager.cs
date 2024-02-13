@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
+using System.Windows;
 
 namespace HobbitSpeedrunTools
 {
@@ -68,6 +70,7 @@ namespace HobbitSpeedrunTools
 
         private readonly string hobbitSaveDir = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "The Hobbit");
         private readonly string applicationSaveDir = "save-collections";
+        private readonly string saveSettingsFilename = "savesettings";
         private string backupDir = "";
 
         public SaveManager(CheatManager _cheatManager)
@@ -144,7 +147,8 @@ namespace HobbitSpeedrunTools
 
         private SaveSettings[] GetSaveSettings(string _path, Save[] saves)
         {
-            string path = Path.Join(_path + "Collection Save Settings.json");
+            string path = Path.Combine(_path + saveSettingsFilename + ".json");
+
             SaveSettings[] collectionSettings = new SaveSettings[saves.Length];
             int cheatLength = cheatManager.toggleCheatList.Length;
 
@@ -251,15 +255,15 @@ namespace HobbitSpeedrunTools
                 {
                     if (collection != null)
                     {
-                        string path = collection.path + "\\Collection Save Settings.json";
+                        string path = Path.Combine(collection.path + saveSettingsFilename + ".json");
                         using StreamWriter sw = new(path);
                         sw.Write(JsonConvert.SerializeObject(collection.saveSettings));
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Cannot Save to Settings File!");
+                MessageBox.Show($"Failed to write save settings: \n{ex.Message}");
             }
         }
 
