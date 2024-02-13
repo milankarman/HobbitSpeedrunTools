@@ -25,28 +25,28 @@ namespace HobbitSpeedrunTools
             cheatLoopThread.IsBackground = true;
             cheatLoopThread.Start();
 
-            toggleCheatList = new ToggleCheat[]
-            {
+            toggleCheatList =
+            [
                 new DevMode(mem),
                 new InfiniteJumpAttack(mem),
                 new RenderLoadTriggers(mem),
                 new RenderOtherTriggers(mem),
                 new RenderPolyCache(mem),
                 new Invincibility(mem),
-                new AutoResetSigns(mem),
                 new LockClipwarp(mem),
+                new AutoResetSigns(mem),
                 new InfiniteRing(mem),
                 new InfiniteRocks(mem),
                 new InfiniteKeys(mem),
                 new InfinitePotions(mem),
-            };
+            ];
 
-            actionCheatList = new ActionCheat[]
-            {
+            actionCheatList =
+            [
                 new QuickLoad(mem),
                 new LevelReload(mem),
                 new InstantClipwarp(mem),
-            };
+            ];
         }
 
         // Continuously checks which cheats should be enabled and handles automatic cheats

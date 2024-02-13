@@ -6,7 +6,6 @@ namespace HobbitSpeedrunTools
     {
         public override string Name { get; set; } = "Quick Load";
         public override string ShortcutName { get; set; } = "quick_load";
-        public TimerManager? TimerManager { get; set; } = null;
 
         public QuickLoad(Mem _mem)
         {

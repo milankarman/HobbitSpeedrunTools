@@ -1,11 +1,10 @@
 ﻿using Memory;
-using System.Threading;
 
 namespace HobbitSpeedrunTools
 {
     public class InstantClipwarp : ActionCheat
     {
-        public override string Name { get; set; } = "Level Reload";
+        public override string Name { get; set; } = "Instant Clipwarp";
         public override string ShortcutName { get; set; } = "instant_clipwarp";
 
         public InstantClipwarp(Mem _mem)
