@@ -123,8 +123,6 @@ namespace HobbitSpeedrunTools
                 // Enable Save and Clear all current cheats.
                 btnApplyCheatsCollection.IsEnabled = true;
                 btnApplyCheatsSave.IsEnabled = true;
-                // Think its more simple to clear all active cheats here instead of checking each individual cheat when loading a save.
-                cheatManager.ClearCheatsAndClipwarp();
             }
             else
             {
@@ -132,8 +130,6 @@ namespace HobbitSpeedrunTools
                 // Disable Save and Clear save specific cheats.
                 btnApplyCheatsCollection.IsEnabled = false;
                 btnApplyCheatsSave.IsEnabled = false;
-                // TODO: Maybe add functionality to remember cheats before opening up save manager?
-                cheatManager.ClearCheatsAndClipwarp();
             }
 
             cbxSaveCollections.SelectedIndex = saveManager.SaveCollectionIndex;
