@@ -118,7 +118,7 @@ namespace HobbitSpeedrunTools
             return saveCollections;
         }
 
-        private Save[] GetSaves(string saveCollectionPath)
+        private static Save[] GetSaves(string saveCollectionPath)
         {
             string[] savePaths = Directory.GetFiles(saveCollectionPath).Where(name => name.EndsWith(".hobbit")).ToArray();
             Save[] saves = new Save[savePaths.Length];
@@ -144,7 +144,7 @@ namespace HobbitSpeedrunTools
 
         private SaveSettings[] GetSaveSettings(string _path, Save[] saves)
         {
-            string path = _path + "\\Collection Save Settings.json";
+            string path = Path.Join(_path + "Collection Save Settings.json");
             SaveSettings[] collectionSettings = new SaveSettings[saves.Length];
             int cheatLength = cheatManager.toggleCheatList.Length;
 
@@ -192,7 +192,7 @@ namespace HobbitSpeedrunTools
         public void ApplyCheatsToSave()
         {
             // Null checking to appease the IDE and so nothing breaks.
-            if (SelectedSaveCollection is not SaveCollection) return;
+            if (SelectedSaveCollection is null) return;
             // Get current save specific settings of current selected collection.
             SaveSettings saveSettings = SelectedSaveCollection.saveSettings[SaveIndex];
             ToggleCheat[] toggleCheats = cheatManager.toggleCheatList;
@@ -204,12 +204,12 @@ namespace HobbitSpeedrunTools
                 saveSettings.toggles[i] = toggleCheat.Enabled;
 
                 // If lock clipwarp is enabled, also set the current clipwarp positions.
-                if (toggleCheat is LockClipwarp && toggleCheat.Enabled)
+                if (toggleCheat is LockClipwarp clipwarp && toggleCheat.Enabled)
                 {
-                    LockClipwarp lockClipwarpCheat = (LockClipwarp)toggleCheat;
-                    saveSettings.clipwarpX = lockClipwarpCheat.getSavedWarpPosX();
-                    saveSettings.clipwarpY = lockClipwarpCheat.getSavedWarpPosY();
-                    saveSettings.clipwarpZ = lockClipwarpCheat.getSavedWarpPosZ();
+                    LockClipwarp lockClipwarpCheat = clipwarp;
+                    saveSettings.clipwarpX = lockClipwarpCheat.SavedWarpPosX;
+                    saveSettings.clipwarpY = lockClipwarpCheat.SavedWarpPosY;
+                    saveSettings.clipwarpZ = lockClipwarpCheat.SavedWarpPosZ;
                 }
             }
         }
@@ -217,7 +217,7 @@ namespace HobbitSpeedrunTools
         public void ApplyCheatsToCollection()
         {
             // Null checking to appease the IDE and so nothing breaks.
-            if (SelectedSaveCollection is not SaveCollection) return;
+            if (SelectedSaveCollection is null) return;
             // Get settings of every save in the current selected collection.
             SaveSettings[] collectionSettings = SelectedSaveCollection.saveSettings;
             ToggleCheat[] toggleCheats = cheatManager.toggleCheatList;
@@ -232,14 +232,13 @@ namespace HobbitSpeedrunTools
                     collectionSettings[i].toggles[j] = toggleCheat.Enabled;
 
                     // If lock clipwarp is enabled, also set the current clipwarp positions.
-                    if(toggleCheat is LockClipwarp && toggleCheat.Enabled)
+                    if(toggleCheat is LockClipwarp clipwarp && toggleCheat.Enabled)
                     {
-                        LockClipwarp lockClipwarpCheat = (LockClipwarp)toggleCheat;
-                        collectionSettings[i].clipwarpX = lockClipwarpCheat.getSavedWarpPosX();
-                        collectionSettings[i].clipwarpY = lockClipwarpCheat.getSavedWarpPosY();
-                        collectionSettings[i].clipwarpZ = lockClipwarpCheat.getSavedWarpPosZ();
+                        LockClipwarp lockClipwarpCheat = clipwarp;
+                        collectionSettings[i].clipwarpX = lockClipwarpCheat.SavedWarpPosX;
+                        collectionSettings[i].clipwarpY = lockClipwarpCheat.SavedWarpPosY;
+                        collectionSettings[i].clipwarpZ = lockClipwarpCheat.SavedWarpPosZ;
                     }
-                        
                 }
             }
         }
@@ -250,15 +249,12 @@ namespace HobbitSpeedrunTools
             {              
                 foreach(SaveCollection? collection in SaveCollections)
                 {
-                    if(collection != null)
+                    if (collection != null)
                     {
                         string path = collection.path + "\\Collection Save Settings.json";
-                        using (StreamWriter sw = new StreamWriter(path))
-                        {
-                            sw.Write(JsonConvert.SerializeObject(collection.saveSettings));
-                        }
+                        using StreamWriter sw = new(path);
+                        sw.Write(JsonConvert.SerializeObject(collection.saveSettings));
                     }
-
                 }
             }
             catch

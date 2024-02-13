@@ -9,13 +9,9 @@ namespace HobbitSpeedrunTools
         public override string ShortName { get; set; } = "CLIP";
         public override string ShortcutName { get; set; } = "lock_clipwarp";
 
-        private float savedWarpPosX;
-        private float savedWarpPosY;
-        private float savedWarpPosZ;
-
-        public float getSavedWarpPosX() => savedWarpPosX;
-        public float getSavedWarpPosY() => savedWarpPosY;
-        public float getSavedWarpPosZ() => savedWarpPosZ;
+        public float SavedWarpPosX { get; private set; }
+        public float SavedWarpPosY { get; private set; }
+        public float SavedWarpPosZ { get; private set; }
 
         public LockClipwarp(Mem _mem)
         {
@@ -26,9 +22,9 @@ namespace HobbitSpeedrunTools
         {
             if (!CheatManager.isHooked || mem == null) return;
 
-            savedWarpPosX = mem.ReadFloat(MemoryAddresses.warpCoordsX);
-            savedWarpPosY = mem.ReadFloat(MemoryAddresses.warpCoordsY);
-            savedWarpPosZ = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
+            SavedWarpPosX = mem.ReadFloat(MemoryAddresses.warpCoordsX);
+            SavedWarpPosY = mem.ReadFloat(MemoryAddresses.warpCoordsY);
+            SavedWarpPosZ = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
 
             base.OnEnable();
         }
@@ -37,17 +33,17 @@ namespace HobbitSpeedrunTools
         {
             if (Enabled && mem != null)
             {
-                mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", savedWarpPosX.ToString(CultureInfo.InvariantCulture));
-                mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", savedWarpPosY.ToString(CultureInfo.InvariantCulture));
-                mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", savedWarpPosZ.ToString(CultureInfo.InvariantCulture));
+                mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", SavedWarpPosX.ToString(CultureInfo.InvariantCulture));
+                mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", SavedWarpPosY.ToString(CultureInfo.InvariantCulture));
+                mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", SavedWarpPosZ.ToString(CultureInfo.InvariantCulture));
             }
         }
 
         public void OverwriteSavedWarpPosition(float x, float y, float z)
         {
-            savedWarpPosX = x;
-            savedWarpPosY = y;
-            savedWarpPosZ = z;
+            SavedWarpPosX = x;
+            SavedWarpPosY = y;
+            SavedWarpPosZ = z;
         }
     }
 }
