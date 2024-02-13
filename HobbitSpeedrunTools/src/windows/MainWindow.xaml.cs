@@ -120,10 +120,20 @@ namespace HobbitSpeedrunTools
                     cbxSaves.Items.Add(save.name);
 
                 cbxSaves.IsEnabled = true;
+                // Enable Save and Clear all current cheats.
+                btnApplyCheatsCollection.IsEnabled = true;
+                btnApplyCheatsSave.IsEnabled = true;
+                // Think its more simple to clear all active cheats here instead of checking each individual cheat when loading a save.
+                cheatManager.ClearCheatsAndClipwarp();
             }
             else
             {
                 cbxSaves.IsEnabled = false;
+                // Disable Save and Clear save specific cheats.
+                btnApplyCheatsCollection.IsEnabled = false;
+                btnApplyCheatsSave.IsEnabled = false;
+                // TODO: Maybe add functionality to remember cheats before opening up save manager?
+                cheatManager.ClearCheatsAndClipwarp();
             }
 
             cbxSaveCollections.SelectedIndex = saveManager.SaveCollectionIndex;
@@ -246,6 +256,33 @@ namespace HobbitSpeedrunTools
             timerManager.ResetAverageTime();
         }
 
+        private void btnApplyCheatsSave_Click(object sender, RoutedEventArgs e)
+        {
+            // Try Catch probably redundant but just to make sure nothing breaks, lol.
+            try
+            {
+                saveManager.ApplyCheatsToSave();
+            }
+            catch 
+            {
+                throw new Exception("Cannot apply cheats to current Save!");
+            }
+        }
+
+
+        private void btnApplyCheatsCollection_Click(object sender, RoutedEventArgs e)
+        {
+            // Try Catch probably redundant but just to make sure nothing breaks, lol.
+            try
+            {
+                saveManager.ApplyCheatsToCollection();
+            }
+            catch
+            {
+                throw new Exception("Cannot apply cheats to current Collection!");
+            }
+        }
+
         // Ensures a textbox only allows integer inputs of a given range
         public static void ClampInteger(TextBox textBox, int minValue, int maxValue)
         {
@@ -273,6 +310,7 @@ namespace HobbitSpeedrunTools
                 if (saveManager.DidBackup) saveManager.RestoreOldSaves();
             }
 
+            saveManager.TryWriteCollectionsSettingsFile();
             base.OnClosing(e);
         }
     }

@@ -119,8 +119,8 @@ namespace HobbitSpeedrunTools
             {
                 if (toggleCheat is LockClipwarp)
                 {
-                    LockClipwarp lockClipwarp = (LockClipwarp)toggleCheat;
-                    lockClipwarp.OverwriteSavedWarpPosition(x, y, z);
+                    LockClipwarp lockClipwarpCheat = (LockClipwarp)toggleCheat;
+                    lockClipwarpCheat.OverwriteSavedWarpPosition(x, y, z);
                     onClipwarpPositionUpdate?.Invoke(x, y, z);
                     return;
                 }
@@ -130,9 +130,15 @@ namespace HobbitSpeedrunTools
         public void UpdateCheatToggles(bool[] toggleActive)
         {
             for (int i = 0; i < toggleCheatList.Length; i++)
-            {
-                toggleCheatList[i].SetActive(toggleActive[i]);
-            }
+                if (toggleCheatList[i] != null) toggleCheatList[i].SetActive(toggleActive[i]);
+        }
+
+        public void ClearCheatsAndClipwarp()
+        {
+            for (int i = 0; i < toggleCheatList.Length; i++)
+                if (toggleCheatList[i] != null && toggleCheatList[i].Enabled) toggleCheatList[i].Disable();
+
+            OverrideClipwarpPosition(0,0,0);
         }
 
         // Gets a list of active cheats with short names
@@ -141,9 +147,7 @@ namespace HobbitSpeedrunTools
             List<string> cheats = new();
 
             foreach (ToggleCheat? cheat in toggleCheatList)
-            {
                 if (cheat != null && cheat.Enabled) cheats.Add(cheat.ShortName ?? "NONAME");
-            }
 
             return cheats;
         }

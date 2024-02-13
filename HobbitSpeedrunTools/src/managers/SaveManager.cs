@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Documents;
 
 namespace HobbitSpeedrunTools
 {
@@ -153,14 +151,14 @@ namespace HobbitSpeedrunTools
             for(int i = 0; i < saves.Length; i++)
             {
                 // Create Default Collection Settings.
-                collectionSettings[i] = new SaveSettings(saves[i].name, cheatLength);
+                collectionSettings[i] = new (saves[i].name, cheatLength);
             }
 
             if(File.Exists(path))
             {
                 // ** NOTE **
                 //Check to make sure data from file was read correctly. Not sure of a way to notify the user if the data was not read successfully...
-                if (JsonConvert.DeserializeObject<List<SaveSettings>>(File.ReadAllText(path)) is List<SaveSettings> settingsFromFile) 
+                if (JsonConvert.DeserializeObject<List<SaveSettings>>(File.ReadAllText(path)) is List<SaveSettings> collectionFileSettings) 
                 {
                     // Loop through default collection settings
                     for(int i = 0;i < collectionSettings.Length; i++)
@@ -168,45 +166,105 @@ namespace HobbitSpeedrunTools
                         // Check to see if setting exists. If it does, then set it to the save.
                         // Any new saves will have default settings.
                         // Any removed saves will simply not get copied over and overwritten.
-                        // Reordering saves work but if a save was completely renamed, I can't think of a way to retain its settings.
-                        foreach(SaveSettings setting in settingsFromFile)
+                        foreach(SaveSettings fileSetting in collectionFileSettings)
                         {
-                            string nameSplit = collectionSettings[i].name.Split(".")[1];
-                            // If save has existing settings, then set it.
-                            if (nameSplit == setting.name.Split(".")[1])
+                            string collectionSaveWithoutNumber = collectionSettings[i].name.Split(".", 2)[1];
+                            string fileSaveWithoutNumber = fileSetting.name.Split(".", 2)[1];
+
+                            if(collectionSaveWithoutNumber == fileSaveWithoutNumber)
                             {
-                                collectionSettings[i] = setting;
+                                collectionSettings[i] = fileSetting;
                                 break;
                             }
+ 
                         }
                     }
                 }
 
                 //Attempt to write new settings to the file and return.
-                return TrySaveSettingsAndReturn(path, collectionSettings);
+                return collectionSettings;
             }
 
             // If File doesn't exist, create it and attempt to write to it. Then return.
-            return TrySaveSettingsAndReturn(path, collectionSettings, create:true);
+            return collectionSettings;
         }
 
-        public SaveSettings[] TrySaveSettingsAndReturn(string path, SaveSettings[] settings, bool create=false)
+        public void ApplyCheatsToSave()
+        {
+            // Null checking to appease the IDE and so nothing breaks.
+            if (SelectedSaveCollection is not SaveCollection) return;
+            // Get current save specific settings of current selected collection.
+            SaveSettings saveSettings = SelectedSaveCollection.saveSettings[SaveIndex];
+            ToggleCheat[] toggleCheats = cheatManager.toggleCheatList;
+
+            // Iterate through the selected saves toggles.
+            for (int i = 0; i < saveSettings.toggles.Length; i++)
+            {
+                ToggleCheat toggleCheat = toggleCheats[i];
+                saveSettings.toggles[i] = toggleCheat.Enabled;
+
+                // If lock clipwarp is enabled, also set the current clipwarp positions.
+                if (toggleCheat is LockClipwarp && toggleCheat.Enabled)
+                {
+                    LockClipwarp lockClipwarpCheat = (LockClipwarp)toggleCheat;
+                    saveSettings.clipwarpX = lockClipwarpCheat.getSavedWarpPosX();
+                    saveSettings.clipwarpY = lockClipwarpCheat.getSavedWarpPosY();
+                    saveSettings.clipwarpZ = lockClipwarpCheat.getSavedWarpPosZ();
+                }
+            }
+        }
+
+        public void ApplyCheatsToCollection()
+        {
+            // Null checking to appease the IDE and so nothing breaks.
+            if (SelectedSaveCollection is not SaveCollection) return;
+            // Get settings of every save in the current selected collection.
+            SaveSettings[] collectionSettings = SelectedSaveCollection.saveSettings;
+            ToggleCheat[] toggleCheats = cheatManager.toggleCheatList;
+
+            // Interate through every save.
+            for(int i = 0; i < collectionSettings.Length; i++)
+            {
+                // Iterate through the selected saves toggles.
+                for (int j = 0; j < collectionSettings[i].toggles.Length; j++)
+                {
+                    ToggleCheat toggleCheat = toggleCheats[j];
+                    collectionSettings[i].toggles[j] = toggleCheat.Enabled;
+
+                    // If lock clipwarp is enabled, also set the current clipwarp positions.
+                    if(toggleCheat is LockClipwarp && toggleCheat.Enabled)
+                    {
+                        LockClipwarp lockClipwarpCheat = (LockClipwarp)toggleCheat;
+                        collectionSettings[i].clipwarpX = lockClipwarpCheat.getSavedWarpPosX();
+                        collectionSettings[i].clipwarpY = lockClipwarpCheat.getSavedWarpPosY();
+                        collectionSettings[i].clipwarpZ = lockClipwarpCheat.getSavedWarpPosZ();
+                    }
+                        
+                }
+            }
+        }
+
+        public void TryWriteCollectionsSettingsFile()
         {
             try
-            {
-                if(create) File.Create(path).Dispose();
-
-                using (StreamWriter sw = new StreamWriter(path))
+            {              
+                foreach(SaveCollection? collection in SaveCollections)
                 {
-                    sw.Write(JsonConvert.SerializeObject(settings));
+                    if(collection != null)
+                    {
+                        string path = collection.path;
+                        using (StreamWriter sw = new StreamWriter(path))
+                        {
+                            sw.Write(JsonConvert.SerializeObject(collection.saveSettings));
+                        }
+                    }
+
                 }
             }
             catch
             {
                 throw new Exception("Cannot Save to Settings File!");
             }
-
-            return settings;
         }
 
         public void SelectSaveCollection(int _saveCollectionIndex)

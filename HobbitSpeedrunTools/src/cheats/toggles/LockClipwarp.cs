@@ -13,6 +13,10 @@ namespace HobbitSpeedrunTools
         private float savedWarpPosY;
         private float savedWarpPosZ;
 
+        public float getSavedWarpPosX() => savedWarpPosX;
+        public float getSavedWarpPosY() => savedWarpPosY;
+        public float getSavedWarpPosZ() => savedWarpPosZ;
+
         public LockClipwarp(Mem _mem)
         {
             mem = _mem;
