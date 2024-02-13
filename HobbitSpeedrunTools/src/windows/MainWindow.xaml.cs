@@ -17,6 +17,8 @@ namespace HobbitSpeedrunTools
 
         private bool updatingSaveManager;
 
+        public static bool LoadCheatsWithSave { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -306,6 +308,17 @@ namespace HobbitSpeedrunTools
 
             saveManager.TryWriteCollectionsSettingsFile();
             base.OnClosing(e);
+        }
+
+        private void cbxLoadCheatsWithSave_Click(object sender, RoutedEventArgs e)
+        {
+            LoadCheatsWithSave = cbxLoadCheatsWithSave.IsChecked ?? false;
+        }
+
+        // A bit of a hack to prevent the plus and minus keys from flipping the load cheats checkbox
+        private void CheckBox_Indeterminate(object sender, RoutedEventArgs e)
+        {
+            ((CheckBox)sender).IsChecked = false;
         }
     }
 }

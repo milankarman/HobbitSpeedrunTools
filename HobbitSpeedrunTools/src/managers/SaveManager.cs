@@ -110,7 +110,8 @@ namespace HobbitSpeedrunTools
 
             try
             {
-                saveCollections = saveCollections.OrderBy(x => {
+                saveCollections = saveCollections.OrderBy(x =>
+                {
                     if (x == null) return 0;
                     return int.Parse(x.name.Split(".")[0]);
                 }).ToArray();
@@ -154,35 +155,35 @@ namespace HobbitSpeedrunTools
             SaveSettings[] collectionSettings = new SaveSettings[saves.Length];
             int cheatLength = cheatManager.toggleCheatList.Length;
 
-            for(int i = 0; i < saves.Length; i++)
+            for (int i = 0; i < saves.Length; i++)
             {
                 // Create Default Collection Settings.
-                collectionSettings[i] = new (saves[i].name, cheatLength);
+                collectionSettings[i] = new(saves[i].name, cheatLength);
             }
 
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
                 // ** NOTE **
                 //Check to make sure data from file was read correctly. Not sure of a way to notify the user if the data was not read successfully...
-                if (JsonConvert.DeserializeObject<List<SaveSettings>>(File.ReadAllText(path)) is List<SaveSettings> collectionFileSettings) 
+                if (JsonConvert.DeserializeObject<List<SaveSettings>>(File.ReadAllText(path)) is List<SaveSettings> collectionFileSettings)
                 {
                     // Loop through default collection settings
-                    for(int i = 0;i < collectionSettings.Length; i++)
+                    for (int i = 0; i < collectionSettings.Length; i++)
                     {
                         // Check to see if setting exists. If it does, then set it to the save.
                         // Any new saves will have default settings.
                         // Any removed saves will simply not get copied over and overwritten.
-                        foreach(SaveSettings fileSetting in collectionFileSettings)
+                        foreach (SaveSettings fileSetting in collectionFileSettings)
                         {
                             string collectionSaveWithoutNumber = collectionSettings[i].name.Split(".", 2)[1];
                             string fileSaveWithoutNumber = fileSetting.name.Split(".", 2)[1];
 
-                            if(collectionSaveWithoutNumber == fileSaveWithoutNumber)
+                            if (collectionSaveWithoutNumber == fileSaveWithoutNumber)
                             {
                                 collectionSettings[i] = fileSetting;
                                 break;
                             }
- 
+
                         }
                     }
                 }
@@ -229,7 +230,7 @@ namespace HobbitSpeedrunTools
             ToggleCheat[] toggleCheats = cheatManager.toggleCheatList;
 
             // Interate through every save.
-            for(int i = 0; i < collectionSettings.Length; i++)
+            for (int i = 0; i < collectionSettings.Length; i++)
             {
                 // Iterate through the selected saves toggles.
                 for (int j = 0; j < collectionSettings[i].toggles.Length; j++)
@@ -238,7 +239,7 @@ namespace HobbitSpeedrunTools
                     collectionSettings[i].toggles[j] = toggleCheat.Enabled;
 
                     // If lock clipwarp is enabled, also set the current clipwarp positions.
-                    if(toggleCheat is LockClipwarp clipwarp && toggleCheat.Enabled)
+                    if (toggleCheat is LockClipwarp clipwarp && toggleCheat.Enabled)
                     {
                         LockClipwarp lockClipwarpCheat = clipwarp;
                         collectionSettings[i].clipwarpX = lockClipwarpCheat.SavedWarpPosX;
@@ -252,8 +253,8 @@ namespace HobbitSpeedrunTools
         public void TryWriteCollectionsSettingsFile()
         {
             try
-            {              
-                foreach(SaveCollection? collection in SaveCollections)
+            {
+                foreach (SaveCollection? collection in SaveCollections)
                 {
                     if (collection != null)
                     {
@@ -303,10 +304,13 @@ namespace HobbitSpeedrunTools
 
             onSaveChanged?.Invoke();
 
-            SaveSettings settings = SelectedSaveCollection.saveSettings[SaveIndex];
-            // Call toggle cheats first, so I can overwrite saved clipwarp position in lockclipwarp toggle.
-            cheatManager.UpdateCheatToggles(settings.toggles);
-            cheatManager.OverrideClipwarpPosition(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+            if (MainWindow.LoadCheatsWithSave)
+            {
+                SaveSettings settings = SelectedSaveCollection.saveSettings[SaveIndex];
+                // Call toggle cheats first, so I can overwrite saved clipwarp position in lockclipwarp toggle.
+                cheatManager.UpdateCheatToggles(settings.toggles);
+                cheatManager.OverrideClipwarpPosition(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+            }
         }
 
         public void BackupOldSaves()
