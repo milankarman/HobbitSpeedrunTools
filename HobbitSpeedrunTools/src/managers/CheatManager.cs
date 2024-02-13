@@ -133,14 +133,6 @@ namespace HobbitSpeedrunTools
                 if (toggleCheatList[i] != null) toggleCheatList[i].SetActive(toggleActive[i]);
         }
 
-        public void ClearCheatsAndClipwarp()
-        {
-            for (int i = 0; i < toggleCheatList.Length; i++)
-                if (toggleCheatList[i] != null && toggleCheatList[i].Enabled) toggleCheatList[i].Disable();
-
-            OverrideClipwarpPosition(0,0,0);
-        }
-
         // Gets a list of active cheats with short names
         public List<string> GetToggleCheatList()
         {
