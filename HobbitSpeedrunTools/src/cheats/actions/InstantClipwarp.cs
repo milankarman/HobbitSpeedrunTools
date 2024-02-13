@@ -1,5 +1,5 @@
 ﻿using Memory;
-using System.Globalization;
+using System.Threading;
 
 namespace HobbitSpeedrunTools
 {
@@ -15,15 +15,11 @@ namespace HobbitSpeedrunTools
 
         public override void Start()
         {
-            if (mem == null) return;
+            if (!CheatManager.isHooked || mem == null) return;
 
-            float x = mem.ReadFloat(MemoryAddresses.warpCoordsX);
-            float y = mem.ReadFloat(MemoryAddresses.warpCoordsY);
-            float z = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
-
-            mem.WriteMemory(MemoryAddresses.bilboCoordsX, "float", x.ToString(CultureInfo.InvariantCulture));
-            mem.WriteMemory(MemoryAddresses.bilboCoordsY, "float", y.ToString(CultureInfo.InvariantCulture));
-            mem.WriteMemory(MemoryAddresses.bilboCoordsZ, "float", z.ToString(CultureInfo.InvariantCulture));
+            mem.WriteMemory(MemoryAddresses.bilboStateTimer, "float", "10");
+            mem.WriteMemory(MemoryAddresses.bilboCoordsY, "float", "100000");
+            mem.WriteMemory(MemoryAddresses.bilboNewCoordsY, "float", "100000");
         }
     }
 }

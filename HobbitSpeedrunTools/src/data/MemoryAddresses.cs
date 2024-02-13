@@ -30,6 +30,10 @@
         public const string bilboCoordsY = local + ",18";
         public const string bilboCoordsZ = local + ",1C";
 
+        public const string bilboNewCoordsX = local + ",464";
+        public const string bilboNewCoordsY = local + ",468";
+        public const string bilboNewCoordsZ = local + ",46C";
+
         public const string bilboYawRad = local + ",614";
 
         public const string warpCoordsX = local + ",5f50";
@@ -37,6 +41,7 @@
         public const string warpCoordsZ = local + ",5F58";
 
         public const string bilboState = local + ",8D8";
+        public const string bilboStateTimer = local + ",91C";
 
         public const string load = "00760358";
         public const string loadFinished = "0076035C";
