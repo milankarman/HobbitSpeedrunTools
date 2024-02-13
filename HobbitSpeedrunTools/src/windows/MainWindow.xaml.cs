@@ -271,7 +271,13 @@ namespace HobbitSpeedrunTools
         {
             try
             {
-                saveManager.ApplyCheatsToCollection();
+                MessageBoxResult result = MessageBox.Show("This action will overwrite all of your applied cheats for this entire save collection, are you sure?",
+                    "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    saveManager.ApplyCheatsToCollection();
+                }
             }
             catch (Exception ex)
             {
