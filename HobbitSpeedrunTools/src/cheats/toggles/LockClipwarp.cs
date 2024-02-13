@@ -13,6 +13,10 @@ namespace HobbitSpeedrunTools
         private float savedWarpPosY;
         private float savedWarpPosZ;
 
+        public float getSavedWarpPosX() => savedWarpPosX;
+        public float getSavedWarpPosY() => savedWarpPosY;
+        public float getSavedWarpPosZ() => savedWarpPosZ;
+
         public LockClipwarp(Mem _mem)
         {
             mem = _mem;
@@ -20,7 +24,7 @@ namespace HobbitSpeedrunTools
 
         public override void OnEnable()
         {
-            if (mem == null) return;
+            if (!CheatManager.isHooked || mem == null) return;
 
             savedWarpPosX = mem.ReadFloat(MemoryAddresses.warpCoordsX);
             savedWarpPosY = mem.ReadFloat(MemoryAddresses.warpCoordsY);
@@ -37,6 +41,13 @@ namespace HobbitSpeedrunTools
                 mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", savedWarpPosY.ToString(CultureInfo.InvariantCulture));
                 mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", savedWarpPosZ.ToString(CultureInfo.InvariantCulture));
             }
+        }
+
+        public void OverwriteSavedWarpPosition(float x, float y, float z)
+        {
+            savedWarpPosX = x;
+            savedWarpPosY = y;
+            savedWarpPosZ = z;
         }
     }
 }

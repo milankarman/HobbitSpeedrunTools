@@ -45,7 +45,7 @@ namespace HobbitSpeedrunTools
                 cheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
                 cheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
 
-                saveManager = new();
+                saveManager = new(cheatManager);
                 saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
                 saveManager.onSaveChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
 
@@ -120,10 +120,16 @@ namespace HobbitSpeedrunTools
                     cbxSaves.Items.Add(save.name);
 
                 cbxSaves.IsEnabled = true;
+                // Enable Save and Clear all current cheats.
+                btnApplyCheatsCollection.IsEnabled = true;
+                btnApplyCheatsSave.IsEnabled = true;
             }
             else
             {
                 cbxSaves.IsEnabled = false;
+                // Disable Save and Clear save specific cheats.
+                btnApplyCheatsCollection.IsEnabled = false;
+                btnApplyCheatsSave.IsEnabled = false;
             }
 
             cbxSaveCollections.SelectedIndex = saveManager.SaveCollectionIndex;
@@ -246,6 +252,33 @@ namespace HobbitSpeedrunTools
             timerManager.ResetAverageTime();
         }
 
+        private void btnApplyCheatsSave_Click(object sender, RoutedEventArgs e)
+        {
+            // Try Catch probably redundant but just to make sure nothing breaks, lol.
+            try
+            {
+                saveManager.ApplyCheatsToSave();
+            }
+            catch 
+            {
+                throw new Exception("Cannot apply cheats to current Save!");
+            }
+        }
+
+
+        private void btnApplyCheatsCollection_Click(object sender, RoutedEventArgs e)
+        {
+            // Try Catch probably redundant but just to make sure nothing breaks, lol.
+            try
+            {
+                saveManager.ApplyCheatsToCollection();
+            }
+            catch
+            {
+                throw new Exception("Cannot apply cheats to current Collection!");
+            }
+        }
+
         // Ensures a textbox only allows integer inputs of a given range
         public static void ClampInteger(TextBox textBox, int minValue, int maxValue)
         {
@@ -273,6 +306,7 @@ namespace HobbitSpeedrunTools
                 if (saveManager.DidBackup) saveManager.RestoreOldSaves();
             }
 
+            saveManager.TryWriteCollectionsSettingsFile();
             base.OnClosing(e);
         }
     }
