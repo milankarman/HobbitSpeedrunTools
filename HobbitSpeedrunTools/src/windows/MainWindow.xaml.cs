@@ -254,28 +254,26 @@ namespace HobbitSpeedrunTools
 
         private void btnApplyCheatsSave_Click(object sender, RoutedEventArgs e)
         {
-            // Try Catch probably redundant but just to make sure nothing breaks, lol.
             try
             {
                 saveManager.ApplyCheatsToSave();
             }
-            catch 
+            catch (Exception ex)
             {
-                throw new Exception("Cannot apply cheats to current Save!");
+                MessageBox.Show($"Cannot apply cheats to current save.\n{ex.Message}");
             }
         }
 
 
         private void btnApplyCheatsCollection_Click(object sender, RoutedEventArgs e)
         {
-            // Try Catch probably redundant but just to make sure nothing breaks, lol.
             try
             {
                 saveManager.ApplyCheatsToCollection();
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Cannot apply cheats to current Collection!");
+                MessageBox.Show($"Cannot apply cheats to current collection.\n{ex.Message}");
             }
         }
 

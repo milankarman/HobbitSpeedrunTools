@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="HobbitSpeedrunTools" SizeToContent="WidthAndHeight" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SnapsToDevicePixels="True" Height="355">
+        Title="HobbitSpeedrunTools" SizeToContent="WidthAndHeight" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SnapsToDevicePixels="True">
     <Window.Resources>
         <DataTemplate x:Key="CheatToggleTemplate">
             <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded"/>
@@ -28,26 +28,22 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <GroupBox Header="Save Manager" Grid.Row="0" Margin="0,0,0,151" Grid.RowSpan="2">
+            <GroupBox Header="Save Manager" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="38*"/>
-                        <ColumnDefinition Width="35*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Label x:Name="lblSaveCollection" Content="Save Collection" VerticalAlignment="Center" Width="auto" Padding="0,0,0,0" Grid.ColumnSpan="2"/>
-                    <ComboBox Grid.Row="1" x:Name="cbxSaveCollections" Margin="0,5,0,0" VerticalAlignment="Top" Width="auto" Padding="0,0,0,0" SelectionChanged="cbxSaveCollections_SelectionChanged" Grid.ColumnSpan="2"/>
-                    <Label Grid.Row="2" x:Name="lblSaves" Content="Save" Margin="0,13,0,0" VerticalAlignment="Top" Width="auto" Padding="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-                    <ComboBox Grid.Row="3" x:Name="cbxSaves" Margin="0,38,0,0" VerticalAlignment="Top" Width="auto" IsEnabled="False" SelectionChanged="cbxSaves_SelectionChanged" Grid.ColumnSpan="2"/>
+                    <Label Grid.Row="0" x:Name="lblSaveCollection" Content="Save Collection" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" Width="auto" Padding="0,0,0,0"/>
+                    <ComboBox Grid.Row="1" x:Name="cbxSaveCollections" HorizontalAlignment="Stretch" Margin="0,5,0,0" VerticalAlignment="Top" Width="auto" Padding="0,0,0,0" SelectionChanged="cbxSaveCollections_SelectionChanged"/>
+                    <Label Grid.Row="2" x:Name="lblSaves" Content="Save" HorizontalAlignment="Stretch" Margin="0,10,0,0" VerticalAlignment="Top" Width="auto" Padding="0,0,0,0"/>
+                    <ComboBox Grid.Row="3" x:Name="cbxSaves" HorizontalAlignment="Stretch" Margin="0,5,0,0" VerticalAlignment="Top" Width="auto" IsEnabled="False" SelectionChanged="cbxSaves_SelectionChanged"/>
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Info" Grid.Row="1" Margin="0,180,0,0">
+            <GroupBox Header="Info" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -78,7 +74,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="Segment Timer" Grid.Row="0" Margin="0,0,0,161">
+            <GroupBox Header="Segment Timer" Grid.Row="0" Grid.Column="3" Margin="0,0,0,10">
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -141,24 +137,23 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Settings" Grid.Column="0" Margin="0,246,0,0">
+            <GroupBox Header="Settings" Grid.Column="0" Grid.Row="1" Margin="0,0,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" x:Name="btnOpenConfig" Content="Open Config" Click="btnOpenConfig_Click" Margin="0,0,2.5,0"/>
-                    <Button Grid.Column="1" x:Name="btnOpenHelp" Content="Help" Margin="2.5,0,0,0" Click="btnOpenHelp_Click"/>
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Save Selected Cheats and Clipwarp" Grid.Column="0" Margin="0,167,0,84">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" x:Name="btnApplyCheatsSave" Content="Apply to Save" Click="btnApplyCheatsSave_Click" Margin="0,0,2.5,0" IsEnabled="False"/>
-                    <Button Grid.Column="1" x:Name="btnApplyCheatsCollection" Content="Apply to Collection" Margin="2.5,0,0,0" Click="btnApplyCheatsCollection_Click" IsEnabled="False"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="0" Grid.Row="0" x:Name="btnOpenConfig" Content="Open Config" Click="btnOpenConfig_Click" Margin="0,0,2.5,0"/>
+                    <Button Grid.Column="1" Grid.Row="0" x:Name="btnOpenHelp" Content="Help" Margin="2.5,0,0,0" Click="btnOpenHelp_Click"/>
+                    <CheckBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Load applied cheats with save" HorizontalAlignment="Stretch" Margin="0,5,0,0"/>
+                    <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="btnApplyCheatsSave" Content="Apply Cheats to Save" Margin="0,5,0,0" Click="btnApplyCheatsSave_Click"/>
+                    <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnApplyCheatsCollection" Content="Apply Cheats to Collection" Margin="0,5,0,0" Click="btnApplyCheatsCollection_Click"/>
                 </Grid>
             </GroupBox>
         </Grid>
