@@ -57,15 +57,15 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Bilbo Position:"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtBilboPosX" Width="80" Margin="10,0,5,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBilboPosY" Width="80" Margin="0,0,5,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBilboPosZ" Width="80" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtBilboPosX" Width="100" Margin="10,0,5,0" Text="X: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBilboPosY" Width="100" Margin="0,0,5,0" Text="Y: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBilboPosZ" Width="100" Text="Z: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Bilbo Rotation:" Margin="0,5,0,0"/>
-                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBilboRotation" Width="80" Margin="0,5,0,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBilboRotation" Width="100" Margin="0,5,0,0" Text="0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Clipwarp Position:" Margin="0,5,0,0"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtClipwarpPosX" Width="80" Margin="10,5,5,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBox Grid.Row="2" Grid.Column="2" x:Name="txtClipwarpPosY" Width="80" Margin="0,5,5,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtClipwarpPosZ" Width="80" Margin="0,5,0,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtClipwarpPosX" Width="100" Margin="10,5,5,0" Text="X: 000000.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="2" Grid.Column="2" x:Name="txtClipwarpPosY" Width="100" Margin="0,5,5,0" Text="Y: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtClipwarpPosZ" Width="100" Margin="0,5,0,0" Text="Z: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                 </Grid>
             </GroupBox>
         </Grid>

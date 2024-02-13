@@ -95,9 +95,9 @@ namespace HobbitSpeedrunTools
 
         public void UpdateBilboPosition(float x, float y, float z)
         {
-            txtBilboPosX.Text = Math.Round(x, 1).ToString("0.0");
-            txtBilboPosY.Text = Math.Round(y, 1).ToString("0.0");
-            txtBilboPosZ.Text = Math.Round(z, 1).ToString("0.0");
+            txtBilboPosX.Text = "X: " + Math.Round(x, 1).ToString("0.0");
+            txtBilboPosY.Text = "Y: " + Math.Round(y, 1).ToString("0.0");
+            txtBilboPosZ.Text = "Z: " + Math.Round(z, 1).ToString("0.0");
         }
 
         public void UpdateBilboRotation(double degrees)
@@ -107,9 +107,9 @@ namespace HobbitSpeedrunTools
 
         public void UpdateClipwarpPositition(float x, float y, float z)
         {
-            txtClipwarpPosX.Text = Math.Round(x, 1).ToString("0.0");
-            txtClipwarpPosY.Text = Math.Round(y, 1).ToString("0.0");
-            txtClipwarpPosZ.Text = Math.Round(z, 1).ToString("0.0");
+            txtClipwarpPosX.Text = "X: " + Math.Round(x, 1).ToString("0.0");
+            txtClipwarpPosY.Text = "Y: " + Math.Round(y, 1).ToString("0.0");
+            txtClipwarpPosZ.Text = "Z: " + Math.Round(z, 1).ToString("0.0");
         }
 
         private void UpdateSavesManagerUI()
