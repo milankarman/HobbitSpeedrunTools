@@ -25,7 +25,6 @@ namespace HobbitSpeedrunTools
 
             SourceInitialized += (s, e) =>
             {
-                SizeToContent = SizeToContent.Manual;
                 MinWidth = ActualWidth;
                 MinHeight = ActualHeight - 37;
                 Height = MinHeight;

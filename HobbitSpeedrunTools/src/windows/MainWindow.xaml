@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="HobbitSpeedrunTools" SizeToContent="WidthAndHeight" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SnapsToDevicePixels="True">
+        Title="HobbitSpeedrunTools" SizeToContent="WidthAndHeight" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SnapsToDevicePixels="True" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="CheatToggleTemplate">
             <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded"/>

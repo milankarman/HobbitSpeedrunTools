@@ -40,14 +40,6 @@
                                         <Rectangle Width="10" VerticalAlignment="Center" Margin="1 1 0 0" Fill="{StaticResource dark2}" Stroke="{StaticResource light1}" StrokeThickness="1"/>
                                     </Button>
 
-                                    <Button Name="btnRestore" Template="{DynamicResource ResizeWindowButton}" Width="40" WindowChrome.IsHitTestVisibleInChrome="True" 
-                                                Click="AutoMinimize_Event" Height="auto">
-                                        <Grid Width="12" Height="12">
-                                            <Rectangle StrokeThickness="1" Fill="{StaticResource dark2}" Stroke="{StaticResource light1}" Margin="3,0,0,3"/>
-                                            <Rectangle StrokeThickness="1" Fill="{StaticResource dark2}" Stroke="{StaticResource light1}" Margin="0 3 3 0"/>
-                                        </Grid>
-                                    </Button>
-
                                     <Button Name="btnClose" Template="{DynamicResource CloseWindowButton}" Width="40" WindowChrome.IsHitTestVisibleInChrome="True"
                                                 Click="CloseWindow_Event" Height="auto">
                                         <Grid Margin="0 1 0 0">
