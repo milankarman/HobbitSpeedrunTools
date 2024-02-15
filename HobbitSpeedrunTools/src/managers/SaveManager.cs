@@ -150,7 +150,7 @@ namespace HobbitSpeedrunTools
 
         private SaveSettings[] GetSaveSettings(string _path, Save[] saves)
         {
-            string path = Path.Combine(_path + saveSettingsFilename + ".json");
+            string path = Path.Join(_path, saveSettingsFilename + ".json");
 
             SaveSettings[] collectionSettings = new SaveSettings[saves.Length];
             int cheatLength = cheatManager.toggleCheatList.Length;
@@ -258,7 +258,7 @@ namespace HobbitSpeedrunTools
                 {
                     if (collection != null)
                     {
-                        string path = Path.Combine(collection.path + saveSettingsFilename + ".json");
+                        string path = Path.Join(collection.path, saveSettingsFilename + ".json");
                         using StreamWriter sw = new(path);
                         sw.Write(JsonConvert.SerializeObject(collection.saveSettings));
                     }

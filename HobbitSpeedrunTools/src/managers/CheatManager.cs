@@ -34,6 +34,7 @@ namespace HobbitSpeedrunTools
                 new RenderPolyCache(mem),
                 new Invincibility(mem),
                 new LockClipwarp(mem),
+                new ReloadOnLostWarp(mem),
                 new AutoResetSigns(mem),
                 new InfiniteRing(mem),
                 new InfiniteRocks(mem),
