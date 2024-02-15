@@ -7,7 +7,7 @@
         Title="HobbitSpeedrunTools" SizeToContent="WidthAndHeight" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SnapsToDevicePixels="True" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="CheatToggleTemplate">
-            <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded"/>
+            <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded" IsThreeState="True" Indeterminate="CheckBox_Indeterminate"/>
         </DataTemplate>
     </Window.Resources>
 
@@ -151,7 +151,7 @@
                     </Grid.RowDefinitions>
                     <Button Grid.Column="0" Grid.Row="0" x:Name="btnOpenConfig" Content="Open Config" Click="btnOpenConfig_Click" Margin="0,0,2.5,0"/>
                     <Button Grid.Column="1" Grid.Row="0" x:Name="btnOpenHelp" Content="Help" Margin="2.5,0,0,0" Click="btnOpenHelp_Click"/>
-                    <CheckBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="cbxLoadCheatsWithSave" Content="Load applied cheats with save" HorizontalAlignment="Stretch" Margin="0,5,0,0" Click="cbxLoadCheatsWithSave_Click" IsThreeState="True"  Indeterminate="CheckBox_Indeterminate"/>
+                    <CheckBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" x:Name="cbxLoadCheatsWithSave" Content="Load applied cheats with save" HorizontalAlignment="Stretch" Margin="0,5,0,0" Click="cbxLoadCheatsWithSave_Click" IsThreeState="True" Indeterminate="CheckBox_Indeterminate"/>
                     <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" x:Name="btnApplyCheatsSave" Content="Apply Cheats to Save" Margin="0,5,0,0" Click="btnApplyCheatsSave_Click"/>
                     <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" x:Name="btnApplyCheatsCollection" Content="Apply Cheats to Collection" Margin="0,5,0,0" Click="btnApplyCheatsCollection_Click"/>
                 </Grid>
