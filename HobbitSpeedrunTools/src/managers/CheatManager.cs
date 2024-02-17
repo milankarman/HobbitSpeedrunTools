@@ -114,24 +114,26 @@ namespace HobbitSpeedrunTools
             onClipwarpPositionUpdate?.Invoke(x, y, z);
         }
 
-        public void OverrideClipwarpPosition(float x, float y, float z)
+        public void UpdateClipwarpPosition(WarpToggleCheat warpToggleCheat, float x, float y, float z)
         {
-            foreach(ToggleCheat toggleCheat in toggleCheatList)
-            {
-                if (toggleCheat is LockClipwarp)
-                {
-                    LockClipwarp lockClipwarpCheat = (LockClipwarp)toggleCheat;
-                    lockClipwarpCheat.OverwriteSavedWarpPosition(x, y, z);
-                    onClipwarpPositionUpdate?.Invoke(x, y, z);
-                    return;
-                }
-            }
+            warpToggleCheat.OverwriteSavedWarpPosition(x, y, z);
+            onClipwarpPositionUpdate?.Invoke(x, y, z);
         }
 
-        public void UpdateCheatToggles(bool[] toggleActive)
+        public void UpdateCheats(SaveManager.SaveSettings settings)
         {
             for (int i = 0; i < toggleCheatList.Length; i++)
-                if (toggleCheatList[i] != null) toggleCheatList[i].SetActive(toggleActive[i]);
+            {
+                if (toggleCheatList[i] != null)
+                {
+                    toggleCheatList[i].SetActive(settings.toggles[i]);
+                    // Currently reload on lost clipwarp takes precedence over locked clipwarp
+                    // But both shouldn't be enabled at the same time?
+                    // Something to take a look at to adjust behavior.
+                    if (toggleCheatList[i] is WarpToggleCheat warpToggleCheat)
+                        UpdateClipwarpPosition(warpToggleCheat, settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+                }
+            }
         }
 
         // Gets a list of active cheats with short names

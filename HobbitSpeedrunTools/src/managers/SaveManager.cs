@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -180,7 +179,9 @@ namespace HobbitSpeedrunTools
 
                             if (collectionSaveWithoutNumber == fileSaveWithoutNumber)
                             {
+                                string nameWithCorrectSaveNumber = collectionSettings[i].name;
                                 collectionSettings[i] = fileSetting;
+                                collectionSettings[i].name = nameWithCorrectSaveNumber;
                                 break;
                             }
 
@@ -201,23 +202,18 @@ namespace HobbitSpeedrunTools
             // Null checking to appease the IDE and so nothing breaks.
             if (SelectedSaveCollection is null) return;
             // Get current save specific settings of current selected collection.
-            SaveSettings saveSettings = SelectedSaveCollection.saveSettings[SaveIndex];
+            SaveSettings saveSetting = SelectedSaveCollection.saveSettings[SaveIndex];
             ToggleCheat[] toggleCheats = cheatManager.toggleCheatList;
 
             // Iterate through the selected saves toggles.
-            for (int i = 0; i < saveSettings.toggles.Length; i++)
+            for (int i = 0; i < saveSetting.toggles.Length; i++)
             {
                 ToggleCheat toggleCheat = toggleCheats[i];
-                saveSettings.toggles[i] = toggleCheat.Enabled;
+                saveSetting.toggles[i] = toggleCheat.Enabled;
 
-                // If lock clipwarp is enabled, also set the current clipwarp positions.
-                if (toggleCheat is LockClipwarp clipwarp && toggleCheat.Enabled)
-                {
-                    LockClipwarp lockClipwarpCheat = clipwarp;
-                    saveSettings.clipwarpX = lockClipwarpCheat.SavedWarpPosX;
-                    saveSettings.clipwarpY = lockClipwarpCheat.SavedWarpPosY;
-                    saveSettings.clipwarpZ = lockClipwarpCheat.SavedWarpPosZ;
-                }
+                // If any toggle cheats with a warp is enabled, also set the current clipwarp positions.
+                if (toggleCheat is WarpToggleCheat warpToggleCheat && toggleCheat.Enabled)
+                    SaveWarpPosToSetting(saveSetting, warpToggleCheat);
             }
         }
 
@@ -238,16 +234,18 @@ namespace HobbitSpeedrunTools
                     ToggleCheat toggleCheat = toggleCheats[j];
                     collectionSettings[i].toggles[j] = toggleCheat.Enabled;
 
-                    // If lock clipwarp is enabled, also set the current clipwarp positions.
-                    if (toggleCheat is LockClipwarp clipwarp && toggleCheat.Enabled)
-                    {
-                        LockClipwarp lockClipwarpCheat = clipwarp;
-                        collectionSettings[i].clipwarpX = lockClipwarpCheat.SavedWarpPosX;
-                        collectionSettings[i].clipwarpY = lockClipwarpCheat.SavedWarpPosY;
-                        collectionSettings[i].clipwarpZ = lockClipwarpCheat.SavedWarpPosZ;
-                    }
+                    // If any toggle cheats with a warp is enabled, also set the current clipwarp positions.
+                    if (toggleCheat is WarpToggleCheat warpToggleCheat && toggleCheat.Enabled)
+                        SaveWarpPosToSetting(collectionSettings[i], warpToggleCheat);
                 }
             }
+        }
+
+        private void SaveWarpPosToSetting(SaveSettings setting, WarpToggleCheat warpToggleCheat)
+        {
+            setting.clipwarpX = warpToggleCheat.SavedWarpPosX;
+            setting.clipwarpY = warpToggleCheat.SavedWarpPosY;
+            setting.clipwarpZ = warpToggleCheat.SavedWarpPosZ;
         }
 
         public void TryWriteCollectionsSettingsFile()
@@ -307,9 +305,8 @@ namespace HobbitSpeedrunTools
             if (MainWindow.LoadCheatsWithSave)
             {
                 SaveSettings settings = SelectedSaveCollection.saveSettings[SaveIndex];
-                // Call toggle cheats first, so I can overwrite saved clipwarp position in lockclipwarp toggle.
-                cheatManager.UpdateCheatToggles(settings.toggles);
-                cheatManager.OverrideClipwarpPosition(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+                // Changed it all to be in one function.
+                cheatManager.UpdateCheats(settings);
             }
         }
 
