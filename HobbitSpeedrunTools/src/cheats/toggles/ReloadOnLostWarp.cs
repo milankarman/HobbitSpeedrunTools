@@ -1,6 +1,8 @@
 ﻿using Memory;
 using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 
 namespace HobbitSpeedrunTools
 {
@@ -11,6 +13,9 @@ namespace HobbitSpeedrunTools
         public override string ShortcutName { get; set; } = "reload_lost_warp";
 
         private bool waiting;
+        private bool succesfullyWarped;
+
+        private Vector3 lastBilboPos;
 
         public ReloadOnLostWarp(Mem _mem)
         {
@@ -21,6 +26,33 @@ namespace HobbitSpeedrunTools
         {
             if (mem == null || !Enabled) return;
 
+            Vector3 bilboPos = new(mem.ReadFloat(MemoryAddresses.bilboCoordsX), mem.ReadFloat(MemoryAddresses.bilboCoordsY), mem.ReadFloat(MemoryAddresses.bilboCoordsZ));
+            
+            // Seeing Bilbo's position jump significantly shows a warp has likely been performed
+            bool hasMovedSignificantly = Vector3.Distance(bilboPos, lastBilboPos) > 500 && !Equals(lastBilboPos, Vector3.Zero);
+            
+            // Used to check if Bilbo is then at the right destination
+            bool isNearWarpPosition = Vector3.Distance(bilboPos, SavedWarpPos) < 100;
+
+            if (!waiting && !succesfullyWarped && hasMovedSignificantly && isNearWarpPosition)
+            {
+                succesfullyWarped = true;
+            }
+
+            lastBilboPos = bilboPos;
+
+            // If Bilbo has succesfully warped to his destination, disable the cheat until Bilbo dies.
+            if (succesfullyWarped)
+            {
+                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+                {
+                    succesfullyWarped = false;
+                }
+
+                return;
+            }
+
+            // If Bilbo has just died, pause the cheat until Bilbo starts moving again.
             if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
             {
                 waiting = true;
@@ -31,25 +63,25 @@ namespace HobbitSpeedrunTools
                 waiting = false;
             }
 
+            // Keep clipwarp set to the saved cheat setting while Bilbo is waiting
             if (waiting)
             {
-                mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", SavedWarpPosX.ToString());
-                mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", SavedWarpPosY.ToString());
-                mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", SavedWarpPosZ.ToString());
+                mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", SavedWarpPos.X.ToString());
+                mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", SavedWarpPos.Y.ToString());
+                mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", SavedWarpPos.Z.ToString());
 
                 return;
             }
 
-            float x = mem.ReadFloat(MemoryAddresses.warpCoordsX);
-            float y = mem.ReadFloat(MemoryAddresses.warpCoordsY);
-            float z = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
+            Vector3 warpPos = new(mem.ReadFloat(MemoryAddresses.warpCoordsX), mem.ReadFloat(MemoryAddresses.warpCoordsY), mem.ReadFloat(MemoryAddresses.warpCoordsZ));
 
-            if (x == 0 && y == 0 && z == 0)
+            if (warpPos.X == 0 && warpPos.Y == 0 && warpPos.Z == 0)
             {
                 return;
             }
 
-            if (SavedWarpPosX != x || SavedWarpPosY != y || SavedWarpPosZ != z)
+            // If Bilbo's warp position changes, reload the save by putting Bilbo in a falling death state
+            if (SavedWarpPos.X != warpPos.X || SavedWarpPos.Y != warpPos.Y || SavedWarpPos.Z != warpPos.Z)
             {
                 mem?.WriteMemory(MemoryAddresses.stamina, "float", "10");
                 mem?.WriteMemory(MemoryAddresses.bilboState, "int", "27");

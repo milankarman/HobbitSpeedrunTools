@@ -18,9 +18,9 @@ namespace HobbitSpeedrunTools
         {
             if (mem == null || !Enabled) return;
 
-            mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", SavedWarpPosX.ToString(CultureInfo.InvariantCulture));
-            mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", SavedWarpPosY.ToString(CultureInfo.InvariantCulture));
-            mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", SavedWarpPosZ.ToString(CultureInfo.InvariantCulture));
+            mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", SavedWarpPos.X.ToString(CultureInfo.InvariantCulture));
+            mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", SavedWarpPos.Y.ToString(CultureInfo.InvariantCulture));
+            mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", SavedWarpPos.Z.ToString(CultureInfo.InvariantCulture));
         }
     }
 }

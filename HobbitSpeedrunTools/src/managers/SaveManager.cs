@@ -243,9 +243,9 @@ namespace HobbitSpeedrunTools
 
         private void SaveWarpPosToSetting(SaveSettings setting, WarpToggleCheat warpToggleCheat)
         {
-            setting.clipwarpX = warpToggleCheat.SavedWarpPosX;
-            setting.clipwarpY = warpToggleCheat.SavedWarpPosY;
-            setting.clipwarpZ = warpToggleCheat.SavedWarpPosZ;
+            setting.clipwarpX = warpToggleCheat.SavedWarpPos.X;
+            setting.clipwarpY = warpToggleCheat.SavedWarpPos.Y;
+            setting.clipwarpZ = warpToggleCheat.SavedWarpPos.Z;
         }
 
         public void TryWriteCollectionsSettingsFile()

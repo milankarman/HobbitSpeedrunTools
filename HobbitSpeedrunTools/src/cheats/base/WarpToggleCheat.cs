@@ -1,27 +1,27 @@
-﻿namespace HobbitSpeedrunTools
+﻿using System.Numerics;
+
+namespace HobbitSpeedrunTools
 {
     public abstract class WarpToggleCheat : ToggleCheat
     {
-        public float SavedWarpPosX { get; private set; }
-        public float SavedWarpPosY { get; private set; }
-        public float SavedWarpPosZ { get; private set; }
+        public Vector3 SavedWarpPos { get; private set; }
 
         public override void OnEnable()
         {
             if (!CheatManager.isHooked || mem == null) return;
 
-            SavedWarpPosX = mem.ReadFloat(MemoryAddresses.warpCoordsX);
-            SavedWarpPosY = mem.ReadFloat(MemoryAddresses.warpCoordsY);
-            SavedWarpPosZ = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
+            float x = mem.ReadFloat(MemoryAddresses.warpCoordsX);
+            float y = mem.ReadFloat(MemoryAddresses.warpCoordsY);
+            float z = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
+
+            SavedWarpPos = new(x, y, z);
 
             base.OnEnable();
         }
 
-        public virtual void OverwriteSavedWarpPosition(float x, float y, float z)
+        public virtual void SetWarpPosition(Vector3 position)
         {
-            SavedWarpPosX = x;
-            SavedWarpPosY = y;
-            SavedWarpPosZ = z;
+            SavedWarpPos = position;
         }
     }
 }

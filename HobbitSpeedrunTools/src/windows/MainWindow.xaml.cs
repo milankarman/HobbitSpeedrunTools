@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Numerics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,9 +43,9 @@ namespace HobbitSpeedrunTools
                 timerManager.onUpdateAverageTime += (time) => Dispatcher.Invoke(() => UpdateAverageTime(time));
 
                 cheatManager = new();
-                cheatManager.onBilboPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateBilboPosition(x, y, z));
+                cheatManager.onBilboPositionUpdate += (position) => Dispatcher.Invoke(() => UpdateBilboPosition(position));
                 cheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
-                cheatManager.onClipwarpPositionUpdate += (x, y, z) => Dispatcher.Invoke(() => UpdateClipwarpPositition(x, y, z));
+                cheatManager.onClipwarpPositionUpdate += (position) => Dispatcher.Invoke(() => UpdateClipwarpPositition(position));
 
                 saveManager = new(cheatManager);
                 saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
@@ -72,9 +73,9 @@ namespace HobbitSpeedrunTools
 
             cbxSaveCollections.SelectedIndex = 0;
 
-            UpdateBilboPosition(0, 0, 0);
+            UpdateBilboPosition(Vector3.Zero);
             UpdateBilboRotation(0);
-            UpdateClipwarpPositition(0, 0, 0);
+            UpdateClipwarpPositition(Vector3.Zero);
         }
 
         public void UpdateTimer(TimeSpan time)
@@ -92,11 +93,11 @@ namespace HobbitSpeedrunTools
             txtAverageTime.Text = time.ToString("mm\\:ss\\.fff");
         }
 
-        public void UpdateBilboPosition(float x, float y, float z)
+        public void UpdateBilboPosition(Vector3 position)
         {
-            txtBilboPosX.Text = "X: " + Math.Round(x, 1).ToString("0.0");
-            txtBilboPosY.Text = "Y: " + Math.Round(y, 1).ToString("0.0");
-            txtBilboPosZ.Text = "Z: " + Math.Round(z, 1).ToString("0.0");
+            txtBilboPosX.Text = "X: " + Math.Round(position.X, 1).ToString("0.0");
+            txtBilboPosY.Text = "Y: " + Math.Round(position.Y, 1).ToString("0.0");
+            txtBilboPosZ.Text = "Z: " + Math.Round(position.Z, 1).ToString("0.0");
         }
 
         public void UpdateBilboRotation(double degrees)
@@ -104,11 +105,11 @@ namespace HobbitSpeedrunTools
             txtBilboRotation.Text = Math.Round(degrees, 1).ToString("0.0");
         }
 
-        public void UpdateClipwarpPositition(float x, float y, float z)
+        public void UpdateClipwarpPositition(Vector3 position)
         {
-            txtClipwarpPosX.Text = "X: " + Math.Round(x, 1).ToString("0.0");
-            txtClipwarpPosY.Text = "Y: " + Math.Round(y, 1).ToString("0.0");
-            txtClipwarpPosZ.Text = "Z: " + Math.Round(z, 1).ToString("0.0");
+            txtClipwarpPosX.Text = "X: " + Math.Round(position.X, 1).ToString("0.0");
+            txtClipwarpPosY.Text = "Y: " + Math.Round(position.Y, 1).ToString("0.0");
+            txtClipwarpPosZ.Text = "Z: " + Math.Round(position.Z, 1).ToString("0.0");
         }
 
         private void UpdateSavesManagerUI()

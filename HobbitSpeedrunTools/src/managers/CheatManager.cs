@@ -1,6 +1,7 @@
 ﻿using Memory;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Threading;
 
 namespace HobbitSpeedrunTools
@@ -14,9 +15,9 @@ namespace HobbitSpeedrunTools
         public readonly ToggleCheat[] toggleCheatList;
         public readonly ActionCheat[] actionCheatList;
 
-        public Action<float, float, float>? onBilboPositionUpdate;
+        public Action<Vector3>? onBilboPositionUpdate;
         public Action<double>? onBilboRotationUpdate;
-        public Action<float, float, float>? onClipwarpPositionUpdate;
+        public Action<Vector3>? onClipwarpPositionUpdate;
 
         // Starts a new thread handling the cheat loop
         public CheatManager()
@@ -87,7 +88,7 @@ namespace HobbitSpeedrunTools
             float y = mem.ReadFloat(MemoryAddresses.bilboCoordsY);
             float z = mem.ReadFloat(MemoryAddresses.bilboCoordsZ);
 
-            onBilboPositionUpdate?.Invoke(x, y, z);
+            onBilboPositionUpdate?.Invoke(new Vector3(x, y, z));
         }
 
         public void UpdateBilboRotation()
@@ -111,13 +112,15 @@ namespace HobbitSpeedrunTools
             float y = mem.ReadFloat(MemoryAddresses.warpCoordsY);
             float z = mem.ReadFloat(MemoryAddresses.warpCoordsZ);
 
-            onClipwarpPositionUpdate?.Invoke(x, y, z);
+            Vector3 warpPosition = new(x, y, z);
+
+            onClipwarpPositionUpdate?.Invoke(warpPosition);
         }
 
-        public void UpdateClipwarpPosition(WarpToggleCheat warpToggleCheat, float x, float y, float z)
+        public void UpdateClipwarpPosition(WarpToggleCheat warpToggleCheat, Vector3 position)
         {
-            warpToggleCheat.OverwriteSavedWarpPosition(x, y, z);
-            onClipwarpPositionUpdate?.Invoke(x, y, z);
+            warpToggleCheat.SetWarpPosition(position);
+            onClipwarpPositionUpdate?.Invoke(position);
         }
 
         public void UpdateCheats(SaveManager.SaveSettings settings)
@@ -131,7 +134,7 @@ namespace HobbitSpeedrunTools
                     // But both shouldn't be enabled at the same time?
                     // Something to take a look at to adjust behavior.
                     if (toggleCheatList[i] is WarpToggleCheat warpToggleCheat)
-                        UpdateClipwarpPosition(warpToggleCheat, settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+                        UpdateClipwarpPosition(warpToggleCheat, new Vector3(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ));
                 }
             }
         }
