@@ -14,7 +14,7 @@ namespace HobbitSpeedrunTools
 
         public override void Start()
         {
-            if (!CheatManager.isHooked || mem == null) return;
+            if (!CheatManager.IsHooked || mem == null) return;
 
             mem.WriteMemory(MemoryAddresses.bilboStateTimer, "float", "10");
             mem.WriteMemory(MemoryAddresses.bilboCoordsY, "float", "100000");

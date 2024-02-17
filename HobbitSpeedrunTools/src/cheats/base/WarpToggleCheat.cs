@@ -8,7 +8,7 @@ namespace HobbitSpeedrunTools
 
         public override void OnEnable()
         {
-            if (!CheatManager.isHooked || mem == null) return;
+            if (!CheatManager.IsHooked || mem == null) return;
 
             float x = mem.ReadFloat(MemoryAddresses.warpCoordsX);
             float y = mem.ReadFloat(MemoryAddresses.warpCoordsY);

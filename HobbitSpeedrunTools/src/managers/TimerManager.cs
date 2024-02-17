@@ -34,14 +34,17 @@ namespace HobbitSpeedrunTools
         private readonly int timerUpdateRate = 1000 / 60;
 
         private DateTime startTime;
-        private List<TimeSpan> previousTimes = new();
+        private readonly List<TimeSpan> previousTimes = [];
         private bool timerStarted = false;
         private bool timerBlocked = false;
 
         public TimerManager()
         {
-            Thread timerLoopThread = new(TimerLoop);
-            timerLoopThread.IsBackground = true;
+            Thread timerLoopThread = new(TimerLoop)
+            {
+                IsBackground = true
+            };
+
             timerLoopThread.Start();
         }
 

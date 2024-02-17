@@ -9,7 +9,7 @@ namespace HobbitSpeedrunTools
     public class CheatManager
     {
         public readonly Mem mem = new();
-        public static bool isHooked = false;
+        public static bool IsHooked { get; private set; } = false;
         public StatusManager? statusManager;
 
         public readonly ToggleCheat[] toggleCheatList;
@@ -22,8 +22,11 @@ namespace HobbitSpeedrunTools
         // Starts a new thread handling the cheat loop
         public CheatManager()
         {
-            Thread cheatLoopThread = new(CheatLoop);
-            cheatLoopThread.IsBackground = true;
+            Thread cheatLoopThread = new(CheatLoop)
+            {
+                IsBackground = true
+            };
+
             cheatLoopThread.Start();
 
             toggleCheatList =
@@ -56,9 +59,9 @@ namespace HobbitSpeedrunTools
         {
             while (true)
             {
-                isHooked = mem.OpenProcess("meridian");
+                IsHooked = mem.OpenProcess("meridian");
                 // Attempt to hook to the game's process
-                if (isHooked)
+                if (IsHooked)
                 {
                     if (statusManager != null)
                     {
@@ -142,7 +145,7 @@ namespace HobbitSpeedrunTools
         // Gets a list of active cheats with short names
         public List<string> GetToggleCheatList()
         {
-            List<string> cheats = new();
+            List<string> cheats = [];
 
             foreach (ToggleCheat? cheat in toggleCheatList)
                 if (cheat != null && cheat.Enabled) cheats.Add(cheat.ShortName ?? "NONAME");

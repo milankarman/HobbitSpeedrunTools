@@ -27,10 +27,10 @@ namespace HobbitSpeedrunTools
             if (mem == null || !Enabled) return;
 
             Vector3 bilboPos = new(mem.ReadFloat(MemoryAddresses.bilboCoordsX), mem.ReadFloat(MemoryAddresses.bilboCoordsY), mem.ReadFloat(MemoryAddresses.bilboCoordsZ));
-            
+
             // Seeing Bilbo's position jump significantly shows a warp has likely been performed
             bool hasMovedSignificantly = Vector3.Distance(bilboPos, lastBilboPos) > 500 && !Equals(lastBilboPos, Vector3.Zero);
-            
+
             // Used to check if Bilbo is then at the right destination
             bool isNearWarpPosition = Vector3.Distance(bilboPos, SavedWarpPos) < 100;
 

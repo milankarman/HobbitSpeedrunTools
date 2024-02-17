@@ -9,47 +9,27 @@ namespace HobbitSpeedrunTools
 {
     public class SaveManager
     {
-        public class SaveCollection
+        public class SaveCollection(string _name, string _path, Save[] _saves, SaveSettings[] _saveSettings)
         {
-            public string name;
-            public string path;
-            public Save[] saves;
-            public SaveSettings[] saveSettings;
-
-            public SaveCollection(string _name, string _path, Save[] _saves, SaveSettings[] _saveSettings)
-            {
-                name = _name;
-                path = _path;
-                saves = _saves;
-                saveSettings = _saveSettings;
-            }
+            public string name = _name;
+            public string path = _path;
+            public Save[] saves = _saves;
+            public SaveSettings[] saveSettings = _saveSettings;
         }
 
-        public class Save
+        public class Save(string _name, string _path)
         {
-            public string name;
-            public string path;
-
-            public Save(string _name, string _path)
-            {
-                name = _name;
-                path = _path;
-            }
+            public string name = _name;
+            public string path = _path;
         }
 
-        public class SaveSettings
+        public class SaveSettings(string _name, int toggleCheatsLength)
         {
-            public string name;
-            public bool[] toggles;
+            public string name = _name;
+            public bool[] toggles = new bool[toggleCheatsLength];
             public float clipwarpX;
             public float clipwarpY;
             public float clipwarpZ;
-
-            public SaveSettings(string _name, int toggleCheatsLength)
-            {
-                name = _name;
-                toggles = new bool[toggleCheatsLength];
-            }
         }
 
         public SaveCollection?[] SaveCollections { get; private set; }
@@ -241,7 +221,7 @@ namespace HobbitSpeedrunTools
             }
         }
 
-        private void SaveWarpPosToSetting(SaveSettings setting, WarpToggleCheat warpToggleCheat)
+        private static void SaveWarpPosToSetting(SaveSettings setting, WarpToggleCheat warpToggleCheat)
         {
             setting.clipwarpX = warpToggleCheat.SavedWarpPos.X;
             setting.clipwarpY = warpToggleCheat.SavedWarpPos.Y;
