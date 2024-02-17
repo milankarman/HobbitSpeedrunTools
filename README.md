@@ -22,6 +22,7 @@
   - [General usage](#general-usage)
   - [Shortcuts](#shortcuts)
   - [Adding saves](#adding-saves)
+  - [Applying cheats to saves](#applying-cheats-to-saves)
 - [Download](#download)
 - [Warning](#warning)
 - [Acknowledgements](#acknowledgements)
@@ -64,7 +65,7 @@ This tool is made to effeciently practice for The Hobbit speedruns by providing 
 
 ## General usage
 
-Start the program and The Hobbit. Tick any of the checkboxes of the cheats you might want and select any save collection and save combination you might want. Everything else is automatic. Have a look at [shortcuts](#shortcuts) for useful shortcuts that 
+Start the program and The Hobbit. Tick any of the checkboxes of the cheats you might want and select any save collection and save combination you might want. Everything else is automatic. Hover your cursor over any cheat to see a description and the assigned hotkey.
 
 To use fly mode you'll have to enable developer mode and hit CTRL + F in game. When flying you can hold N to clip through objects. Unfortunately this isn't rebindable as it's all programmed to work together this way in the game itself.
 
@@ -84,8 +85,7 @@ The default shortcuts are as follows:
 | Ctrl & 4        | Toggle Render Other Triggers |
 | Ctrl & 5        | Toggle Render Polycache      |
 | Ctrl & 6        | Toggle Invincibility         |
-| Ctrl & 7        | Toggle Auto Reset Signs      |
-| Ctrl & 8        | Toggle Lock Clipwarp         |
+| Ctrl & 7        | Toggle Lock Clipwarp         |
 | Ctrl & R        | Reload Save                  |
 | Ctrl & T        | Restart Level                |
 | Ctrl & G        | Trigger Clipwarp             |
@@ -104,7 +104,15 @@ To add your own saves to the save manager follow the following steps:
 3. Move your saves into your newly created folder with the following format: `[Number]. [Save Name].hobbit`  
    _The number should be the position that you want the save to appear in, a lower number will appear closer to the top, but make sure every number is only used once._
 
-**Note**: Make sure that only the `.hobbit` files are located within your new folder. Any other files might have unexpected results.
+**Note**: Make sure that only the `.hobbit` files and possibly a `savesettings.json` file are located within your new folder. Any other files might have unexpected results.
+
+## Applying cheats to saves
+
+Applying cheats to your saves will make it so, when enabled, loading a specific save will also enable whatever cheats you want automatically. This also includes your clipwarp position if Lock Clipwarp or Reload on Lost Warp were to be enabled.
+
+To use this simply tick the "Load applied cheats with save" box in the settings panel and if you load a save that has cheats applied they will be enabled when you switch to that save.
+
+To apply your own cheats you should select your save you want to apply your cheats to, toggle all the cheats you'd like and hit the "Apply Cheats to Save" button in the settings panel. You may also choose to apply these cheats to all the saves in the collection, in which case you can click the "Apply Cheats to Collection" button.
 
 # Download
 
@@ -118,6 +126,7 @@ Currently new saves that are made while the save manager is active will be disca
 
 # Acknowledgements
 
+- [Shockster](https://github.com/Shockster218) For contributing the "Apply Cheats to Save" system and helping with the "Reload on Lost Warp" cheat
 - [Erfg12's Memory.dll](https://github.com/erfg12/memory.dll/) used for reading and writing to the game memory
 - [NonInvasiveKeyboardHook by Kfirprods](https://github.com/kfirprods/NonInvasiveKeyboardHook) used for assigning global hotkeys
 - [ini-parser by Rickyah](https://github.com/rickyah/ini-parser) used to read and write to the config file
