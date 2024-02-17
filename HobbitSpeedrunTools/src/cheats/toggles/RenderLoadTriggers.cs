@@ -7,6 +7,7 @@ namespace HobbitSpeedrunTools
         public override string Name { get; set; } = "Render Load Triggers";
         public override string ShortName { get; set; } = "LTRIG";
         public override string ShortcutName { get; set; } = "render_load_triggers";
+        public override string ToolTip { get; set; } = "Renders bounding boxes for triggers that will load and unload parts of a level.";
 
         public RenderLoadTriggers(Mem _mem)
         {

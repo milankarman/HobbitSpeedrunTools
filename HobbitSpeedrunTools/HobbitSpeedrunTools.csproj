@@ -5,6 +5,7 @@
 		<RootNamespace>HobbitSpeedrunTools</RootNamespace>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
 		<AssemblyVersion>1.4.0</AssemblyVersion>
 		<Authors>milankarman</Authors>
 		<Description>A tool for effeciently practicing for speedruns of The Hobbit.</Description>

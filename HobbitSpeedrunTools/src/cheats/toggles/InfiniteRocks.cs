@@ -7,6 +7,7 @@ namespace HobbitSpeedrunTools
         public override string Name { get; set; } = "Infinite Rocks";
         public override string ShortName { get; set; } = "IR";
         public override string ShortcutName { get; set; } = "infinite_rocks";
+        public override string ToolTip { get; set; } = "Ensures you will always have the maximum amount of throwing rocks.";
 
         public InfiniteRocks(Mem _mem)
         {

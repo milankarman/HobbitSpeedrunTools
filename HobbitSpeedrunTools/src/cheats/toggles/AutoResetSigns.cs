@@ -7,6 +7,7 @@ namespace HobbitSpeedrunTools
         public override string Name { get; set; } = "Automatically Reset Signs";
         public override string ShortName { get; set; } = "AUTO";
         public override string ShortcutName { get; set; } = "automatically_reset_signs";
+        public override string ToolTip { get; set; } = "Resets Riddles in the Dark sign directions upon death or reloading.";
 
         public AutoResetSigns(Mem _mem)
         {

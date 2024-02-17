@@ -1,5 +1,6 @@
 ﻿using NonInvasiveKeyboardHookLibrary;
 using System;
+using System.Windows.Forms;
 
 namespace HobbitSpeedrunTools
 {
@@ -61,6 +62,16 @@ namespace HobbitSpeedrunTools
                             }
                             catch { }
                         });
+
+                        string shortcut = ((Keys)keyCode).ToString();
+
+                        // Remove confusing leading D from shortcut using the number row.
+                        if (shortcut.Length == 2 && shortcut[0] == 'D')
+                        {
+                            shortcut = shortcut.Substring(1);
+                        }
+
+                        cheat.SetShortcut(modifierKey.ToString() + " + " + shortcut);
                     }
                 }
             }

@@ -7,7 +7,7 @@
         Title="HobbitSpeedrunTools" SizeToContent="WidthAndHeight" Style="{DynamicResource CustomWindowStyle}" Background="{StaticResource dark1}" Icon="../../img/icon.png" SnapsToDevicePixels="True" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Key="CheatToggleTemplate">
-            <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded" IsThreeState="True" Indeterminate="CheckBox_Indeterminate"/>
+            <CheckBox Content="{Binding Path=Name}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Checked="cbxCheat_Checked" Unchecked="cbxCheat_Unchecked" Loaded="cbxCheat_Loaded" IsThreeState="True" Indeterminate="CheckBox_Indeterminate" ToolTip="{Binding Path=ToolTip}"/>
         </DataTemplate>
     </Window.Resources>
 

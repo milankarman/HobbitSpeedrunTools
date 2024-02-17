@@ -11,6 +11,8 @@ namespace HobbitSpeedrunTools
         public override string Name { get; set; } = "Reload on Lost Warp";
         public override string ShortName { get; set; } = "RELO";
         public override string ShortcutName { get; set; } = "reload_lost_warp";
+        public override string ToolTip { get; set; } = "Reloads your last save when Bilbo's clipwarp position changes from the spot it is at when this cheat is enabled.\n" +
+            "When a succesful warp back is performed this cheat will be disabled until Bilbo dies or a save is loaded.";
 
         private bool waiting;
         private bool succesfullyWarped;
@@ -41,10 +43,10 @@ namespace HobbitSpeedrunTools
 
             lastBilboPos = bilboPos;
 
-            // If Bilbo has succesfully warped to his destination, disable the cheat until Bilbo dies.
+            // If Bilbo has succesfully warped to his destination, disable the cheat until Bilbo dies or the game is loading.
             if (succesfullyWarped)
             {
-                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)) || mem.ReadInt(MemoryAddresses.loading) == 1)
                 {
                     succesfullyWarped = false;
                 }
@@ -52,8 +54,8 @@ namespace HobbitSpeedrunTools
                 return;
             }
 
-            // If Bilbo has just died, pause the cheat until Bilbo starts moving again.
-            if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+            // If Bilbo has just died or the game has loaded, pause the cheat until Bilbo starts moving again.
+            if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)) || mem.ReadInt(MemoryAddresses.loading) == 1)
             {
                 waiting = true;
             }

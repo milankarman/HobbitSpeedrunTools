@@ -10,6 +10,7 @@ namespace HobbitSpeedrunTools
         public abstract string Name { get; set; }
         public abstract string ShortName { get; set; }
         public abstract string ShortcutName { get; set; }
+        public abstract string ToolTip { get; set; }
 
         public Action? onEnable;
         public Action? onDisable;
@@ -46,6 +47,11 @@ namespace HobbitSpeedrunTools
         {
             if (!Enabled) Enable();
             else Disable();
+        }
+
+        public virtual void SetShortcut(string shortcut)
+        {
+            ToolTip += "\n\n" + "Hotkey: " + shortcut;
         }
 
         public virtual void OnEnable() { }
