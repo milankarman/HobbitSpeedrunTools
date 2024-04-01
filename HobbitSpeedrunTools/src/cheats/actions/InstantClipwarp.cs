@@ -17,7 +17,8 @@ namespace HobbitSpeedrunTools
             if (!CheatManager.IsHooked || mem == null) return;
 
             mem.WriteMemory(MemoryAddresses.bilboStateTimer, "float", "10");
-            mem.WriteMemory(MemoryAddresses.bilboCoordsY, "float", "100000");
+            int offset = mem.ReadInt(MemoryAddresses.bilboCoordsY) + 5;
+            mem.WriteMemory(MemoryAddresses.bilboCoordsY, "float", offset.ToString());
             mem.WriteMemory(MemoryAddresses.bilboNewCoordsY, "float", "100000");
         }
     }
