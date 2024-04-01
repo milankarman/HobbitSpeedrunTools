@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
-		<AssemblyVersion>1.4.0</AssemblyVersion>
+		<AssemblyVersion>1.4.1</AssemblyVersion>
 		<Authors>milankarman</Authors>
 		<Description>A tool for effeciently practicing for speedruns of The Hobbit.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
