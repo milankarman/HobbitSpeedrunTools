@@ -31,6 +31,7 @@
         public const string bilboCoordsZ = local + ",1C";
 
         public const string bilboNewCoordsX = local + ",464";
+
         public const string bilboNewCoordsY = local + ",468";
         public const string bilboNewCoordsZ = local + ",46C";
 
@@ -45,6 +46,7 @@
 
         public const string load = "00760358";
         public const string loadFinished = "0076035C";
+        public const string loadStarted = "00760360";
         public const string continueRunLevel = "00760354";
         public const string currentLevelID = "00762B5C";
         public const string outOfLevelState = "00762B58";

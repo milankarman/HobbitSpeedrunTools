@@ -29,6 +29,15 @@ namespace HobbitSpeedrunTools
 
             cheatLoopThread.Start();
 
+            LoopLevel loopLevelCheat = new LoopLevel(mem);
+
+            actionCheatList =
+            [
+                new QuickLoad(mem),
+                new LevelReload(mem, loopLevelCheat),
+                new InstantClipwarp(mem),
+            ];
+
             toggleCheatList =
             [
                 new DevMode(mem),
@@ -40,17 +49,11 @@ namespace HobbitSpeedrunTools
                 new LockClipwarp(mem),
                 new ReloadOnLostWarp(mem),
                 new AutoResetSigns(mem),
+                loopLevelCheat,
                 new InfiniteRing(mem),
                 new InfiniteRocks(mem),
                 new InfiniteKeys(mem),
                 new InfinitePotions(mem),
-            ];
-
-            actionCheatList =
-            [
-                new QuickLoad(mem),
-                new LevelReload(mem),
-                new InstantClipwarp(mem),
             ];
         }
 
@@ -72,7 +75,7 @@ namespace HobbitSpeedrunTools
                     // Execute every toggled cheat
                     foreach (ToggleCheat? cheat in toggleCheatList)
                     {
-                        cheat?.OnTick();
+                        if (cheat.Enabled) cheat?.OnTick();
                     }
 
                     UpdateBilboPosition();

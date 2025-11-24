@@ -19,6 +19,7 @@ namespace HobbitSpeedrunTools
         private bool updatingSaveManager;
 
         public static bool LoadCheatsWithSave { get; private set; }
+        public static bool quickReload { get; private set; }
 
         public MainWindow()
         {
@@ -34,6 +35,9 @@ namespace HobbitSpeedrunTools
 
             // Add the version number to the titlebar
             Title += $" {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
+
+            quickReload = cbxQuickReload.IsChecked ?? false;
+            LoadCheatsWithSave = cbxLoadCheatsWithSave.IsChecked ?? false;
 
             try
             {
@@ -297,10 +301,14 @@ namespace HobbitSpeedrunTools
 
         private void txtPointRadius_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ClampInteger(txtPointRadius, 1, 9999);
+            try
+            {
+                ClampInteger(txtPointRadius, 1, 9999);
 
-            if (timerManager != null)
-                timerManager.endPointDistance = int.Parse(txtPointRadius.Text);
+                if (timerManager != null)
+                    timerManager.endPointDistance = int.Parse(txtPointRadius.Text);
+            }
+            catch { }
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -319,6 +327,10 @@ namespace HobbitSpeedrunTools
         private void cbxLoadCheatsWithSave_Click(object sender, RoutedEventArgs e)
         {
             LoadCheatsWithSave = cbxLoadCheatsWithSave.IsChecked ?? false;
+        }
+        private void cbxQuickReload_Click(object sender, RoutedEventArgs e)
+        {
+            quickReload = cbxQuickReload.IsChecked ?? false;
         }
 
         // A bit of a hack to prevent the plus and minus keys from flipping the load cheats checkbox

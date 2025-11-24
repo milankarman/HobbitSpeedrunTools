@@ -140,7 +140,7 @@ namespace HobbitSpeedrunTools
 
             if (timerBlocked)
             {
-                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)) || mem.ReadInt(MemoryAddresses.loadFinished) == 1)   
                 {
                     timerBlocked = false;
                 }

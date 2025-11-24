@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
-		<AssemblyVersion>1.4.1</AssemblyVersion>
+		<AssemblyVersion>1.5.0</AssemblyVersion>
 		<Authors>milankarman</Authors>
 		<Description>A tool for effeciently practicing for speedruns of The Hobbit.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -48,7 +48,6 @@
 		<PackageReference Include="Memory.dll.x86" Version="1.2.23" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="NonInvasiveKeyboardHookLibrary.Core" Version="2.1.0" />
-		<PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -62,7 +61,7 @@
 	<ItemGroup>
 		<None Update="config.ini">
 			<Generator></Generator>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</None>
 		<None Update="img\icon.ico">

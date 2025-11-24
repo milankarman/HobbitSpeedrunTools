@@ -15,7 +15,15 @@ namespace HobbitSpeedrunTools
         public override void Start()
         {
             mem?.WriteMemory(MemoryAddresses.stamina, "float", "10");
-            mem?.WriteMemory(MemoryAddresses.bilboState, "int", "27");
+
+            if (MainWindow.quickReload)
+            {
+                mem?.WriteMemory(MemoryAddresses.loading, "int", "1");
+            }
+            else
+            {
+                mem?.WriteMemory(MemoryAddresses.bilboState, "int", "27");
+            }
         }
     }
 }
