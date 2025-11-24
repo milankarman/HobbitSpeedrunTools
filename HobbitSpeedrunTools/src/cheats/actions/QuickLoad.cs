@@ -19,6 +19,7 @@ namespace HobbitSpeedrunTools
             if (MainWindow.quickReload)
             {
                 mem?.WriteMemory(MemoryAddresses.loading, "int", "1");
+                mem?.WriteMemory(MemoryAddresses.loadFinished, "int", "1");
             }
             else
             {
