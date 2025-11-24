@@ -25,6 +25,14 @@ namespace HobbitSpeedrunTools
         {
             InitializeComponent();
 
+            bool isRunning = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly()?.Location)).Length > 1;
+
+            if (isRunning)
+            {
+                MessageBox.Show("An instance of HST is already running. Aborting.");
+                Environment.Exit(1);
+            }
+
             SourceInitialized += (s, e) =>
             {
                 MinWidth = ActualWidth;

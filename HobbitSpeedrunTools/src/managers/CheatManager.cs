@@ -29,7 +29,7 @@ namespace HobbitSpeedrunTools
 
             cheatLoopThread.Start();
 
-            LoopLevel loopLevelCheat = new LoopLevel(mem);
+            LoopLevel loopLevelCheat = new(mem);
 
             actionCheatList =
             [
