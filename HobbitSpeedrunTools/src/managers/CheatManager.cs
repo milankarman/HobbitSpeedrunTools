@@ -62,6 +62,8 @@ namespace HobbitSpeedrunTools
         {
             while (true)
             {
+                if (mem == null) return;
+
                 IsHooked = mem.OpenProcess("meridian.exe");
                 // Attempt to hook to the game's process
                 if (IsHooked)
