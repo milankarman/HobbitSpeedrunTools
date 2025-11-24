@@ -77,7 +77,7 @@ namespace HobbitSpeedrunTools
                     // Execute every toggled cheat
                     foreach (ToggleCheat? cheat in toggleCheatList)
                     {
-                        if (cheat.Enabled) cheat?.OnTick();
+                        cheat?.OnTick();
                     }
 
                     UpdateBilboPosition();

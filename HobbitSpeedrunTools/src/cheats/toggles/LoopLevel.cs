@@ -32,8 +32,15 @@ namespace HobbitSpeedrunTools
             shouldUpdateLevelID = true;
         }
 
+        public override void OnDisable()
+        {
+            mem?.WriteMemory(MemoryAddresses.currentLevelID, "int", loopLevelId.ToString());
+        }
+
         public override void OnTick()
         {
+            if (!Enabled) return;
+
             if (mem?.ReadInt(MemoryAddresses.loadFinished) == 1)
             {
                 shouldUpdateLevelID = true;
