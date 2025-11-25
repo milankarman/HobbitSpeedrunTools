@@ -281,7 +281,7 @@ namespace HobbitSpeedrunTools
         }
         private void OnlyAllowDecimalInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9.]+");
+            Regex regex = new("[^0-9.-]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
