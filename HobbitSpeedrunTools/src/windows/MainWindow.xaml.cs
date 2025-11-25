@@ -21,6 +21,8 @@ namespace HobbitSpeedrunTools
         public static bool LoadCheatsWithSave { get; private set; }
         public static bool quickReload { get; private set; }
 
+        private Action<float> valueEditApplyAction;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -58,6 +60,8 @@ namespace HobbitSpeedrunTools
                 cheatManager.onBilboPositionUpdate += (position) => Dispatcher.Invoke(() => UpdateBilboPosition(position));
                 cheatManager.onBilboRotationUpdate += (degrees) => Dispatcher.Invoke(() => UpdateBilboRotation(degrees));
                 cheatManager.onClipwarpPositionUpdate += (position) => Dispatcher.Invoke(() => UpdateClipwarpPositition(position));
+                cheatManager.onHealthUpdate += (health) => Dispatcher.Invoke(() => UpdateHealth(health));
+                cheatManager.onLevelUpdate += (level) => Dispatcher.Invoke(() => UpdateLevel(level));
 
                 saveManager = new(cheatManager);
                 saveManager.onSaveCollectionChanged += () => Dispatcher.Invoke(() => UpdateSavesManagerUI());
@@ -122,6 +126,15 @@ namespace HobbitSpeedrunTools
             txtClipwarpPosX.Text = "X: " + Math.Round(position.X, 1).ToString("0.0");
             txtClipwarpPosY.Text = "Y: " + Math.Round(position.Y, 1).ToString("0.0");
             txtClipwarpPosZ.Text = "Z: " + Math.Round(position.Z, 1).ToString("0.0");
+        }
+
+        public void UpdateHealth(float health)
+        {
+            txtBilboHealth.Text = health.ToString();
+        }
+        public void UpdateLevel(float level)
+        {
+            txtBilboLevel.Text = level.ToString();
         }
 
         private void UpdateSavesManagerUI()
@@ -278,7 +291,6 @@ namespace HobbitSpeedrunTools
             }
         }
 
-
         private void btnApplyCheatsCollection_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -345,6 +357,60 @@ namespace HobbitSpeedrunTools
         private void CheckBox_Indeterminate(object sender, RoutedEventArgs e)
         {
             ((CheckBox)sender).IsChecked = false;
+        }
+
+        private void ShowEditPrompt(string label, float value, Action<float> _applyAction)
+        {
+            grpEditValue.Visibility = Visibility.Visible;
+            txbEditValue.Text = label;
+            txtEditValue.Text = value.ToString();
+            valueEditApplyAction = _applyAction;
+
+            txtEditValue.Dispatcher.BeginInvoke(() =>
+            {
+                txtEditValue.Focus();
+                txtEditValue.SelectAll();
+            });
+        }
+
+        private void txtBilboLevel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Action<float> applyAction = cheatManager.SetLevel;
+            float value = float.Parse(txtBilboLevel.Text);
+            ShowEditPrompt("Level / Max Health:", value, applyAction);
+        }
+
+        private void txtBilboHealth_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Action<float> applyAction = cheatManager.SetHealth;
+            float value = float.Parse(txtBilboHealth.Text);
+            ShowEditPrompt("Health:", value, applyAction);
+        }
+
+        private void btnEditValueCancel_Click(object sender, RoutedEventArgs e)
+        {
+            grpEditValue.Visibility = Visibility.Hidden;
+        }
+
+        private void btnEditValueApply_Click(object sender, RoutedEventArgs e)
+        {
+            float updateValue = float.Parse(txtEditValue.Text);
+            valueEditApplyAction.Invoke(updateValue);
+            grpEditValue.Visibility = Visibility.Hidden;
+        }
+
+        private void btnLockBilboHealth_Click(object sender, RoutedEventArgs e)
+        {
+            cheatManager.lockHealth = !cheatManager.lockHealth;
+            btnLockBilboHealth.Content = cheatManager.lockHealth ? "🔓" : "🔒";
+            txtBilboHealth.IsEnabled = !cheatManager.lockHealth;
+        }
+
+        private void btnLockBilboLevel_Click(object sender, RoutedEventArgs e)
+        {
+            cheatManager.lockLevel = !cheatManager.lockLevel;
+            btnLockBilboLevel.Content = cheatManager.lockLevel ? "🔓" : "🔒";
+            txtBilboLevel.IsEnabled = !cheatManager.lockLevel;
         }
     }
 }

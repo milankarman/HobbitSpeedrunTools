@@ -18,6 +18,14 @@ namespace HobbitSpeedrunTools
         public Action<Vector3>? onBilboPositionUpdate;
         public Action<double>? onBilboRotationUpdate;
         public Action<Vector3>? onClipwarpPositionUpdate;
+        public Action<float>? onHealthUpdate;
+        public Action<float>? onLevelUpdate;
+
+        public bool lockHealth;
+        public float lockedHealth;
+
+        public bool lockLevel;
+        public float lockedLevel;
 
         // Starts a new thread handling the cheat loop
         public CheatManager()
@@ -83,6 +91,11 @@ namespace HobbitSpeedrunTools
                     UpdateBilboPosition();
                     UpdateBilboRotation();
                     UpdateClipwarpPosition();
+                    UpdateHealth();
+                    UpdateLevel();
+
+                    if (lockHealth) SetHealth(lockedHealth);
+                    if (lockLevel) SetLevel(lockedHealth);
                 }
 
                 // Wait for 100ms before repeating
@@ -129,6 +142,27 @@ namespace HobbitSpeedrunTools
         {
             warpToggleCheat.SetWarpPosition(position);
             onClipwarpPositionUpdate?.Invoke(position);
+        }
+
+        public void UpdateHealth()
+        {
+            float health = mem.ReadFloat(MemoryAddresses.health);
+            onHealthUpdate?.Invoke(health);
+        }
+        public void UpdateLevel()
+        {
+            float level = mem.ReadFloat(MemoryAddresses.level);
+            onLevelUpdate?.Invoke(level);
+        }
+
+        public void SetHealth(float health)
+        {
+            mem.WriteMemory(MemoryAddresses.health, "float", health.ToString());
+        }
+
+        public void SetLevel(float level)
+        {
+            mem.WriteMemory(MemoryAddresses.level, "float", level.ToString());
         }
 
         public void UpdateCheats(SaveManager.SaveSettings settings)
