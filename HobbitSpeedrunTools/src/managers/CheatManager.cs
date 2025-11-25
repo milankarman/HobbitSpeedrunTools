@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace HobbitSpeedrunTools
 {
@@ -95,7 +96,7 @@ namespace HobbitSpeedrunTools
                     UpdateLevel();
 
                     if (lockHealth) SetHealth(lockedHealth);
-                    if (lockLevel) SetLevel(lockedHealth);
+                    if (lockLevel) SetLevel(lockedLevel);
                 }
 
                 // Wait for 100ms before repeating
@@ -165,6 +166,33 @@ namespace HobbitSpeedrunTools
             mem.WriteMemory(MemoryAddresses.level, "float", level.ToString());
         }
 
+        public void SetPositionX(float x)
+        {
+            mem.WriteMemory(MemoryAddresses.bilboCoordsX, "float", x.ToString());
+            mem.WriteMemory(MemoryAddresses.bilboNewCoordsX, "float", x.ToString());
+        }
+        public void SetPositionY(float y)
+        {
+            mem.WriteMemory(MemoryAddresses.bilboCoordsY, "float", y.ToString());
+            mem.WriteMemory(MemoryAddresses.bilboNewCoordsY, "float", y.ToString());
+        }
+        public void SetPositionZ(float z)
+        {
+            mem.WriteMemory(MemoryAddresses.bilboCoordsZ, "float", z.ToString());
+            mem.WriteMemory(MemoryAddresses.bilboNewCoordsZ, "float", z.ToString());
+        }
+        public void SetClipwarpPositionX(float x)
+        {
+            mem.WriteMemory(MemoryAddresses.warpCoordsX, "float", x.ToString());
+        }
+        public void SetClipwarpPositionY(float y)
+        {
+            mem.WriteMemory(MemoryAddresses.warpCoordsY, "float", y.ToString());
+        }
+        public void SetClipwarpPositionZ(float z)
+        {
+            mem.WriteMemory(MemoryAddresses.warpCoordsZ, "float", z.ToString());
+        }
         public void UpdateCheats(SaveManager.SaveSettings settings)
         {
             for (int i = 0; i < toggleCheatList.Length; i++)

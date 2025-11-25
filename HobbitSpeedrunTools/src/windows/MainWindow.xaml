@@ -59,20 +59,20 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Bilbo Position:"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtBilboPosX" Width="100" Margin="10,0,5,0" Text="X: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBilboPosY" Width="100" Margin="0,0,5,0" Text="Y: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBilboPosZ" Width="100" Text="Z: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtBilboPosX" Width="100" Margin="10,0,5,0" Text="X: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtBilboPosX_PreviewMouseDown"/>
+                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBilboPosY" Width="100" Margin="0,0,5,0" Text="Y: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtBilboPosY_PreviewMouseDown"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBilboPosZ" Width="100" Text="Z: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtBilboPosZ_PreviewMouseDown"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Bilbo Rotation:" Margin="0,5,0,0"/>
-                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBilboRotation" Width="100" Margin="0,5,0,0" Text="0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="1" Grid.Column="2" x:Name="txtBilboRotation" Width="100" Margin="105,5,0,0" Text="0.0" IsReadOnly="True" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" Height="25" VerticalAlignment="Top"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Clipwarp Position:" Margin="0,5,0,0"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtClipwarpPosX" Width="100" Margin="10,5,5,0" Text="X: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBox Grid.Row="2" Grid.Column="2" x:Name="txtClipwarpPosY" Width="100" Margin="0,5,5,0" Text="Y: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
-                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtClipwarpPosZ" Width="100" Margin="0,5,0,0" Text="Z: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtClipwarpPosX" Width="100" Margin="10,5,5,0" Text="X: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtClipwarpPosX_PreviewMouseDown"/>
+                    <TextBox Grid.Row="2" Grid.Column="2" x:Name="txtClipwarpPosY" Width="100" Margin="0,5,5,0" Text="Y: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtClipwarpPosY_PreviewMouseDown"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtClipwarpPosZ" Width="100" Margin="0,5,0,0" Text="Z: 0.0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtClipwarpPosZ_PreviewMouseDown"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Health:" Margin="0,5,0,0"/>
                     <TextBox Grid.Row="3" Grid.Column="3" x:Name="txtBilboHealth" Width="100" Margin="0,5,0,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtBilboHealth_PreviewMouseDown"/>
-                    <Button Grid.Row="4" Grid.Column="2" FontSize="12" Content="🔒" x:Name="btnLockBilboLevel" Margin="0,5,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnLockBilboLevel_Click"/>
+                    <Button Grid.Row="4" Grid.Column="2" FontSize="10" Content="🔒" x:Name="btnLockBilboLevel" Margin="0,5,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnLockBilboLevel_Click"/>
                     <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Level / Max Health:" Margin="0,5,0,0"/>
-                    <Button Grid.Row="3" Grid.Column="2" FontSize="12" Content="🔒" x:Name="btnLockBilboHealth" Margin="0,5,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnLockBilboHealth_Click"/>
+                    <Button Grid.Row="3" Grid.Column="2" FontSize="10" Content="🔒" x:Name="btnLockBilboHealth" Margin="0,5,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnLockBilboHealth_Click"/>
                     <TextBox Grid.Row="4" Grid.Column="3" x:Name="txtBilboLevel" Width="100" Margin="0,5,0,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtBilboLevel_PreviewMouseDown"/>
                     <Border Background="{StaticResource darken}" Grid.ColumnSpan="4"  Grid.RowSpan="6" x:Name="grpEditValue" CornerRadius="5" Margin="-5" Height="auto" Visibility="Hidden">
                         <GroupBox Header="Edit Value" Margin="20">
@@ -86,7 +86,7 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Grid.Column="0" x:Name="txbEditValue" Margin="0,0,0,10" Text="Value:" VerticalAlignment="Center"/>
-                                <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtEditValue" Margin="0,0,0,10" Text="100" VerticalAlignment="Center" TextAlignment="Right"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtEditValue" Margin="0,0,0,10" Text="100" VerticalAlignment="Center" TextAlignment="Right" PreviewTextInput="OnlyAllowDecimalInput"/>
                                 <Button Grid.Row="1" Grid.Column="0" x:Name="btnEditValueCancel" Content="Cancel" Margin="0,0,10,0" Click="btnEditValueCancel_Click"/>
                                 <Button Grid.Row="1" Grid.Column="1" x:Name="btnEditValueApply" Content="Apply" Margin="0,0,0,0" Click="btnEditValueApply_Click"/>
                             </Grid>

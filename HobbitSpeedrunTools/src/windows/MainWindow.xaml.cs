@@ -3,8 +3,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Numerics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace HobbitSpeedrunTools
 {
@@ -21,7 +23,7 @@ namespace HobbitSpeedrunTools
         public static bool LoadCheatsWithSave { get; private set; }
         public static bool quickReload { get; private set; }
 
-        private Action<float> valueEditApplyAction;
+        private Action<float>? valueEditApplyAction;
 
         public MainWindow()
         {
@@ -264,6 +266,25 @@ namespace HobbitSpeedrunTools
             txtPointRadius.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
+        private void ShowEditPrompt(string label, float value, Action<float> _applyAction)
+        {
+            grpEditValue.Visibility = Visibility.Visible;
+            txbEditValue.Text = label;
+            txtEditValue.Text = value.ToString();
+            valueEditApplyAction = _applyAction;
+
+            txtEditValue.Dispatcher.BeginInvoke(() =>
+            {
+                txtEditValue.Focus();
+                txtEditValue.SelectAll();
+            });
+        }
+        private void OnlyAllowDecimalInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9.]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         private void btnSetEndPoint_Click(object sender, RoutedEventArgs e)
         {
             timerManager.SetEndPointPosition();
@@ -359,18 +380,27 @@ namespace HobbitSpeedrunTools
             ((CheckBox)sender).IsChecked = false;
         }
 
-        private void ShowEditPrompt(string label, float value, Action<float> _applyAction)
+        private void btnEditValueCancel_Click(object sender, RoutedEventArgs e)
         {
-            grpEditValue.Visibility = Visibility.Visible;
-            txbEditValue.Text = label;
-            txtEditValue.Text = value.ToString();
-            valueEditApplyAction = _applyAction;
+            grpEditValue.Visibility = Visibility.Hidden;
+        }
 
-            txtEditValue.Dispatcher.BeginInvoke(() =>
+        private void btnEditValueApply_Click(object sender, RoutedEventArgs e)
+        {
+            float updateValue;
+
+            try
             {
-                txtEditValue.Focus();
-                txtEditValue.SelectAll();
-            });
+                updateValue = float.Parse(txtEditValue.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to parse value. Error: " + ex.Message);
+                return;
+            }
+
+            valueEditApplyAction?.Invoke(updateValue);
+            grpEditValue.Visibility = Visibility.Hidden;
         }
 
         private void txtBilboLevel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -387,20 +417,51 @@ namespace HobbitSpeedrunTools
             ShowEditPrompt("Health:", value, applyAction);
         }
 
-        private void btnEditValueCancel_Click(object sender, RoutedEventArgs e)
+        private void txtClipwarpPosZ_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            grpEditValue.Visibility = Visibility.Hidden;
+            Action<float> applyAction = cheatManager.SetClipwarpPositionZ;
+            float value = float.Parse(txtClipwarpPosZ.Text[3..]);
+            ShowEditPrompt("Clipwarp Position Z:", value, applyAction);
         }
 
-        private void btnEditValueApply_Click(object sender, RoutedEventArgs e)
+        private void txtClipwarpPosY_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            float updateValue = float.Parse(txtEditValue.Text);
-            valueEditApplyAction.Invoke(updateValue);
-            grpEditValue.Visibility = Visibility.Hidden;
+            Action<float> applyAction = cheatManager.SetClipwarpPositionY;
+            float value = float.Parse(txtClipwarpPosY.Text[3..]);
+            ShowEditPrompt("Clipwarp Position Y:", value, applyAction);
+        }
+
+        private void txtClipwarpPosX_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Action<float> applyAction = cheatManager.SetClipwarpPositionZ;
+            float value = float.Parse(txtClipwarpPosZ.Text[3..]);
+            ShowEditPrompt("Clipwarp Position Z:", value, applyAction);
+        }
+
+        private void txtBilboPosZ_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Action<float> applyAction = cheatManager.SetPositionZ;
+            float value = float.Parse(txtBilboPosZ.Text[3..]);
+            ShowEditPrompt("Bilbo Position Z:", value, applyAction);
+        }
+
+        private void txtBilboPosY_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Action<float> applyAction = cheatManager.SetPositionY;
+            float value = float.Parse(txtBilboPosY.Text[3..]);
+            ShowEditPrompt("Bilbo Position Y:", value, applyAction);
+        }
+
+        private void txtBilboPosX_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Action<float> applyAction = cheatManager.SetPositionX;
+            float value = float.Parse(txtBilboPosX.Text[3..]);
+            ShowEditPrompt("Bilbo Position X:", value, applyAction);
         }
 
         private void btnLockBilboHealth_Click(object sender, RoutedEventArgs e)
         {
+            cheatManager.lockedHealth = float.Parse(txtBilboHealth.Text);
             cheatManager.lockHealth = !cheatManager.lockHealth;
             btnLockBilboHealth.Content = cheatManager.lockHealth ? "🔓" : "🔒";
             txtBilboHealth.IsEnabled = !cheatManager.lockHealth;
@@ -408,6 +469,7 @@ namespace HobbitSpeedrunTools
 
         private void btnLockBilboLevel_Click(object sender, RoutedEventArgs e)
         {
+            cheatManager.lockedLevel = float.Parse(txtBilboLevel.Text);
             cheatManager.lockLevel = !cheatManager.lockLevel;
             btnLockBilboLevel.Content = cheatManager.lockLevel ? "🔓" : "🔒";
             txtBilboLevel.IsEnabled = !cheatManager.lockLevel;
