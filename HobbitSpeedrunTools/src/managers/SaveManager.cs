@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using static HobbitSpeedrunTools.SaveManager;
 
 namespace HobbitSpeedrunTools
 {
@@ -30,6 +31,7 @@ namespace HobbitSpeedrunTools
             public float clipwarpX;
             public float clipwarpY;
             public float clipwarpZ;
+            public int loopLevelId;
         }
 
         public SaveCollection?[] SaveCollections { get; private set; }
@@ -194,6 +196,9 @@ namespace HobbitSpeedrunTools
                 // If any toggle cheats with a warp is enabled, also set the current clipwarp positions.
                 if (toggleCheat is WarpToggleCheat warpToggleCheat && toggleCheat.Enabled)
                     SaveWarpPosToSetting(saveSetting, warpToggleCheat);
+
+                if (toggleCheat is LoopLevel loopLevelCheat && toggleCheat.Enabled)
+                    SaveLoopLevelToSettings(saveSetting, loopLevelCheat);
             }
         }
 
@@ -217,6 +222,9 @@ namespace HobbitSpeedrunTools
                     // If any toggle cheats with a warp is enabled, also set the current clipwarp positions.
                     if (toggleCheat is WarpToggleCheat warpToggleCheat && toggleCheat.Enabled)
                         SaveWarpPosToSetting(collectionSettings[i], warpToggleCheat);
+
+                    if (toggleCheat is LoopLevel loopLevelCheat && toggleCheat.Enabled)
+                        SaveLoopLevelToSettings(collectionSettings[i], loopLevelCheat);
                 }
             }
         }
@@ -226,6 +234,11 @@ namespace HobbitSpeedrunTools
             setting.clipwarpX = warpToggleCheat.SavedWarpPos.X;
             setting.clipwarpY = warpToggleCheat.SavedWarpPos.Y;
             setting.clipwarpZ = warpToggleCheat.SavedWarpPos.Z;
+        }
+
+        private static void SaveLoopLevelToSettings(SaveSettings setting, LoopLevel loopLevelCheat)
+        {
+            setting.loopLevelId = loopLevelCheat.loopLevelId;
         }
 
         public void TryWriteCollectionsSettingsFile()

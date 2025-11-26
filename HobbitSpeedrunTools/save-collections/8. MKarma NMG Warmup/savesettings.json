@@ -1,32 +1,9 @@
 [
     {
-        "name": "1. Unexpected Party - Bridge",
+        "name": "1. Troll Hole - Start",
         "toggles": [
             false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
             true,
-            false,
-            true,
-            false,
-            true,
-            true,
-            false,
-            false
-        ],
-        "clipwarpX": -435.11,
-        "clipwarpY": -2001.4,
-        "clipwarpZ": -7064.75
-    },
-    {
-        "name": "2. Unexpected Party - Apples",
-        "toggles": [
-            false,
-            false,
             false,
             false,
             false,
@@ -36,8 +13,8 @@
             false,
             true,
             false,
-            true,
-            true,
+            false,
+            false,
             false,
             false
         ],
@@ -46,7 +23,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "3. Roast Mutton - Camp Unload Clipwarp",
+        "name": "2. Over Hill - Pillar Skip",
         "toggles": [
             false,
             false,
@@ -57,10 +34,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -69,7 +46,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "4. Troll Hole - Start (For New Route)",
+        "name": "3. Over Hill - Wiggle Clip",
         "toggles": [
             false,
             false,
@@ -80,10 +57,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -92,30 +69,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "5. Troll Hole - Healing Draught and Clipwarp Practice",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            true,
-            false,
-            true,
-            true,
-            false,
-            false
-        ],
-        "clipwarpX": -6392.86,
-        "clipwarpY": 774.43,
-        "clipwarpZ": -9250.91
-    },
-    {
-        "name": "6. Over Hill and Under Hill - Start",
+        "name": "4. Over Hill - Ending",
         "toggles": [
             false,
             false,
@@ -126,10 +80,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -138,7 +92,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "7. Riddles in the Dark - Chest Clip",
+        "name": "5. Riddles - Start OOB Healthy",
         "toggles": [
             false,
             false,
@@ -149,10 +103,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -161,30 +115,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "8. Flies and Spiders - Corwin Ring (Clipwarp Route)",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            true,
-            false,
-            true,
-            true,
-            false,
-            false
-        ],
-        "clipwarpX": -7527.53,
-        "clipwarpY": 151.52,
-        "clipwarpZ": -7115.23
-    },
-    {
-        "name": "9. Flies and Spiders - Tree Slide Skip",
+        "name": "6. Riddles - Start OOB Damaged",
         "toggles": [
             false,
             false,
@@ -195,10 +126,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -207,7 +138,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "10. Barrels Out of Bond - Start",
+        "name": "7. Riddles - Invis Cart",
         "toggles": [
             false,
             false,
@@ -218,10 +149,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -230,7 +161,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "11. A Warm Welcome - Start (For New Route)",
+        "name": "8. Flies - Middle",
         "toggles": [
             false,
             false,
@@ -241,10 +172,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -253,7 +184,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "12. A Warm Welcome - Rennar's Warehouse",
+        "name": "9. Flies - Ending",
         "toggles": [
             false,
             false,
@@ -264,10 +195,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -276,7 +207,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "13. A Warm Welcome - Basement Rope Clip",
+        "name": "10. Barrels - Start",
         "toggles": [
             false,
             false,
@@ -287,10 +218,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -299,7 +230,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "14. A Warm Welcome - Basement Skip (Save Jump)",
+        "name": "11. A Warm Welcome - Sink",
         "toggles": [
             false,
             false,
@@ -310,10 +241,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -322,7 +253,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "15. Inside Info - Cup and Clipwarp",
+        "name": "12. Inside Info - Boost + Clip",
         "toggles": [
             false,
             false,
@@ -333,10 +264,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -345,7 +276,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "16. Inside Info - Smaug Awake (Movement Practice)",
+        "name": "13. Inside Info - Jump",
         "toggles": [
             false,
             false,
@@ -356,10 +287,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -368,7 +299,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "17. Inside Info - Cavern Jump and Blocks",
+        "name": "14. Gathering - Start",
         "toggles": [
             false,
             false,
@@ -379,10 +310,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -391,30 +322,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "18. Inside Info - Post Blocks",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            true,
-            false,
-            true,
-            true,
-            false,
-            false
-        ],
-        "clipwarpX": 1138.85,
-        "clipwarpY": -1.1,
-        "clipwarpZ": 1428.22
-    },
-    {
-        "name": "19. Gathering of the Clouds - Start (Block Puzzle)",
+        "name": "15. Clouds Burst - Wall Walk",
         "toggles": [
             false,
             false,
@@ -425,10 +333,10 @@
             false,
             false,
             false,
-            true,
             false,
-            true,
-            true,
+            false,
+            false,
+            false,
             false,
             false
         ],
@@ -437,30 +345,7 @@
         "clipwarpZ": 0.0
     },
     {
-        "name": "20. Gathering of the Clouds - Pillar Key Mold Clip and Warp",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            true,
-            false,
-            true,
-            true,
-            false,
-            false
-        ],
-        "clipwarpX": 9237.34,
-        "clipwarpY": 1001.07,
-        "clipwarpZ": -4988.33
-    },
-    {
-        "name": "21. Gathering of the Clouds - Water Puzzle and Ending",
+        "name": "16. Clouds Burst - End",
         "toggles": [
             false,
             false,
@@ -471,79 +356,10 @@
             false,
             false,
             false,
-            true,
-            false,
-            true,
-            true,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "22. Clouds Burst - Post Dwarves (For Faster Route)",
-        "toggles": [
             false,
             false,
             false,
             false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            true,
-            true,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "23. Clouds Burst - Corwin Message Clipwarp",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            true,
-            true,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "24. The Clouds Burst - Ending",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            true,
-            true,
             false,
             false
         ],

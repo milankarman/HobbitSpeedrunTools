@@ -28,6 +28,8 @@ namespace HobbitSpeedrunTools
         public bool lockLevel;
         public float lockedLevel;
 
+        private LoopLevel loopLevelCheat;
+
         // Starts a new thread handling the cheat loop
         public CheatManager()
         {
@@ -38,7 +40,7 @@ namespace HobbitSpeedrunTools
 
             cheatLoopThread.Start();
 
-            LoopLevel loopLevelCheat = new(mem);
+            loopLevelCheat = new(mem);
 
             actionCheatList =
             [
@@ -212,6 +214,9 @@ namespace HobbitSpeedrunTools
                     // Something to take a look at to adjust behavior.
                     if (toggleCheatList[i] is WarpToggleCheat warpToggleCheat)
                         UpdateClipwarpPosition(warpToggleCheat, new Vector3(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ));
+
+                    if (toggleCheatList[i] is LoopLevel loopLevel)
+                        loopLevelCheat.loopLevelId = settings.loopLevelId;
                 }
             }
         }
