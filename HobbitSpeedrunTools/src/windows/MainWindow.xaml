@@ -44,7 +44,7 @@
             </GroupBox>
 
             <GroupBox Header="Info" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
-                <Grid Grid.Column="1">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="auto"/>
@@ -74,7 +74,7 @@
                     <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Level / Max Health:" Margin="0,5,0,0"/>
                     <Button Grid.Row="3" Grid.Column="2" FontSize="10" Content="🔒" x:Name="btnLockBilboHealth" Margin="0,5,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnLockBilboHealth_Click"/>
                     <TextBox Grid.Row="4" Grid.Column="3" x:Name="txtBilboLevel" Width="100" Margin="0,5,0,0" Text="0" IsReadOnly="True" HorizontalContentAlignment="Right" PreviewMouseDown="txtBilboLevel_PreviewMouseDown"/>
-                    <Border Background="{StaticResource darken}" Grid.ColumnSpan="4"  Grid.RowSpan="6" x:Name="grpEditValue" CornerRadius="5" Margin="-5" Height="auto" Visibility="Hidden">
+                    <Border Background="{StaticResource darken}" Grid.ColumnSpan="4"  Grid.RowSpan="6" x:Name="grpEditValue" CornerRadius="5" Margin="-5" Visibility="Hidden">
                         <GroupBox Header="Edit Value" Margin="20">
                             <Grid>
                                 <Grid.ColumnDefinitions>

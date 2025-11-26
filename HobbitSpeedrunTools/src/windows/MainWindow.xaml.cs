@@ -435,7 +435,7 @@ namespace HobbitSpeedrunTools
         {
             Action<float> applyAction = cheatManager.SetClipwarpPositionZ;
             float value = float.Parse(txtClipwarpPosZ.Text[3..]);
-            ShowEditPrompt("Clipwarp Position Z:", value, applyAction);
+            ShowEditPrompt("Clipwarp Position X:", value, applyAction);
         }
 
         private void txtBilboPosZ_PreviewMouseDown(object sender, MouseButtonEventArgs e)
