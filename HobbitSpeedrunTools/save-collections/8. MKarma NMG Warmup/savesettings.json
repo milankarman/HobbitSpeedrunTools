@@ -1,370 +1,130 @@
 [
-    {
-        "name": "1. Troll Hole - Start",
-        "toggles": [
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "2. Over Hill - Pillar Skip",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "3. Over Hill - Wiggle Clip",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "4. Over Hill - Ending",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "5. Riddles - Start OOB Healthy",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "6. Riddles - Start OOB Damaged",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "7. Riddles - Invis Cart",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "8. Flies - Middle",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "9. Flies - Ending",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "10. Barrels - Start",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "11. A Warm Welcome - Sink",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "12. Inside Info - Boost + Clip",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "13. Inside Info - Jump",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "14. Gathering - Start",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "15. Clouds Burst - Wall Walk",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    },
-    {
-        "name": "16. Clouds Burst - End",
-        "toggles": [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
-        "clipwarpX": 0.0,
-        "clipwarpY": 0.0,
-        "clipwarpZ": 0.0
-    }
+  {
+    "name": "1. Troll Hole - Start",
+    "toggles": [ false, true, false, false, false, false, false, false, false, true, false, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 3
+  },
+  {
+    "name": "2. Over Hill - Pillar Skip",
+    "toggles": [ false, true, false, false, false, false, false, false, false, false, false, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "3. Over Hill - Wiggle Clip",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "4. Over Hill - Ending",
+    "toggles": [ false, true, false, false, false, false, false, false, false, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "5. Riddles - Start OOB Healthy",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "6. Riddles - Start OOB Damaged",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "7. Riddles - Invis Cart",
+    "toggles": [ false, false, false, false, false, false, false, false, true, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "8. Flies - Middle",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "9. Flies - Ending",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "10. Barrels - Start",
+    "toggles": [ false, true, false, false, false, false, false, false, false, true, false, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 7
+  },
+  {
+    "name": "11. A Warm Welcome - Sink",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "12. Inside Info - Boost + Clip",
+    "toggles": [ false, true, false, false, false, false, false, false, false, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "13. Inside Info - Jump",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "14. Gathering - Start",
+    "toggles": [ false, false, false, false, false, false, false, false, false, true, false, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 10
+  },
+  {
+    "name": "15. Clouds Burst - Wall Walk",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  },
+  {
+    "name": "16. Clouds Burst - End",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, true, false, false, false, false ],
+    "clipwarpX": 0.0,
+    "clipwarpY": 0.0,
+    "clipwarpZ": 0.0,
+    "loopLevelId": 0
+  }
 ]

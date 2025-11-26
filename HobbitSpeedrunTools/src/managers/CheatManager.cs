@@ -218,7 +218,7 @@ namespace HobbitSpeedrunTools
                         reloadOnLostWarp.SetWarpPosition(position);
                         onClipwarpPositionUpdate?.Invoke(position);
                     }    
-                    if (toggleCheatList[i] is LoopLevel loopLevelCheat)
+                    if (toggleCheatList[i] is LoopLevel loopLevelCheat && loopLevelCheat.Enabled)
                     {
                         loopLevelCheat.loopLevelId = settings.loopLevelId;
                     }

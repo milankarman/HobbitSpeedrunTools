@@ -79,4 +79,10 @@
 		</None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="save-collections\8. MKarma NMG Warmup\savesettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
