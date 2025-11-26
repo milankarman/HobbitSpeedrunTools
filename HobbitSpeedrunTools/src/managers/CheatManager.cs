@@ -28,7 +28,7 @@ namespace HobbitSpeedrunTools
         public bool lockLevel;
         public float lockedLevel;
 
-        private LoopLevel loopLevelCheat;
+        private readonly LoopLevel loopLevelCheat;
 
         // Starts a new thread handling the cheat loop
         public CheatManager()
@@ -142,12 +142,6 @@ namespace HobbitSpeedrunTools
             onClipwarpPositionUpdate?.Invoke(warpPosition);
         }
 
-        public void UpdateClipwarpPosition(WarpToggleCheat warpToggleCheat, Vector3 position)
-        {
-            warpToggleCheat.SetWarpPosition(position);
-            onClipwarpPositionUpdate?.Invoke(position);
-        }
-
         public void UpdateHealth()
         {
             float health = mem.ReadFloat(MemoryAddresses.health);
@@ -212,11 +206,22 @@ namespace HobbitSpeedrunTools
                     // Currently reload on lost clipwarp takes precedence over locked clipwarp
                     // But both shouldn't be enabled at the same time?
                     // Something to take a look at to adjust behavior.
-                    if (toggleCheatList[i] is WarpToggleCheat warpToggleCheat)
-                        UpdateClipwarpPosition(warpToggleCheat, new Vector3(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ));
-
-                    if (toggleCheatList[i] is LoopLevel loopLevel)
+                    if (toggleCheatList[i] is LockClipwarp lockClipwarp)
+                    {
+                        Vector3 position = new(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+                        lockClipwarp.SetWarpPosition(position);
+                        onClipwarpPositionUpdate?.Invoke(position);
+                    }
+                    if (toggleCheatList[i] is ReloadOnLostWarp reloadOnLostWarp)
+                    {
+                        Vector3 position = new(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+                        reloadOnLostWarp.SetWarpPosition(position);
+                        onClipwarpPositionUpdate?.Invoke(position);
+                    }    
+                    if (toggleCheatList[i] is LoopLevel loopLevelCheat)
+                    {
                         loopLevelCheat.loopLevelId = settings.loopLevelId;
+                    }
                 }
             }
         }

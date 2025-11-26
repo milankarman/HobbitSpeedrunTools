@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Windows;
 using static HobbitSpeedrunTools.SaveManager;
 
@@ -194,11 +195,18 @@ namespace HobbitSpeedrunTools
                 saveSetting.toggles[i] = toggleCheat.Enabled;
 
                 // If any toggle cheats with a warp is enabled, also set the current clipwarp positions.
-                if (toggleCheat is WarpToggleCheat warpToggleCheat && toggleCheat.Enabled)
-                    SaveWarpPosToSetting(saveSetting, warpToggleCheat);
-
+                if (toggleCheat is ReloadOnLostWarp reloadOnLostWarp && toggleCheat.Enabled)
+                {
+                    SaveWarpPosToSetting(saveSetting, reloadOnLostWarp.SavedWarpPos);
+                }
+                if (toggleCheat is LockClipwarp lockClipwarp && toggleCheat.Enabled)
+                {
+                    SaveWarpPosToSetting(saveSetting, lockClipwarp.SavedWarpPos);
+                }
                 if (toggleCheat is LoopLevel loopLevelCheat && toggleCheat.Enabled)
+                {
                     SaveLoopLevelToSettings(saveSetting, loopLevelCheat);
+                }
             }
         }
 
@@ -219,21 +227,29 @@ namespace HobbitSpeedrunTools
                     ToggleCheat toggleCheat = toggleCheats[j];
                     collectionSettings[i].toggles[j] = toggleCheat.Enabled;
 
-                    // If any toggle cheats with a warp is enabled, also set the current clipwarp positions.
-                    if (toggleCheat is WarpToggleCheat warpToggleCheat && toggleCheat.Enabled)
-                        SaveWarpPosToSetting(collectionSettings[i], warpToggleCheat);
+                    // If either toggle cheats with a warp is enabled, also set the current clipwarp positions.
+                    if (toggleCheat is LockClipwarp lockClipwarp && toggleCheat.Enabled)
+                    {
+                        SaveWarpPosToSetting(collectionSettings[i], lockClipwarp.SavedWarpPos);
+                    }
+                    else if (toggleCheat is ReloadOnLostWarp reloadOnLostWarp && toggleCheat.Enabled)
+                    {
+                        SaveWarpPosToSetting(collectionSettings[i], reloadOnLostWarp.SavedWarpPos);
+                    }
 
                     if (toggleCheat is LoopLevel loopLevelCheat && toggleCheat.Enabled)
+                    {
                         SaveLoopLevelToSettings(collectionSettings[i], loopLevelCheat);
+                    }
                 }
             }
         }
 
-        private static void SaveWarpPosToSetting(SaveSettings setting, WarpToggleCheat warpToggleCheat)
+        private static void SaveWarpPosToSetting(SaveSettings setting, Vector3 savedWarpPos)
         {
-            setting.clipwarpX = warpToggleCheat.SavedWarpPos.X;
-            setting.clipwarpY = warpToggleCheat.SavedWarpPos.Y;
-            setting.clipwarpZ = warpToggleCheat.SavedWarpPos.Z;
+            setting.clipwarpX = savedWarpPos.X;
+            setting.clipwarpY = savedWarpPos.Y;
+            setting.clipwarpZ = savedWarpPos.Z;
         }
 
         private static void SaveLoopLevelToSettings(SaveSettings setting, LoopLevel loopLevelCheat)

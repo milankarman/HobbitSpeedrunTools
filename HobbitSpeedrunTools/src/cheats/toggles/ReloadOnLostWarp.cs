@@ -6,13 +6,15 @@ using System.Numerics;
 
 namespace HobbitSpeedrunTools
 {
-    public class ReloadOnLostWarp : WarpToggleCheat
+    public class ReloadOnLostWarp : ToggleCheat
     {
         public override string Name { get; set; } = "Reload on Lost Warp";
         public override string ShortName { get; set; } = "RELO";
         public override string ShortcutName { get; set; } = "reload_lost_warp";
         public override string ToolTip { get; set; } = "Reloads your last save when Bilbo's clipwarp position changes from the spot it is at when this cheat is enabled.\n" +
             "When a succesful warp back is performed this cheat will be disabled until Bilbo dies or a save is loaded.";
+
+        public Vector3 SavedWarpPos { get; private set; }
 
         private bool waiting;
         private bool succesfullyWarped;
@@ -90,6 +92,11 @@ namespace HobbitSpeedrunTools
 
                 waiting = true;
             }
+        }
+
+        public void SetWarpPosition(Vector3 position)
+        {
+            SavedWarpPos = position;
         }
     }
 }
