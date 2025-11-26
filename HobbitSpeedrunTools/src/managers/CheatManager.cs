@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HobbitSpeedrunTools
 {
@@ -198,32 +199,41 @@ namespace HobbitSpeedrunTools
 
         public void UpdateCheats(SaveManager.SaveSettings settings)
         {
-            for (int i = 0; i < toggleCheatList.Length; i++)
+
+            try
             {
-                if (toggleCheatList[i] != null)
+                for (int i = 0; i < toggleCheatList.Length; i++)
                 {
-                    toggleCheatList[i].SetActive(settings.toggles[i]);
-                    // Currently reload on lost clipwarp takes precedence over locked clipwarp
-                    // But both shouldn't be enabled at the same time?
-                    // Something to take a look at to adjust behavior.
-                    if (toggleCheatList[i] is LockClipwarp lockClipwarp)
+                    if (toggleCheatList[i] != null)
                     {
-                        Vector3 position = new(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
-                        lockClipwarp.SetWarpPosition(position);
-                        onClipwarpPositionUpdate?.Invoke(position);
-                    }
-                    if (toggleCheatList[i] is ReloadOnLostWarp reloadOnLostWarp)
-                    {
-                        Vector3 position = new(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
-                        reloadOnLostWarp.SetWarpPosition(position);
-                        onClipwarpPositionUpdate?.Invoke(position);
-                    }    
-                    if (toggleCheatList[i] is LoopLevel loopLevelCheat && loopLevelCheat.Enabled)
-                    {
-                        loopLevelCheat.loopLevelId = settings.loopLevelId;
+                        toggleCheatList[i].SetActive(settings.toggles[i]);
+                        // Currently reload on lost clipwarp takes precedence over locked clipwarp
+                        // But both shouldn't be enabled at the same time?
+                        // Something to take a look at to adjust behavior.
+                        if (toggleCheatList[i] is LockClipwarp lockClipwarp)
+                        {
+                            Vector3 position = new(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+                            lockClipwarp.SetWarpPosition(position);
+                            onClipwarpPositionUpdate?.Invoke(position);
+                        }
+                        if (toggleCheatList[i] is ReloadOnLostWarp reloadOnLostWarp)
+                        {
+                            Vector3 position = new(settings.clipwarpX, settings.clipwarpY, settings.clipwarpZ);
+                            reloadOnLostWarp.SetWarpPosition(position);
+                            onClipwarpPositionUpdate?.Invoke(position);
+                        }
+                        if (toggleCheatList[i] is LoopLevel loopLevelCheat && loopLevelCheat.Enabled)
+                        {
+                            loopLevelCheat.loopLevelId = settings.loopLevelId;
+                        }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error updating cheats, if the issue persist try deleting the savesettings.json file in this save collection. " + e.Message);
+            }
+
         }
 
         // Gets a list of active cheats with short names
