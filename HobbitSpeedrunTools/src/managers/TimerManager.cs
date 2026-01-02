@@ -75,6 +75,7 @@ namespace HobbitSpeedrunTools
 
         private void HandleLevelTimer()
         {
+            // Conditions for timer start
             if (timerStarted == false
                 && mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel
                 && mem.ReadInt(MemoryAddresses.loadFinished) == 1
@@ -96,7 +97,7 @@ namespace HobbitSpeedrunTools
                     && mem.ReadInt(MemoryAddresses.currentLevelID) > selectedLevel)
                 {
                     timerStarted = false;
-                    timerBlocked = true;
+                    // timerBlocked = true; // Not sure why this is here
 
                     previousTimes.Add(currentTime);
 
@@ -110,22 +111,30 @@ namespace HobbitSpeedrunTools
                     }
                 }
 
+                int OoLState = mem.ReadInt(MemoryAddresses.outOfLevelState);
+
                 // Reset conditions, shoutouts to Shocky.
                 if (mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel)
                 {
+                    
+
                     // Reset condition for dream world.
-                    if (selectedLevel == 0 && mem.ReadInt(MemoryAddresses.outOfLevelState) == 20 && currentTime.TotalSeconds >= 0.05d) timerStarted = false;
+                    if (selectedLevel == 0 && OoLState == 20 && currentTime.TotalSeconds >= 0.05d) timerStarted = false;
 
                     // Reset condition for AUP.
-                    if (selectedLevel == 1 && mem.ReadInt(MemoryAddresses.outOfLevelState) == 17) timerStarted = false;
+                    if (selectedLevel == 1 && OoLState == 17) timerStarted = false;
 
                     // Reset condition for all other level segments.
-                    if (mem.ReadInt(MemoryAddresses.outOfLevelState) == 12) timerStarted = false; 
+                    if (OoLState == 12) timerStarted = false;
+
+                    if (mem.ReadInt(MemoryAddresses.load) == 1) timerStarted = false;
                 }
 
-                // If for some reason we load a save thats passed the levels or before the start level in the segment or IL, we reset.
-                if (mem.ReadInt(MemoryAddresses.currentLevelID) > selectedLevel + 1
-                    || mem.ReadInt(MemoryAddresses.currentLevelID) < selectedLevel) timerStarted = false;
+                if (mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel)
+
+                    // If for some reason we load a save thats passed the levels or before the start level in the segment or IL, we reset.
+                    if (mem.ReadInt(MemoryAddresses.currentLevelID) > selectedLevel + 1
+                        || mem.ReadInt(MemoryAddresses.currentLevelID) < selectedLevel) timerStarted = false;
             }
 
             if (timerStarted)
@@ -161,7 +170,7 @@ namespace HobbitSpeedrunTools
 
             if (timerStarted)
             {
-                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)) || mem.ReadInt(MemoryAddresses.loadFinished) == 1)
                 {
                     timerStarted = false;
                     return;
