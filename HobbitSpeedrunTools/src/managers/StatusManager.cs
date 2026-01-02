@@ -14,6 +14,13 @@ namespace HobbitSpeedrunTools
         private TimeSpan timerTime;
         private TimeSpan timerBestTime;
 
+        private bool displayingSaveCollection;
+        private bool displayingSave;
+
+        private DateTime saveStartTime;
+        private DateTime collectionStartTime;
+
+
         public StatusManager(CheatManager _cheatManager, SaveManager _saveManager, TimerManager _timerManager)
         {
             cheatManager = _cheatManager;
@@ -22,34 +29,71 @@ namespace HobbitSpeedrunTools
 
             timerManager.onTimerTick += (time) => timerTime = time;
             timerManager.onNewBestTime += (time) => timerBestTime = time;
+
+            saveManager.onSaveCollectionChanged += () =>
+            {
+                displayingSaveCollection = true;
+                collectionStartTime = DateTime.Now;
+            };
+
+            saveManager.onSaveChanged += () =>
+            {
+                displayingSave = true;
+                saveStartTime = DateTime.Now;
+            };
         }
 
         public string GetStatusText()
         {
             string status = $"HST {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
 
-            List<string> cheats = cheatManager.GetToggleCheatList();
-
-            if (cheats.Count > 0) status += "\nCheats: ";
-
-            for (int i = 0; i < cheats.Count; i++)
+            if ((DateTime.Now - collectionStartTime).TotalSeconds >= 2)
             {
-                status += cheats[i];
+                displayingSaveCollection = false;
+            }
 
-                if (i < cheats.Count - 1)
+            if ((DateTime.Now - saveStartTime).TotalSeconds >= 2)
+            {
+                displayingSave = false;
+            }
+
+            if (displayingSaveCollection && saveManager.SaveCollectionIndex >= 0)
+            {
+                status += $"\nC: {saveManager.SelectedSaveCollection?.name}";
+            }
+
+            if (displayingSave)
+            {
+                status += $"\nS: {saveManager.SelectedSave?.name}";
+            }
+ 
+            if (!displayingSave && !displayingSaveCollection)
+            {
+                List<string> cheats = cheatManager.GetToggleCheatList();
+
+                if (cheats.Count > 0) status += "\nCheats: ";
+
+                for (int i = 0; i < cheats.Count; i++)
                 {
-                    status += " ";
+                    status += cheats[i];
+
+                    if (i < cheats.Count - 1)
+                    {
+                        status += " ";
+                    }
                 }
-            }
 
-            if (saveManager.SaveCollectionIndex > 0)
-            {
-                status += $"\nSave: {saveManager.SaveCollectionIndex}-{saveManager.SaveIndex + 1}";
-            }
+                if (saveManager.SaveCollectionIndex > 0)
+                {
+                    status += $"\nSave: {saveManager.SaveCollectionIndex}-{saveManager.SaveIndex + 1}";
+                }
 
-            if (timerManager.mode != TimerManager.TIMER_MODE.OFF)
-            {
-                status += $"\nT:{timerTime:mm\\:ss\\.ff} B:{timerBestTime:mm\\:ss\\.ff}";
+                if (timerManager.mode != TimerManager.TIMER_MODE.OFF)
+                {
+                    status += $"\nT:{timerTime:mm\\:ss\\.ff} B:{timerBestTime:mm\\:ss\\.ff}";
+                }
+
+
             }
 
             status = status.PadRight(65, ' ')[..65];

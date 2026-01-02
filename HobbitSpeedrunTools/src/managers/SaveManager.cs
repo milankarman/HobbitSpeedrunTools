@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Windows;
-using static HobbitSpeedrunTools.SaveManager;
 
 namespace HobbitSpeedrunTools
 {
