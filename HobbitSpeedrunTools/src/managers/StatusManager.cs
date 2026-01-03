@@ -57,12 +57,12 @@ namespace HobbitSpeedrunTools
                 displayingSave = false;
             }
 
-            if (displayingSaveCollection && saveManager.SaveCollectionIndex >= 0)
+            if (displayingSaveCollection && saveManager.SaveCollectionIndex > 0)
             {
                 status += $"\nC: {saveManager.SelectedSaveCollection?.name}";
             }
 
-            if (displayingSave)
+            if (displayingSave && saveManager.SaveCollectionIndex > 0)
             {
                 status += $"\nS: {saveManager.SelectedSave?.name}";
             }
