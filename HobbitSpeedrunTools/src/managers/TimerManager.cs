@@ -31,7 +31,7 @@ namespace HobbitSpeedrunTools
 
         public TimeSpan? bestTime;
 
-        private readonly int timerUpdateRate = 1000 / 60;
+        private readonly int timerUpdateRate = 1000 / 120;
 
         private DateTime startTime;
         private readonly List<TimeSpan> previousTimes = [];
@@ -90,14 +90,32 @@ namespace HobbitSpeedrunTools
 
             if (timerStarted)
             {
-                if (mem.ReadInt(MemoryAddresses.currentLevelID) > 10
-                    && mem.ReadInt(MemoryAddresses.onCutscene) == 1
-                    && mem.ReadInt(MemoryAddresses.cutsceneID) == 0x3853B400
-                    || mem.ReadInt(MemoryAddresses.outOfLevelState) == 19
-                    && mem.ReadInt(MemoryAddresses.currentLevelID) > selectedLevel)
+                int currentLevelID = mem.ReadInt(MemoryAddresses.currentLevelID);
+                int OoLState = mem.ReadInt(MemoryAddresses.outOfLevelState);
+                int onCutscene = mem.ReadInt(MemoryAddresses.onCutscene);
+                int cutsceneID = mem.ReadInt(MemoryAddresses.cutsceneID);
+                int load = mem.ReadInt(MemoryAddresses.load);
+
+                // Reset conditions, shoutouts to Shocky.
+                if (currentLevelID == selectedLevel)
+                {
+                    // Reset condition for dream world.
+                    if (selectedLevel == 0 && OoLState == 20 && currentTime.TotalSeconds >= 0.05d) timerStarted = false;
+
+                    // Reset condition for AUP.
+                    if (selectedLevel == 1 && OoLState == 17) timerStarted = false;
+
+                    // Reset condition for all other level segments.
+                    if (OoLState == 12) timerStarted = false;
+                }
+
+                // Catch all reset condition for quick reload
+                if (load == 1) timerStarted = false;
+
+                if (currentLevelID > 10 && onCutscene == 1 && cutsceneID == 0x3853B400
+                    || OoLState == 19 && currentLevelID > selectedLevel)
                 {
                     timerStarted = false;
-                    // timerBlocked = true; // Not sure why this is here
 
                     previousTimes.Add(currentTime);
 
@@ -111,30 +129,12 @@ namespace HobbitSpeedrunTools
                     }
                 }
 
-                int OoLState = mem.ReadInt(MemoryAddresses.outOfLevelState);
-
-                // Reset conditions, shoutouts to Shocky.
-                if (mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel)
+                if (currentLevelID == selectedLevel)
                 {
-                    
-
-                    // Reset condition for dream world.
-                    if (selectedLevel == 0 && OoLState == 20 && currentTime.TotalSeconds >= 0.05d) timerStarted = false;
-
-                    // Reset condition for AUP.
-                    if (selectedLevel == 1 && OoLState == 17) timerStarted = false;
-
-                    // Reset condition for all other level segments.
-                    if (OoLState == 12) timerStarted = false;
-
-                    if (mem.ReadInt(MemoryAddresses.load) == 1) timerStarted = false;
-                }
-
-                if (mem.ReadInt(MemoryAddresses.currentLevelID) == selectedLevel)
-
-                    // If for some reason we load a save thats passed the levels or before the start level in the segment or IL, we reset.
+                    // If for some reason we load a save that's past the levels or before the start level in the segment or IL, we reset.
                     if (mem.ReadInt(MemoryAddresses.currentLevelID) > selectedLevel + 1
                         || mem.ReadInt(MemoryAddresses.currentLevelID) < selectedLevel) timerStarted = false;
+                }
             }
 
             if (timerStarted)
@@ -147,9 +147,12 @@ namespace HobbitSpeedrunTools
         {
             if (endPointPosition == null) return;
 
+            int bilboState = mem.ReadInt(MemoryAddresses.bilboState);
+            int loadFinished = mem.ReadInt(MemoryAddresses.loadFinished);
+
             if (timerBlocked)
             {
-                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)) || mem.ReadInt(MemoryAddresses.loadFinished) == 1)   
+                if (StateLists.deathStates.Contains(bilboState) || loadFinished == 1)   
                 {
                     timerBlocked = false;
                 }
@@ -159,7 +162,7 @@ namespace HobbitSpeedrunTools
                 }
             }
 
-            if (timerStarted == false && StateLists.movementStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)))
+            if (timerStarted == false && StateLists.movementStates.Contains(bilboState))
             {
                 startTime = DateTime.Now;
                 timerStarted = true;
@@ -170,7 +173,7 @@ namespace HobbitSpeedrunTools
 
             if (timerStarted)
             {
-                if (StateLists.deathStates.Contains(mem.ReadInt(MemoryAddresses.bilboState)) || mem.ReadInt(MemoryAddresses.loadFinished) == 1)
+                if (StateLists.deathStates.Contains(bilboState) || loadFinished == 1)
                 {
                     timerStarted = false;
                     return;
