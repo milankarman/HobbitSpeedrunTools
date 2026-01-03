@@ -37,7 +37,7 @@ namespace HobbitSpeedrunTools
                 mem.WriteMemory(MemoryAddresses.currentLevelID, "int", (currentLevelID - 1).ToString());
                 mem.WriteMemory(MemoryAddresses.load, "int", "1");
 
-                if (MainWindow.quickReload)
+                if (!MainWindow.legacyReload)
                 {
                     // Try this for 2 seconds (10 ms * 200)
                     for (int i = 0; i < 200; i++)

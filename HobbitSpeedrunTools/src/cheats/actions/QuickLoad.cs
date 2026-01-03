@@ -16,7 +16,7 @@ namespace HobbitSpeedrunTools
         {
             mem?.WriteMemory(MemoryAddresses.stamina, "float", "10");
 
-            if (MainWindow.quickReload)
+            if (!MainWindow.legacyReload)
             {
                 mem?.WriteMemory(MemoryAddresses.loading, "int", "1");
                 mem?.WriteMemory(MemoryAddresses.loadFinished, "int", "1");

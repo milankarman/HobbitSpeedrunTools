@@ -21,7 +21,7 @@ namespace HobbitSpeedrunTools
         private bool updatingSaveManager;
 
         public static bool LoadCheatsWithSave { get; private set; }
-        public static bool quickReload { get; private set; }
+        public static bool legacyReload { get; private set; }
 
         private Action<float>? valueEditApplyAction;
 
@@ -48,7 +48,7 @@ namespace HobbitSpeedrunTools
             // Add the version number to the titlebar
             Title += $" {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion}";
 
-            quickReload = cbxQuickReload.IsChecked ?? false;
+            legacyReload = cbxLegacyReload.IsChecked ?? false;
             LoadCheatsWithSave = cbxLoadCheatsWithSave.IsChecked ?? false;
 
             try
@@ -369,9 +369,9 @@ namespace HobbitSpeedrunTools
         {
             LoadCheatsWithSave = cbxLoadCheatsWithSave.IsChecked ?? false;
         }
-        private void cbxQuickReload_Click(object sender, RoutedEventArgs e)
+        private void cbxLegacyReload_Click(object sender, RoutedEventArgs e)
         {
-            quickReload = cbxQuickReload.IsChecked ?? false;
+            legacyReload = cbxLegacyReload.IsChecked ?? false;
         }
 
         // A bit of a hack to prevent the plus and minus keys from flipping the load cheats checkbox
