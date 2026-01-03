@@ -145,7 +145,7 @@ namespace HobbitSpeedrunTools
             if (File.Exists(path))
             {
                 // ** NOTE **
-                //Check to make sure data from file was read correctly. Not sure of a way to notify the user if the data was not read successfully...
+                // Check to make sure data from file was read correctly. Not sure of a way to notify the user if the data was not read successfully...
                 if (JsonConvert.DeserializeObject<List<SaveSettings>>(File.ReadAllText(path)) is List<SaveSettings> collectionFileSettings)
                 {
                     // Loop through default collection settings
@@ -281,6 +281,7 @@ namespace HobbitSpeedrunTools
             if (!DidBackup) BackupOldSaves();
 
             ClearSaves();
+
             SaveCollectionIndex = Math.Clamp(_saveCollectionIndex, 0, SaveCollections.Length - 1);
 
             if (SelectedSaveCollection != null)
@@ -325,6 +326,7 @@ namespace HobbitSpeedrunTools
 
             if (oldFiles.Length == 0)
             {
+                DidBackup = true;
                 return;
             }
 
@@ -351,6 +353,8 @@ namespace HobbitSpeedrunTools
 
         public void RestoreOldSaves()
         {
+            ClearSaves();
+
             // Check if the backup still exists
             if (!Directory.Exists(backupDir))
             {
@@ -360,12 +364,6 @@ namespace HobbitSpeedrunTools
             // Attempt to move the files back
             try
             {
-                // Delete copied save manager saves
-                foreach (string directoryFile in Directory.GetFiles(hobbitSaveDir))
-                {
-                    File.Delete(directoryFile);
-                }
-
                 // Move the saves out of the backup
                 foreach (string save in Directory.GetFiles(backupDir))
                 {
