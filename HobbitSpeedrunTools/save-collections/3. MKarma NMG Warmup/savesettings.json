@@ -8,8 +8,8 @@
     "loopLevelId": 3
   },
   {
-    "name": "2. Over Hill - Pillar Skip",
-    "toggles": [ false, true, false, false, false, false, false, false, false, false, false, false, false, false, false ],
+    "name": "2. Over Hill - Pillar Skip + Vine Clip",
+    "toggles": [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false ],
     "clipwarpX": 0.0,
     "clipwarpY": 0.0,
     "clipwarpZ": 0.0,
@@ -112,7 +112,7 @@
     "loopLevelId": 10
   },
   {
-    "name": "15. Clouds Burst - Wall Walk",
+    "name": "15. Clouds Burst - Corwin + Wall Walk",
     "toggles": [ false, false, false, false, false, false, false, false, false, false, false, false, false, false, false ],
     "clipwarpX": 0.0,
     "clipwarpY": 0.0,
