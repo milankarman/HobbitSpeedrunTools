@@ -56,5 +56,11 @@
 
         public const string memUsage = "0075FBBC";
         public const string memUsageText = "00730FFC";
+
+        public const string renderBilbo = "00777AA0";
+        public const string renderHUD = "0075EB7C";
+        public const string renderCharacters = "00777A9C";
+        public const string renderCharacters2 = "00777B50";
+        public const string renderFX = "00777B88";
     }
 }

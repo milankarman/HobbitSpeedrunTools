@@ -67,6 +67,8 @@ namespace HobbitSpeedrunTools
                 new InfiniteRocks(mem),
                 new InfiniteKeys(mem),
                 new InfinitePotions(mem),
+                new HideBilbo(mem),
+                new HideHUD(mem),
             ];
         }
 

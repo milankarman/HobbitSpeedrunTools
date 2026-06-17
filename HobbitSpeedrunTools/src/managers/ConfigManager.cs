@@ -1,5 +1,6 @@
 ﻿using IniParser;
 using IniParser.Model;
+using System;
 
 namespace HobbitSpeedrunTools
 {
@@ -29,7 +30,13 @@ namespace HobbitSpeedrunTools
 
         public int GetShortcut(string key)
         {
-            return int.Parse(data["Shortcuts"][key]);
+            try
+            {
+                return int.Parse(data["Shortcuts"][key]);
+            } catch (Exception ex)
+            {
+                return 0;
+            }
         }
     }
 }
