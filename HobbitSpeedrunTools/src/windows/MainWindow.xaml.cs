@@ -433,8 +433,8 @@ namespace HobbitSpeedrunTools
 
         private void txtClipwarpPosX_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Action<float> applyAction = cheatManager.SetClipwarpPositionZ;
-            float value = float.Parse(txtClipwarpPosZ.Text[3..]);
+            Action<float> applyAction = cheatManager.SetClipwarpPositionX;
+            float value = float.Parse(txtClipwarpPosX.Text[3..]);
             ShowEditPrompt("Clipwarp Position X:", value, applyAction);
         }
 
